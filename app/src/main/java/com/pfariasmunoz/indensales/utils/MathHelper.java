@@ -30,8 +30,9 @@ public class MathHelper {
         if (MathHelper.isNumeric(number)) {
             n = Long.valueOf(number);
         }
-        NumberFormat format = NumberFormat.getCurrencyInstance();
-        return String.valueOf(format.format(n));
+        NumberFormat format = NumberFormat.getInstance();
+        return "$" + String.valueOf(format.format(n));
+
     }
 
 }
