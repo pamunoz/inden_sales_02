@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Inden Sales</string>
+    <string name="action_settings">Configuración</string>
+    <string name="add_sale_button">Vender</string>
+    <string name="client_address">No disponible</string>
+    <string name="client_addresses_fragment_title">Direcciones del Cliente</string>
+    <string name="client_city">No Disponible</string>
+    <string name="client_commune">No Disponible</string>
+    <string name="client_name">No Disponible</string>
+    <string name="client_phone">No Disponible</string>
+    <string name="client_zone">No Disponible</string>
+    <string name="clients_fragment_title">Clientes</string>
+    <string name="function_not_available">Función no disponible</string>
+    <string name="make_sale_button">Agregar venta</string>
+    <string name="client_details_sale">Detalles del Cliente</string>
+    <string name="message_sale_cancellation_dialgo_1">Tiene&#160;</string>
+    <string name="message_sale_cancellation_dialgo_2">&#160;articulos en venta\n¿Desea cancelar la venta?</string>
+    <string name="message_when_signed_in_part1">Se ha registrado, bienvenido</string>
+    <string name="message_when_signed_in_part2">a Inden Sales</string>
+    <string name="no">No</string>
+    <string name="reset_sale">reiniciar</string>
+    <string name="sale_not_aproved">Venta no aprovada</string>
+    <string name="sales_activity_title">Articulos en venta</string>
+    <string name="search_articles_hint">Busque articulos por nombre o codigo</string>
+    <string name="search_clients_hint">Busque clientes por nombre o rut</string>
+    <string name="summary_sale">Resumen</string>
+    <string name="title_activity_create_sale">Crear Venta</string>
+    <string name="title_sale_cancellation_dialog">Tiene articulos en Venta</string>
+    <string name="total_article_price">Total</string>
+    <string name="total_price">Total</string>
+    <string name="yes">Sí</string>
+    <string name="sign_in">Ha iniciado sesión a Inden Sales!</string>
+    <string name="sign_in_canceled">Ha canselado la sesión a inden Sales</string>
+    <string name="message_sale_made">Ha realizado una venta</string>
+    <string name="sales_fragment_title">Mis Ventas</string>
+</resources>

@@ -1,0 +1,70 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Inden Sales</string>
+
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+
+    <string name="action_settings" translatable="false">Settings</string>
+    <!-- ... -->
+    <string name="facebook_application_id" translatable="false">269716826826589</string>
+    <!-- Facebook Application ID, prefixed by 'fb'.  Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">fb269716826826589</string>
+    <string name="action_search" translatable="false">Search</string>
+
+    <!-- - - - - - - - - - - - - - -
+     - Used by SunshineDateUtils  -
+     - - - - - - - - - - - - - - -->
+
+    <!-- For labelling today's forecast -->
+    <string name="today" translatable="false">Today</string>
+
+    <!-- For labelling tomorrow's forecast -->
+    <string name="tomorrow" translatable="false">Tomorrow</string>
+
+    <!-- Date format -->
+    <string name="format_full_friendly_date" translatable="false">
+        <xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>
+    </string>
+
+
+    <!-- for searching clients -->
+    <string name="search_clients_hint">Search for Clients</string>
+
+    <string name="search_articles_hint">Search for Articles by name or code</string>
+
+    <string name="function_not_available">Function not available</string>
+
+    <string name="sales_activity_title">Articles for sale</string>
+
+    <string name="clients_fragment_title">Clients</string>
+    <string name="sales_fragment_title">My Sales</string>
+
+    <string name="client_addresses_fragment_title">Client Addresses</string>
+    <string name="total_article_price">Total</string>
+    <string name="add_sale_button">Sale</string>
+    <string name="client_name">Not Available</string>
+    <string name="make_sale_button">Make Sale</string>
+    <string name="sale_not_aproved">Sale not Aproved</string>
+    <string name="client_address">Not Available</string>
+    <string name="client_commune">Not Available</string>
+    <string name="client_city">Not Available</string>
+    <string name="client_phone">Not Available</string>
+    <string name="client_zone">Not Available</string>
+    <string name="total_price">Total</string>
+    <string name="title_activity_create_sale">Creat Sale</string>
+    <string name="message_when_signed_in_part1">You are now signed in, welcome </string>
+    <string name="message_when_signed_in_part2"> to inden Sales!</string>
+    <string name="summary_sale">summary</string>
+    <string name="reset_sale">Reset</string>
+    <string name="client_details_sale">Client Details</string>
+    <string name="title_sale_cancellation_dialog">You have articles in sale car</string>
+    <string name="message_sale_cancellation_dialgo_1">You have&#160;</string>
+    <string name="message_sale_cancellation_dialgo_2">&#160;article added to Sale\nAre you sure you want to cancel this sale?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="sign_in">Sign in!</string>
+    <string name="sign_in_canceled">Sing in canceled</string>
+    <string name="message_sale_made">You have made a sale</string>
+
+
+</resources>

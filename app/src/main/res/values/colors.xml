@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#283593</color>
+    <color name="colorPrimaryDark">#001064</color>
+    <color name="colorPrimaryLight">#5f5fc4</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="client_name_color_text">#575151</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray_dark">#636363</color>
+
+
+    <color name="color_palette_1">#C8553D</color>
+    <color name="color_palette_2">#EB5E28</color>
+    <color name="color_palette_3">#FFD5C2</color>
+    <color name="color_palette_4">#588B8B</color>
+    
+    <!-- Color palete 1 -->
+    <color name="sweet_brown">#AC3931</color>
+    <color name="jelly_bean">#E55C52</color>
+    <color name="light_carmine_pink">#E8756D</color>
+    <color name="spicy_mix">#8C5652</color>
+    <color name="old_burgundy">#472D2B</color>
+    
+    <!-- Color Orange Palette -->
+    <color name="mohogany">#AF3800</color>
+    <color name="giants_orange">#FF631C</color>
+    <color name="international_orange_aerospace">#FC4F00</color>
+    <color name="sinopia">#CE4100</color>
+
+    <color name="almost_black">#2A3129</color>
+    <color name="yellow_article_added">#F0D817</color>
+    
+</resources>
