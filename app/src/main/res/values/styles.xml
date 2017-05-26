@@ -25,7 +25,7 @@
     </style>
 
     <style name="AddressTheme" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#00AC6B</item>
+        <item name="colorPrimary">@color/color_green</item>
         <item name="colorPrimaryDark">#007046</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>

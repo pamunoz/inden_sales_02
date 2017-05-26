@@ -9,6 +9,7 @@
     <string name="facebook_application_id" translatable="false">269716826826589</string>
     <!-- Facebook Application ID, prefixed by 'fb'.  Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb269716826826589</string>
+    <string name="MAPS_API_KEY" translatable="false">AIzaSyAirlCKXdLa_rGycn9BphN5JQDPtZ8IokM</string>
     <string name="action_search" translatable="false">Search</string>
 
     <!-- - - - - - - - - - - - - - -

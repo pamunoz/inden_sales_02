@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.models.Address;
+import com.pfariasmunoz.indensales.utils.TextHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,10 +19,6 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tv_client_address)
     TextView mClientAddressTextView;
-    @BindView(R.id.tv_client_city)
-    TextView mClinetCityTextView;
-    @BindView(R.id.tv_client_commune)
-    TextView mClientCommuneTextView;
     @BindView(R.id.tv_client_phone)
     TextView mClientPhoneTextView;
     @BindView(R.id.tv_client_zone)
@@ -35,9 +32,11 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Address address) {
-        mClientAddressTextView.setText(address.direccion);
-        mClinetCityTextView.setText(address.ciudad);
-        mClientCommuneTextView.setText(address.comuna);
+        String address1 = TextHelper.capitalizeFirestLetter(address.direccion);
+        String address2 = TextHelper.capitalizeFirestLetter(address.comuna);
+        String address3 = TextHelper.capitalizeFirestLetter(address.ciudad);
+        String longAddress = address1 + ", " + address2 + ", " + address3 + ".";
+        mClientAddressTextView.setText(longAddress);
         mClientPhoneTextView.setText(address.telefono);
         mClientZoneTextView.setText(address.zona);
     }
