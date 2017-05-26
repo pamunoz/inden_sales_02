@@ -40,12 +40,13 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
     public void bind(SaleReport report) {
         String total = String.valueOf(report.total);
         String stringTotal = MathHelper.getLocalCurrency(total);
+        String totalWithoutSimbol = stringTotal.substring(1);
         String stringClientName = TextHelper.capitalizeFirestLetter(report.nombre_cliente);
         String stringAddress = TextHelper.capitalizeFirestLetter(report.direccion);
-        mTotalSalePriceTextView.setText(stringTotal);
+        mTotalSalePriceTextView.setText(totalWithoutSimbol);
         mClientNameSaleTextView.setText(stringClientName);
         mClientRutSaleTextView.setText(report.rut_cliente);
-        mClientAddressSaleTextView.setText(report.direccion);
+        mClientAddressSaleTextView.setText(stringAddress);
         String date = TextHelper.formatDate(report.timestamp);
         String time = TextHelper.formatTime(report.timestamp);
         mDateSaleTextView.setText(date);

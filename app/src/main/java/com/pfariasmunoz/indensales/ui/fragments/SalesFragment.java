@@ -135,9 +135,6 @@ public class SalesFragment extends Fragment {
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        DividerItemDecoration divider = new DividerItemDecoration(mRecyclerView.getContext(), mLayoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(divider);
         setUpAdapter(mSalesQuery);
 
     }
