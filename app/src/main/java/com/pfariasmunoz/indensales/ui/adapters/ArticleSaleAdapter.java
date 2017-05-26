@@ -117,7 +117,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         final Article article = mArticleList.get(position);
         final String articleKey = mArticlesKeys.get(position);
         String code = mArticlesKeys.get(position);
-        int yellow = R.color.yellow_article_added;
+        int yellow = R.color.color_yellow_light;
         int white = R.color.white;
 
         if (mArticleSaleList.get(position).cantidad > 0) {

@@ -18,9 +18,10 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="SalesTheme" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">@color/sinopia</item>
-        <item name="colorPrimaryDark">@color/mohogany</item>
-        <item name="colorAccent">@color/light_carmine_pink</item>
+        <item name="colorPrimary">@color/color_search_bar</item>
+        <item name="colorPrimaryDark">@color/color_top_bar</item>
+        <item name="colorAccent">@color/color_accent</item>
+
     </style>
 
     <style name="AddressTheme" parent="AppTheme.NoActionBar">

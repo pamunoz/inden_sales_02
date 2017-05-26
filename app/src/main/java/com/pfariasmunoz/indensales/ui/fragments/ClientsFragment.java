@@ -116,11 +116,6 @@ public class ClientsFragment extends Fragment {
                                 if (dataSnapshot.getChildrenCount() < 2) {
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         String addressKey = snapshot.getKey();
-//                                        Intent intent = new Intent(v.getContext(), CreateSaleActivity.class);
-//                                        intent.putExtra(Constants.CLIENT_ID_KEY, getRef(position).getKey());
-//                                        intent.putExtra(Constants.ADDRESS_ID_KEY, addressKey);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                                        getActivity().startActivity(intent);
                                         ((MainActivity)getActivity()).startSale(getRef(position).getKey(), addressKey);
                                     }
 
@@ -166,11 +161,9 @@ public class ClientsFragment extends Fragment {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_search) {
+        if (id == R.id.action_search) {
             SearchView searchView = (SearchView) item.getActionView();
+            searchView.setSubmitButtonEnabled(true);
             searchView.setQueryHint(getActivity().getResources().getString(R.string.search_clients_hint));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

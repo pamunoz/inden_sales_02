@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/international_orange_aerospace"
+    android:background="@color/color_background_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="vertical"
-        android:background="@color/international_orange_aerospace"
+        android:background="@color/color_background_activity"
         android:layout_gravity="bottom">
 
         <LinearLayout
@@ -72,8 +72,10 @@
                     android:layout_weight="1.5"
                     android:layout_height="wrap_content"
                     tools:text="$120.000"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:textStyle="bold"
-                    android:textSize="22sp"
+                    android:textSize="24sp"
                     android:gravity="center"
                     android:textColor="@color/white"/>
                 <Button

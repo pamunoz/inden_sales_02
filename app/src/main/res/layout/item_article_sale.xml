@@ -44,7 +44,7 @@ card_view:cardCornerRadius="4dp">
         android:paddingLeft="8dp"
         android:paddingStart="8dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:layout_gravity="center">
 
         <ImageView
@@ -52,7 +52,8 @@ card_view:cardCornerRadius="4dp">
             android:id="@+id/iv_article_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"/>
+            android:src="@drawable/ic_bar_code"
+            android:tint="@color/color_palette_1"/>
         <TextView
             android:id="@+id/tv_article_code"
             android:layout_width="match_parent"
@@ -108,8 +109,9 @@ card_view:cardCornerRadius="4dp">
             android:layout_height="wrap_content"
             android:text="@string/total_article_price"
             android:paddingTop="8dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"
+            android:textColor="@color/tw__composer_deep_gray"
             android:layout_gravity="center"
             android:gravity="center_horizontal"/>
 

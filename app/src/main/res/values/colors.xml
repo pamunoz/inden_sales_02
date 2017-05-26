@@ -30,4 +30,18 @@
     <color name="almost_black">#2A3129</color>
     <color name="yellow_article_added">#F0D817</color>
     
+    <!-- Color palete 2 -->
+    <color name="color_background_palette_2">#ff4e50</color>
+    <color name="color_orange_palette_2">#fc913a</color>
+    <color name="color_yellow_palette_2">#f9d62e</color>
+    <color name="color_yellow_light_palette_2">#eae374</color>
+    <color name="color_white_palette_2">#e2f4c7</color>
+    <color name="color_yellow_light">#feffa3</color>
+
+    <!--  Palete Create Sale Activity -->
+    <color name="color_top_bar">#f57f26</color>
+    <color name="color_search_bar">#f06232</color>
+    <color name="color_background_activity">#eb463f</color>
+    <color name="color_accent">#64d4ff</color>
+    
 </resources>
