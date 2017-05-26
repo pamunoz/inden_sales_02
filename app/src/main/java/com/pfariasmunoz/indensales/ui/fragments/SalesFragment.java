@@ -64,9 +64,7 @@ public class SalesFragment extends Fragment {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_search) {
+        if (id == R.id.action_search) {
             SearchView searchView = (SearchView) item.getActionView();
             searchView.setQueryHint(getActivity().getResources().getString(R.string.search_clients_hint));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -155,8 +153,5 @@ public class SalesFragment extends Fragment {
         super.onDestroy();
         mRecyclerAdapter.cleanup();
     }
-
-    
-
 
 }

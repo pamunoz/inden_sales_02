@@ -6,6 +6,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="client_name_color_text">#575151</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="gray_dark">#636363</color>
 
 
@@ -43,5 +44,10 @@
     <color name="color_search_bar">#f06232</color>
     <color name="color_background_activity">#eb463f</color>
     <color name="color_accent">#64d4ff</color>
+
+    <color name="color_primary_sales">#f4511e</color>
+    <color name="color_primary_dark_sales">#b91400</color>
+    <color name="color_dark_grey_primary">#28283c</color>
+    <color name="color_light_grey_primary">#7d7d87</color>
     
 </resources>

@@ -319,9 +319,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
 
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_settings:
-                Toast.makeText(this, getResources().getString(R.string.function_not_available), Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.action_search:
                 SearchView searchView = (SearchView) item.getActionView();
                 searchView.setQueryHint(getResources().getString(R.string.search_articles_hint));

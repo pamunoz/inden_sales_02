@@ -12,12 +12,11 @@ android:layout_width="match_parent"
 android:layout_height="100dp"
 android:layout_marginTop="8dp"
 android:layout_marginBottom="8dp"
-android:elevation="6dp"
 android:layout_marginEnd="16dp"
 android:layout_marginRight="16dp"
 android:layout_marginLeft="16dp"
 android:layout_marginStart="16dp"
-card_view:cardCornerRadius="4dp">
+card_view:cardCornerRadius="8dp">
 
 <LinearLayout
 
@@ -53,12 +52,13 @@ card_view:cardCornerRadius="4dp">
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/ic_bar_code"
-            android:tint="@color/color_palette_1"/>
+            android:tint="@color/color_dark_grey_primary"/>
         <TextView
             android:id="@+id/tv_article_code"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:textAlignment="center"
+            android:textColor="@color/color_dark_grey_primary"
             android:text="not available"/>
 
     </LinearLayout>
@@ -77,7 +77,7 @@ card_view:cardCornerRadius="4dp">
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textSize="14sp"
-            android:textColor="#2A2828"
+            android:textColor="@color/color_dark_grey_primary"
             android:maxLines="3"
             android:ellipsize="end"
             android:text="DESCRIPCION"
@@ -111,7 +111,7 @@ card_view:cardCornerRadius="4dp">
             android:paddingTop="8dp"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:textColor="@color/tw__composer_deep_gray"
+            android:textColor="@color/color_light_grey_primary"
             android:layout_gravity="center"
             android:gravity="center_horizontal"/>
 
@@ -121,6 +121,7 @@ card_view:cardCornerRadius="4dp">
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:textSize="18sp"
+            android:textColor="@color/color_light_grey_primary"
             android:layout_gravity="center"
             tools:text="$120.000"/>
 
@@ -134,7 +135,7 @@ card_view:cardCornerRadius="4dp">
         android:ellipsize="end"
         android:textSize="20sp"
         android:paddingEnd="8dp"
-        android:textColor="#3B3636"
+        android:textColor="@color/color_dark_grey_primary"
         android:paddingRight="8dp"
         android:paddingStart="4dp"
         android:layout_marginRight="0dp"
@@ -162,10 +163,10 @@ card_view:cardCornerRadius="4dp">
             android:paddingStart="12dp"
             android:paddingLeft="12dp"
             android:layout_marginBottom="2dp"
-            android:tint="#726F6F"
+            android:tint="@color/color_light_grey_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_keyboard_arrow_up_black_24dp"
+            android:src="@drawable/ic_keyboard_arrow_up_white_24px"
             android:background="@color/tw__transparent"/>
 
         <ImageButton
@@ -179,11 +180,11 @@ card_view:cardCornerRadius="4dp">
             android:paddingStart="12dp"
             android:paddingLeft="12dp"
             android:paddingBottom="18dp"
-            android:tint="#726F6F"
+            android:tint="@color/color_light_grey_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/tw__transparent"
-            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"/>
+            android:src="@drawable/ic_keyboard_arrow_down_white_24px"/>
 
     </LinearLayout>
 </LinearLayout>

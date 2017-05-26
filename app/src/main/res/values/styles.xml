@@ -18,8 +18,8 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="SalesTheme" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">@color/color_search_bar</item>
-        <item name="colorPrimaryDark">@color/color_top_bar</item>
+        <item name="colorPrimary">#f4511e</item>
+        <item name="colorPrimaryDark">#b91400</item>
         <item name="colorAccent">@color/color_accent</item>
 
     </style>
