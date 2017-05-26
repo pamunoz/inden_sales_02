@@ -67,5 +67,8 @@
     <string name="sign_in_canceled">Sing in canceled</string>
     <string name="message_sale_made">You have made a sale</string>
 
+    <string name="client_address_activity_title">Select an Address</string>
+    <string name="no_article_added_message">Add an article to sale</string>
+
 
 </resources>

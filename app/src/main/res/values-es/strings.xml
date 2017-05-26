@@ -34,4 +34,6 @@
     <string name="sign_in_canceled">Ha canselado la sesión a inden Sales</string>
     <string name="message_sale_made">Ha realizado una venta</string>
     <string name="sales_fragment_title">Mis Ventas</string>
+    <string name="client_address_activity_title">Seleccione una dirección</string>
+    <string name="no_article_added_message">No ha agregado artículos</string>
 </resources>

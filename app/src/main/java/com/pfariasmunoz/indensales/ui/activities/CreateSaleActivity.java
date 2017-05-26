@@ -248,7 +248,8 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
             setResult(Activity.RESULT_OK, saleSuccessIntent);
             finish();
         } else {
-            Toast.makeText(this, "Add an article to sale", Toast.LENGTH_SHORT).show();
+            String message = getResources().getString(R.string.no_article_added_message);
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
     }
 

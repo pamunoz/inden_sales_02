@@ -36,6 +36,9 @@ public class ClientAddressesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_addresses);
 
+        String activityTitle = getResources().getString(R.string.client_address_activity_title);
+        setTitle(activityTitle);
+
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
