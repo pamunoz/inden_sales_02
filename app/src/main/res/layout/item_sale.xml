@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:textColor="@color/color_dark_grey_primary"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:textSize="18sp"
                     tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
                 <TextView
@@ -46,19 +46,17 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:textColor="@color/color_light_grey_primary"
-                    android:fontFamily="sans-serif-medium"
                     android:maxLines="1"
                     android:textAllCaps="true"
                     android:textSize="16sp"
                     tools:text="30km S of" />
                 <TextView
                     android:id="@+id/tv_client_address_sale"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_light_grey_primary"
                     android:ellipsize="end"
-                    android:fontFamily="sans-serif-medium"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:textSize="16sp"
                     tools:text="30km S of" />
 
@@ -67,7 +65,7 @@
             <LinearLayout
                 android:id="@+id/ll_time_details"
                 android:layout_width="0dp"
-                android:layout_weight="1.3"
+                android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
