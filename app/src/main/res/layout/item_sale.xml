@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     card_view:cardCornerRadius="2dp"
-    card_view:contentPadding="10dp"
+    card_view:contentPadding="16dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
     android:layout_marginTop="4dp"
@@ -20,7 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <LinearLayout
                 android:id="@+id/ll_client_details"
@@ -35,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:textColor="@color/color_dark_grey_primary"
                     android:maxLines="1"
                     android:textSize="18sp"
                     tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
@@ -43,6 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:textColor="@color/color_light_grey_primary"
                     android:fontFamily="sans-serif-medium"
                     android:maxLines="1"
                     android:textAllCaps="true"
@@ -52,6 +55,7 @@
                     android:id="@+id/tv_client_address_sale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_light_grey_primary"
                     android:ellipsize="end"
                     android:fontFamily="sans-serif-medium"
                     android:maxLines="1"
@@ -63,7 +67,7 @@
             <LinearLayout
                 android:id="@+id/ll_time_details"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.3"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
@@ -75,13 +79,14 @@
                     android:layout_gravity="end"
                     android:textSize="12sp"
                     android:maxLines="1"
-                    android:ellipsize="end"
+                    android:textColor="@color/color_light_grey_primary"
                     tools:text="Mar 6, 2010" />
 
                 <TextView
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/color_light_grey_primary"
                     android:layout_gravity="end"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -91,20 +96,25 @@
             </LinearLayout>
 
         </LinearLayout>
+        <View
+            android:background="@color/tw__composer_light_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
         <LinearLayout
             android:id="@+id/ll_total_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:layout_marginTop="8dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="$"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimary"
                 android:layout_gravity="center_vertical"
                 android:gravity="end|center"/>
 
@@ -115,8 +125,9 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="sans-serif-medium"
-                android:gravity="left|center"
+                android:gravity="start|center"
                 android:textSize="24sp"
                 tools:text="8.9" />
 
