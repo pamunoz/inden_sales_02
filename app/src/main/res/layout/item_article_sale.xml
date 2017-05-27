@@ -41,6 +41,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="4dp"
                 android:layout_height="1dp"/>
             <LinearLayout
@@ -73,6 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
+                        android:background="@drawable/barcode4"
                         android:textSize="12sp"
                         android:gravity="center|top"
                         android:textColor="@color/color_dark_grey_primary"
@@ -83,7 +85,8 @@
                 <TextView
                     android:id="@+id/tv_article_price"
                     android:layout_width="0dp"
-                    android:layout_weight="4"
+                    android:layout_weight="5"
+                    android:maxLines="1"
                     android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
@@ -92,7 +95,7 @@
                     />
 
                 <LinearLayout
-                    android:layout_weight="6"
+                    android:layout_weight="5"
                     android:layout_width="0dp"
                     android:orientation="vertical"
                     android:layout_gravity="center"
