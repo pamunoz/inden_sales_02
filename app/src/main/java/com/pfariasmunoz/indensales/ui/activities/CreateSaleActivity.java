@@ -323,7 +323,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
             case R.id.action_search:
                 SearchView searchView = (SearchView) item.getActionView();
                 searchView.setQueryHint(getResources().getString(R.string.search_articles_hint));
-
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {

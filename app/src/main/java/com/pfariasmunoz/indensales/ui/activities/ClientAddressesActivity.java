@@ -57,8 +57,6 @@ public class ClientAddressesActivity extends AppCompatActivity {
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
-        DividerItemDecoration divider = new DividerItemDecoration(this, layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(divider);
         mRecyclerView.setAdapter(mAdapter);
     }
 
