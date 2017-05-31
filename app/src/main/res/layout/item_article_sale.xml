@@ -17,12 +17,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="12"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
             <TextView
                 android:id="@+id/tv_article_description"
                 android:layout_width="match_parent"
@@ -64,20 +67,21 @@
                     <ImageView
 
                         android:id="@+id/iv_article_image"
-                        android:layout_width="50dp"
-                        android:layout_height="42dp"
+                        android:layout_width="32dp"
+                        android:layout_height="20dp"
+                        android:scaleX="1.2"
                         android:layout_gravity="center|bottom"
-                        android:src="@drawable/ic_bar_code"
-                        android:tint="@color/color_dark_grey_primary"/>
+                        android:src="@drawable/barcode4"
+                        android:tint="@color/color_primary_sales"/>
                     <TextView
                         android:id="@+id/tv_article_code"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
-                        android:background="@drawable/barcode4"
                         android:textSize="12sp"
+                        android:layout_gravity="center|top"
                         android:gravity="center|top"
-                        android:textColor="@color/color_dark_grey_primary"
+                        android:textColor="@color/color_primary_sales"
                         android:text="not available"/>
 
                 </LinearLayout>
@@ -100,7 +104,7 @@
                     android:orientation="vertical"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     >
 
                     <TextView

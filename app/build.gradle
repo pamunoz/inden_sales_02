@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'pmunoz'
+            keyPassword 'iklru667'
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'iklru667'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -13,31 +21,19 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        shrunk {
             minifyEnabled true
-            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
-        big {
-            minifyEnabled false
-            shrinkResources false
-        }
-
-
-
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // FirebaseUI Database only
-
-
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -56,6 +52,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
 }
 apply plugin: 'com.google.gms.google-services'
