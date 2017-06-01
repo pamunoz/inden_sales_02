@@ -33,20 +33,21 @@
         android:id="@+id/rv_numbers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:paddingBottom="120dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="vertical"
-        android:background="@color/color_primary_sales"
+
         android:layout_gravity="bottom">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/color_primary_sales"
             android:orientation="vertical">
 
             <LinearLayout
