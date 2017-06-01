@@ -17,15 +17,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.SaleReport;
 import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
+
+import java.util.Observer;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -37,8 +43,12 @@ public class SalesFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private Query mSalesQuery;
     private ProgressBar mProgressBar;
+    private TextView mEmptySalesTextView;
+    private RecyclerView.AdapterDataObserver mObserver;
+    private String mUserId;
 
     FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder> mRecyclerAdapter;
+    private ValueEventListener mEmptyStateListener;
 
 
     public SalesFragment() {
@@ -48,6 +58,65 @@ public class SalesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.recycler_view, container, false);
+        return rootView;
+    }
+
+    private void setUpAdapter(Query query) {
+        mRecyclerAdapter = new FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder>(
+                SaleReport.class,
+                R.layout.item_sale,
+                SalesReportViewHolder.class,
+                query
+        ) {
+            @Override
+            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, int position) {
+                viewHolder.bind(model);
+                mProgressBar.setVisibility(View.INVISIBLE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+            }
+        };
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        mEmptySalesTextView = (TextView) view.findViewById(R.id.tv_empty_list);
+
+        mUserId = FirebaseDb.getUserId();
+        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(30);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_content);
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        mProgressBar =(ProgressBar) view.findViewById(R.id.pb_loading_indicator);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mRecyclerView.setHasFixedSize(false);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        setUpAdapter(mSalesQuery);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mRecyclerAdapter.cleanup();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRecyclerAdapter.cleanup();
     }
 
     @Override
@@ -86,7 +155,11 @@ public class SalesFragment extends Fragment {
                         }
                         mRecyclerAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mRecyclerAdapter, false);
-
+                    } else {
+                        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(30);
+                        setUpAdapter(mSalesQuery);
+                        mRecyclerAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mRecyclerAdapter, false);
                     }
                     return false;
                 }
@@ -94,61 +167,6 @@ public class SalesFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.recycler_view, container, false);
-        return rootView;
-    }
-
-    private void setUpAdapter(Query query) {
-        mRecyclerAdapter = new FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder>(
-                SaleReport.class,
-                R.layout.item_sale,
-                SalesReportViewHolder.class,
-                query
-        ) {
-            @Override
-            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, int position) {
-                viewHolder.bind(model);
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mRecyclerView.setVisibility(View.VISIBLE);
-            }
-        };
-        mRecyclerView.setAdapter(mRecyclerAdapter);
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        String userId = FirebaseDb.getUserId();
-
-        mSalesQuery = FirebaseDb.sSaleReportRef.child(userId).limitToLast(30);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_content);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar =(ProgressBar) view.findViewById(R.id.pb_loading_indicator);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mRecyclerView.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        setUpAdapter(mSalesQuery);
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mRecyclerAdapter.cleanup();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mRecyclerAdapter.cleanup();
     }
 
 }

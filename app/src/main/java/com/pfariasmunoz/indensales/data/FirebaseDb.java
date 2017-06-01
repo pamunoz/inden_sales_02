@@ -56,12 +56,13 @@ public class FirebaseDb {
 
     public static Query getSaleReportByClientName(String clientName) {
         String endtext = clientName + "\uf8ff";
-        return sSaleReportRef.orderByChild(DbContract.SALE_REPORT_CLIENT_NAME_FD).startAt(clientName).endAt(endtext);
+        return sSaleReportRef.child(getUserId()).orderByChild(DbContract.SALE_REPORT_CLIENT_NAME_FD).startAt(clientName).endAt(endtext);
     }
 
     public static Query getSaleReportByClientRut(String clientRut) {
         String endtext = clientRut + "\uf8ff";
-        return sSaleReportRef.orderByChild(DbContract.SALE_REPORT_CLIENT_NAME_FD).startAt(clientRut).endAt(endtext);
+        return sSaleReportRef.child(getUserId()).orderByChild(DbContract.SALE_REPORT_CLIENT_RUT_FD).startAt(clientRut).endAt(endtext);
+        //return sSaleReportRef.orderByChild(DbContract.SALE_REPORT_CLIENT_NAME_FD).startAt(clientRut).endAt(endtext);
     }
 
     public static Query getClientAddresByClientId(String clientId) {

@@ -163,7 +163,6 @@ public class ClientsFragment extends Fragment {
 
         if (id == R.id.action_search) {
             SearchView searchView = (SearchView) item.getActionView();
-            searchView.setSubmitButtonEnabled(true);
             searchView.setQueryHint(getActivity().getResources().getString(R.string.search_clients_hint));
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -185,6 +184,11 @@ public class ClientsFragment extends Fragment {
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
 
+                    } else {
+                        mQuery = FirebaseDb.sClientsRef.limitToLast(50);
+                        setUpAdapter(mQuery);
+                        mAdapter.notifyDataSetChanged();
+                        mClientRecyclerView.swapAdapter(mAdapter, false);
                     }
                     return false;
                 }

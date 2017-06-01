@@ -36,6 +36,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.pfariasmunoz.indensales.BuildConfig;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.ui.fragments.ClientsFragment;
 import com.pfariasmunoz.indensales.ui.fragments.SalesFragment;
@@ -226,8 +227,8 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
-                        .setLogo(R.drawable.inden4)
-                        .setIsSmartLockEnabled(false)
+                        .setLogo(R.drawable.indenlogo2)
+                        .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                         .setProviders(Arrays.asList(
                                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                                 new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
