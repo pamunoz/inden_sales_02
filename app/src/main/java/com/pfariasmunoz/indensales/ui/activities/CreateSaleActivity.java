@@ -103,6 +103,9 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
         setTitle(getResources().getString(R.string.sales_activity_title));
         ButterKnife.bind(this);
 
+        // Remueve el overdraw de esta activity
+        getWindow().setBackgroundDrawable(null);
+
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

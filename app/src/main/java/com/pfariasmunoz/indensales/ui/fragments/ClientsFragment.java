@@ -1,7 +1,6 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -26,11 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Client;
-import com.pfariasmunoz.indensales.ui.activities.ClientAddressesActivity;
-import com.pfariasmunoz.indensales.ui.activities.CreateSaleActivity;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
-import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
 /**
@@ -39,15 +35,14 @@ import com.pfariasmunoz.indensales.utils.MathHelper;
 public class ClientsFragment extends Fragment {
 
     public static final String TAG = ClientsFragment.class.getSimpleName();
-
+    // client info to start the sales
+    public static final String CLIENT_ID_KEY = "client_id_key";
     private RecyclerView mClientRecyclerView;
     private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private Query mQuery;
     private Query mAddressQuery;
     private ValueEventListener mAddressListener;
     private ProgressBar mProgressBar;
-    // client info to start the sales
-    public static final String CLIENT_ID_KEY = "client_id_key";
 
     public ClientsFragment() {
         // Required empty public constructor
