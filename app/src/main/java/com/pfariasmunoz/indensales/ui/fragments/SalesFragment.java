@@ -71,7 +71,7 @@ public class SalesFragment extends Fragment {
 
 
             @Override
-            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, final int position) {
+            protected void populateViewHolder(SalesReportViewHolder viewHolder, final SaleReport model, final int position) {
 
                 viewHolder.bind(model);
                 mProgressBar.setVisibility(View.GONE);

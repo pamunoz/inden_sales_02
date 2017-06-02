@@ -206,6 +206,8 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
         Map<String, ArticleSale> articlesForSale = mAdapter.getArticlesForSale();
         if (articlesForSale != null) {
             long currentTimeInMillis = System.currentTimeMillis();
+
+            // Create and save the sale
             Sale sale = new Sale(
                     false,
                     currentTimeInMillis,
@@ -219,6 +221,8 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
 
             String saleUid = ref.getKey();
 
+            // Create and save the salereport
+
             SaleReport saleReport = new SaleReport(
                     false,
                     mClientId,
@@ -231,7 +235,14 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
                     mClientAddress
             );
 
+            DatabaseReference saleReportRef = FirebaseDb.sSaleReportRef.child(mUserId).push();
+
+            saleReportRef.setValue(saleReport);
+
+            String saleReportUid = saleReportRef.getKey();
+
             FirebaseDb.sSaleReportRef.child(mUserId).push().setValue(saleReport);
+
 
 
             Iterator it = articlesForSale.entrySet().iterator();
@@ -240,14 +251,10 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
                 articleSale.idventa = saleUid;
                 String key = (String) pair.getKey();
-                FirebaseDb.sArticlesSalesRef.child(articleSale.idarticulo).setValue(articleSale);
+                // Save every article sale with the sale report as its parent node
+                FirebaseDb.sArticlesSalesRef.child(saleReportUid).push().setValue(articleSale);
                 it.remove(); // avoids a ConcurrentModificationException
             }
-//            Intent intent = new Intent(CreateSaleActivity.this, MainActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intent.putExtra(Constants.SALE_SUCCESS_KEY, "S");
-//            startActivity(intent);
-//            finish();
             Intent saleSuccessIntent = new Intent(CreateSaleActivity.this, MainActivity.class);
             setResult(Activity.RESULT_OK, saleSuccessIntent);
             finish();

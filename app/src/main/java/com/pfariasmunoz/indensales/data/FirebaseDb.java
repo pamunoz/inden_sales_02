@@ -69,6 +69,10 @@ public class FirebaseDb {
         return FirebaseDb.sClientAdressRef.child(clientId);
     }
 
+    public static Query getArticlesSalesBySaleUid(String saleUid) {
+        return FirebaseDb.sArticlesSalesRef.child(saleUid);
+    }
+
     public static Query getClientAddresByClientIdAndSearch(String clientId, String newAddress) {
         String endText = newAddress + "\uf8ff";
         return FirebaseDb.sClientAdressRef.child(clientId).orderByChild(DbContract.CLIENT_ADDRESS_AD_FD).startAt(newAddress).endAt(endText);

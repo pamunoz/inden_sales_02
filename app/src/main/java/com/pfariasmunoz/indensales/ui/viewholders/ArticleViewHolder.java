@@ -1,6 +1,7 @@
 package com.pfariasmunoz.indensales.ui.viewholders;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,6 +21,9 @@ import butterknife.ButterKnife;
  */
 
 public class ArticleViewHolder extends RecyclerView.ViewHolder{
+
+    public static final String TAG = ArticleViewHolder.class.getSimpleName();
+
     @BindView(R.id.iv_article_image)
     public ImageView mArticleImageView;
     @BindView(R.id.tv_article_code)
@@ -54,6 +58,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bindArticleInSale(ArticleSale articleSale) {
+        Log.i(TAG, "THE ARTICLEVIEW HOLDER WAS CALLED");
 
         String stringDescription = TextHelper.capitalizeFirestLetter(articleSale.descripcion);
         long precio = articleSale.total / articleSale.cantidad;
