@@ -69,6 +69,7 @@
 
     <string name="client_address_activity_title">Select an Address</string>
     <string name="no_article_added_message">Add an article to sale</string>
+    <string name="empty_sales_report_message">You do not have sales registered</string>
 
 
 </resources>

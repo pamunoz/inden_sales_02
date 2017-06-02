@@ -220,6 +220,7 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
             String saleUid = ref.getKey();
 
             SaleReport saleReport = new SaleReport(
+                    false,
                     mClientId,
                     mUserId,
                     saleUid,
@@ -239,7 +240,7 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
                 articleSale.idventa = saleUid;
                 String key = (String) pair.getKey();
-                FirebaseDb.sArticlesSalesRef.push().setValue(articleSale);
+                FirebaseDb.sArticlesSalesRef.child(articleSale.idarticulo).setValue(articleSale);
                 it.remove(); // avoids a ConcurrentModificationException
             }
 //            Intent intent = new Intent(CreateSaleActivity.this, MainActivity.class);

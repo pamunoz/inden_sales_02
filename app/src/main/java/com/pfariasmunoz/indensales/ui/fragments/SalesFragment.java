@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
@@ -33,8 +36,7 @@ public class SalesFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private Query mSalesQuery;
     private ProgressBar mProgressBar;
-    private TextView mEmptySalesTextView;
-    private RecyclerView.AdapterDataObserver mObserver;
+    private TextView mEmptyListMessage;
     private String mUserId;
 
     FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder> mRecyclerAdapter;
@@ -62,16 +64,44 @@ public class SalesFragment extends Fragment {
                 SaleReport.class,
                 R.layout.item_sale,
                 SalesReportViewHolder.class,
-                query
-        ) {
+                query) {
+
+
             @Override
             protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, int position) {
+
                 viewHolder.bind(model);
-                mProgressBar.setVisibility(View.INVISIBLE);
+                mProgressBar.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
+
             }
+
+
+
+
         };
         mRecyclerView.setAdapter(mRecyclerAdapter);
+
+        mEmptyStateListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                
+                if (dataSnapshot.getChildrenCount() == 0) {
+                    mEmptyListMessage.setVisibility(View.VISIBLE);
+                    mProgressBar.setVisibility(View.GONE);
+                    mRecyclerView.setVisibility(View.GONE);
+                } else {
+                    mEmptyListMessage.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        query.addValueEventListener(mEmptyStateListener);
 
     }
 
@@ -80,7 +110,7 @@ public class SalesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        mEmptySalesTextView = (TextView) view.findViewById(R.id.tv_empty_list);
+        mEmptyListMessage = (TextView) view.findViewById(R.id.tv_empty_list);
 
         mUserId = FirebaseDb.getUserId();
         mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(30);
@@ -88,12 +118,15 @@ public class SalesFragment extends Fragment {
         mRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar =(ProgressBar) view.findViewById(R.id.pb_loading_indicator);
         mProgressBar.setVisibility(View.VISIBLE);
+
         mRecyclerView.setHasFixedSize(false);
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         setUpAdapter(mSalesQuery);
+
+
 
     }
 
@@ -107,6 +140,9 @@ public class SalesFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mRecyclerAdapter.cleanup();
+        if (mEmptyStateListener != null) {
+            mSalesQuery.removeEventListener(mEmptyStateListener);
+        }
     }
 
     @Override
