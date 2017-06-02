@@ -1,8 +1,10 @@
 package com.pfariasmunoz.indensales.ui.viewholders;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -11,6 +13,7 @@ import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.data.models.SaleReport;
+import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 import com.pfariasmunoz.indensales.utils.TextHelper;
 
@@ -36,7 +39,8 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
     TextView mAprobSaleTextView;
     @BindView(R.id.sw_aprob_sale_state)
     Switch mAprobSaleStateSwitch;
-
+    @BindView(R.id.bt_see_articles_in_sale)
+    Button mSeeArticlesInSalesButton;
 
     public SalesReportViewHolder(View itemView) {
         super(itemView);
@@ -63,5 +67,9 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
         } else {
             mAprobSaleTextView.setTextColor(Color.RED);
         }
+    }
+
+    public Button getArticlesInSalesButton() {
+        return mSeeArticlesInSalesButton;
     }
 }

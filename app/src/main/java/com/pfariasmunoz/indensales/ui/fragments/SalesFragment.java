@@ -1,5 +1,6 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.SaleReport;
+import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
@@ -73,7 +75,13 @@ public class SalesFragment extends Fragment {
                 viewHolder.bind(model);
                 mProgressBar.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
-
+                viewHolder.getArticlesInSalesButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent startArticlesDetails = new Intent(v.getContext(), ArticlesInSaleActivity.class);
+                        startActivity(startArticlesDetails);
+                    }
+                });
             }
 
 

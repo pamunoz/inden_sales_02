@@ -37,4 +37,5 @@
     <string name="client_address_activity_title">Seleccione una dirección</string>
     <string name="no_article_added_message">No ha agregado artículos</string>
     <string name="empty_sales_report_message">Usted no tiene ventas registradas.</string>
+    <string name="see_articles_in_sale">ver articulos en venta</string>
 </resources>

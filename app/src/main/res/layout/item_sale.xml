@@ -152,7 +152,7 @@
         <Button
             android:gravity="center"
             android:id="@+id/bt_see_articles_in_sale"
-            android:text="see articles in sale"
+            android:text="@string/see_articles_in_sale"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="?android:attr/borderlessButtonStyle"
