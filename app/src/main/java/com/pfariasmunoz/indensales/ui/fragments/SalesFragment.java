@@ -28,6 +28,7 @@ import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.SaleReport;
 import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
+import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
 public class SalesFragment extends Fragment {
@@ -70,7 +71,7 @@ public class SalesFragment extends Fragment {
 
 
             @Override
-            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, int position) {
+            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, final int position) {
 
                 viewHolder.bind(model);
                 mProgressBar.setVisibility(View.GONE);
@@ -79,6 +80,7 @@ public class SalesFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Intent startArticlesDetails = new Intent(v.getContext(), ArticlesInSaleActivity.class);
+                        startArticlesDetails.putExtra(Constants.SALE_REPORT_KEY, getRef(position).getKey());
                         startActivity(startArticlesDetails);
                     }
                 });

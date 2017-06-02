@@ -52,4 +52,18 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder{
         mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
         mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
     }
+
+    public void bindArticleInSale(ArticleSale articleSale) {
+
+        String stringDescription = TextHelper.capitalizeFirestLetter(articleSale.descripcion);
+        long precio = articleSale.total / articleSale.cantidad;
+        String stringPrice = String.valueOf(precio);
+        String stringArticlePrice = MathHelper.getLocalCurrency(stringPrice);
+        mArticlePriceTextView.setText(stringArticlePrice);
+        mArticleDescriptionTextView.setText(stringDescription);
+        String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
+        mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
+        mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
+
+    }
 }
