@@ -1,7 +1,9 @@
 package com.pfariasmunoz.indensales.ui.viewholders;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pfariasmunoz.indensales.R;
@@ -30,6 +32,10 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
     TextView mDateSaleTextView;
     @BindView(R.id.tv_time)
     TextView mTimeSaleTextView;
+    @BindView(R.id.tv_aprob_sale)
+    TextView mAprobSaleTextView;
+    @BindView(R.id.sw_aprob_sale_state)
+    Switch mAprobSaleStateSwitch;
 
 
     public SalesReportViewHolder(View itemView) {
@@ -51,5 +57,11 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
         String time = TextHelper.formatTime(report.timestamp);
         mDateSaleTextView.setText(date);
         mTimeSaleTextView.setText(time);
+        mAprobSaleStateSwitch.setChecked(report.aprob);
+        if (report.aprob) {
+            mAprobSaleTextView.setTextColor(Color.GREEN);
+        } else {
+            mAprobSaleTextView.setTextColor(Color.RED);
+        }
     }
 }

@@ -119,7 +119,7 @@
             <TextView
                 android:id="@+id/tv_total_price_sale"
                 android:layout_width="0dp"
-                android:layout_weight="10"
+                android:layout_weight="7"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -128,6 +128,20 @@
                 android:gravity="start|center"
                 android:textSize="24sp"
                 tools:text="8.9" />
+            <TextView
+                android:id="@+id/tv_aprob_sale"
+                android:layout_weight="2"
+                android:text="aprob"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Switch
+                android:id="@+id/sw_aprob_sale_state"
+                android:checked="false"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
