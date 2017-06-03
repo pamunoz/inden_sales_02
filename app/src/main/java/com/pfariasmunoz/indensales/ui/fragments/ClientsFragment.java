@@ -106,7 +106,7 @@ public class ClientsFragment extends Fragment {
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        mAddressQuery = FirebaseDb.getClientAddresByClientId(getRef(position).getKey());
+                        mAddressQuery = FirebaseDb.getDatabase().getReference("direcciones-por-cliente").child(getRef(position).getKey());
                         mAddressListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
