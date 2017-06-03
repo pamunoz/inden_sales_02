@@ -14,6 +14,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleReportViewHolder;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
@@ -54,34 +55,27 @@ public class ArticlesInSaleActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.INVISIBLE);
         mSaleId = getIntent().getStringExtra(Constants.SALE_REPORT_KEY);
         mSaleReportQuery = FirebaseDb.getArticlesSalesBySaleUid(mSaleId);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
         setupAdapter(mSaleReportQuery);
-        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void setupAdapter(Query query) {
-
-        mAdapter = new FirebaseRecyclerAdapter<ArticleSale, ArticleReportViewHolder>(
+        FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder> adapter = new FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder>(
                 ArticleSale.class,
-                R.layout.item_article_report,
-                ArticleReportViewHolder.class,
+                R.layout.item_article_sale,
+                ArticleViewHolder.class,
                 query
         ) {
             @Override
-            protected void populateViewHolder(ArticleReportViewHolder viewHolder, ArticleSale model, int position) {
-                viewHolder.bind(model);
-
-                Log.i(TAG, "******************: " + getRef(position).toString());
-                Log.i(TAG, "******************: " + model.toString());
-
-
+            protected void populateViewHolder(ArticleViewHolder viewHolder, ArticleSale model, int position) {
+                viewHolder.bindArticleInSale(model);
 
             }
         };
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
