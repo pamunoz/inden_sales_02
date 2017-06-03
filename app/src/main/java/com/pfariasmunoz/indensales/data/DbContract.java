@@ -21,6 +21,7 @@ public class DbContract {
     protected static final String CLIENT_NAME_KEY = "nombre";
     protected static final String CLIENT_RUT_KEY = "rut";
     protected static final String ARTICLES_DESCRIPTION_KEY = "descripcion";
+    protected static final String ARTICLES_UID_KEY = "idarticulo";
 
 
 }

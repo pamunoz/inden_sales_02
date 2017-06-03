@@ -69,8 +69,18 @@ public class FirebaseDb {
         return FirebaseDb.sClientAdressRef.child(clientId);
     }
 
-    public static Query getArticlesSalesBySaleUid(String saleUid) {
-        return FirebaseDb.sArticlesSalesRef.child(saleUid);
+    public static Query getArticlesSalesBySaleUid(String saleUid, String description, String code ) {
+        String endtext;
+        if (description != null) {
+            endtext = description + "\uf8ff";
+            return FirebaseDb.sArticlesSalesRef.child(saleUid).orderByChild(DbContract.ARTICLES_DESCRIPTION_KEY).startAt(description).endAt(endtext);
+        } else if (code != null) {
+            endtext = code + "\uf8ff";
+            return FirebaseDb.sArticlesSalesRef.child(saleUid).orderByChild(DbContract.ARTICLES_UID_KEY).startAt(code).endAt(endtext);
+        } else {
+            return FirebaseDb.sArticlesSalesRef.child(saleUid);
+        }
+
     }
 
     public static Query getClientAddresByClientIdAndSearch(String clientId, String newAddress) {
