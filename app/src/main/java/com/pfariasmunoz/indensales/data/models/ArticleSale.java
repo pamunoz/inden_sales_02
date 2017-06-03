@@ -6,26 +6,19 @@ package com.pfariasmunoz.indensales.data.models;
 
 public class ArticleSale {
     public int cantidad;
+    public String descripcion;
     public String idarticulo;
     public String idventa;
     public Long total;
-    public String descripcion;
-
 
     public ArticleSale() {
     }
 
-    public ArticleSale(int cantidad, String idarticulo, String idventa, Long total) {
+    public ArticleSale(int cantidad, String descripcion, String idarticulo, String idventa, Long total) {
         this.cantidad = cantidad;
+        this.descripcion = descripcion;
         this.idarticulo = idarticulo;
         this.idventa = idventa;
         this.total = total;
-    }
-
-    public ArticleSale(int cantidad, String idarticulo, Long total, String descripcion) {
-        this.cantidad = cantidad;
-        this.idarticulo = idarticulo;
-        this.total = total;
-        this.descripcion = descripcion;
     }
 }

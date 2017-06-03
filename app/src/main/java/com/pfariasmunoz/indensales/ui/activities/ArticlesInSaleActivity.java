@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -14,14 +15,17 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
+import com.pfariasmunoz.indensales.ui.viewholders.ArticleReportViewHolder;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 
 public class ArticlesInSaleActivity extends AppCompatActivity {
 
+    public static final String TAG = ArticlesInSaleActivity.class.getSimpleName();
+
     private Query mArticlesInSaleQuery;
     private ValueEventListener mArticlesInSalesListener;
-    private FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<ArticleSale, ArticleReportViewHolder> mAdapter;
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
     private String mSaleId;
@@ -32,6 +36,7 @@ public class ArticlesInSaleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles_in_sale);
+
 
         String activityTitle = getResources().getString(R.string.client_address_activity_title);
         setTitle(activityTitle);
@@ -45,30 +50,43 @@ public class ArticlesInSaleActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_articles_sales_content);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator_client_adress);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.INVISIBLE);
         mSaleId = getIntent().getStringExtra(Constants.SALE_REPORT_KEY);
         mSaleReportQuery = FirebaseDb.getArticlesSalesBySaleUid(mSaleId);
-        setupAdapter(mSaleReportQuery);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
+        setupAdapter(mSaleReportQuery);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     private void setupAdapter(Query query) {
-        mAdapter = new FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder>(
+
+        mAdapter = new FirebaseRecyclerAdapter<ArticleSale, ArticleReportViewHolder>(
                 ArticleSale.class,
-                R.layout.item_article_sale,
-                ArticleViewHolder.class,
+                R.layout.item_article_report,
+                ArticleReportViewHolder.class,
                 query
         ) {
             @Override
-            protected void populateViewHolder(ArticleViewHolder viewHolder, ArticleSale model, int position) {
-                viewHolder.bindArticleInSale(model);
+            protected void populateViewHolder(ArticleReportViewHolder viewHolder, ArticleSale model, int position) {
+                viewHolder.bind(model);
+
+                Log.i(TAG, "******************: " + getRef(position).toString());
+                Log.i(TAG, "******************: " + model.toString());
+
+
+
             }
         };
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdapter.cleanup();
     }
 }

@@ -30,8 +30,9 @@ public class ArticleReportViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(ArticleSale articleSale) {
-        mArticleReportAmountTextView.setText(articleSale.cantidad);
+        mArticleReportAmountTextView.setText(String.valueOf(articleSale.cantidad));
         mArticleReportDescriptionTextView.setText(articleSale.descripcion);
-        mArticleReportTotalTextView.setText(String.valueOf(articleSale.total));
+        String total = String.valueOf(articleSale.total);
+        mArticleReportTotalTextView.setText(total);
     }
 }

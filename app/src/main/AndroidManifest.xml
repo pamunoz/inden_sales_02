@@ -49,7 +49,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MAPS_API_KEY"/>
 
-        <activity android:name=".ui.activities.ArticlesInSaleActivity">
+        <activity
+            android:name=".ui.activities.ArticlesInSaleActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

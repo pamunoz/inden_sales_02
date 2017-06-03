@@ -241,10 +241,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
 
             String saleReportUid = saleReportRef.getKey();
 
-            FirebaseDb.sSaleReportRef.child(mUserId).push().setValue(saleReport);
-
-
-
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();

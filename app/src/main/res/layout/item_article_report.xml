@@ -2,21 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tv_article_report_description"
         android:layout_width="wrap_content"
+        android:text="WHAT"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tv_article_report_quantity"
         android:layout_width="wrap_content"
+        android:text="WATH_E"
         android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tv_article_report_total"
         android:layout_width="wrap_content"
+        android:text="WHAT IS HAPPENING!!!"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
