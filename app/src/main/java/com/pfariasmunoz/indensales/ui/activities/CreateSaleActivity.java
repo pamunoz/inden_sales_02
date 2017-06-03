@@ -131,7 +131,7 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
 
         // Initialize the queries
         mClientQuery = FirebaseDb.sClientsRef.child(mClientId);
-        mClientAddressQuery = FirebaseDb.sClientAdressRef.child(mClientId).child(mClientAddressId);
+        mClientAddressQuery = FirebaseDb.getDatabase().getReference("direcciones").child(mClientAddressId);
         mArticlesQuery = FirebaseDb.sArticlesRef.limitToFirst(30);
 
         mAdapter = new ArticleSaleAdapter(this, mArticlesQuery);

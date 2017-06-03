@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
@@ -29,7 +30,10 @@ public class ClientAddressesActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     private String mClientId;
     private Query mAddressQuery;
-    private FirebaseRecyclerAdapter<Address, AddressViewHolder> mAdapter;
+    private Query mQuery;
+    private Query mQueryKeys;
+    //private FirebaseRecyclerAdapter<Address, AddressViewHolder> mAdapter;
+    private FirebaseIndexRecyclerAdapter<Address, AddressViewHolder> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,9 @@ public class ClientAddressesActivity extends AppCompatActivity {
         mProgressBar.setVisibility(View.VISIBLE);
         mClientId = getIntent().getStringExtra(Constants.CLIENT_ID_KEY);
         mAddressQuery = FirebaseDb.getClientAddresByClientId(mClientId);
-        setupAdapter(mAddressQuery);
+        mQuery = FirebaseDb.getDatabase().getReference("direcciones");
+        mQueryKeys = FirebaseDb.getDatabase().getReference("direcciones-por-cliente").child(mClientId);
+        setupAdapter(mQuery);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
@@ -60,11 +66,39 @@ public class ClientAddressesActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+//    private void setupAdapter(Query query) {
+//        mAdapter = new FirebaseRecyclerAdapter<Address, AddressViewHolder>(
+//                Address.class,
+//                R.layout.item_address,
+//                AddressViewHolder.class,
+//                query
+//        ) {
+//            @Override
+//            protected void populateViewHolder(AddressViewHolder viewHolder, Address model, final int position) {
+//                viewHolder.bind(model);
+//                viewHolder.getRootView().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(ClientAddressesActivity.this, CreateSaleActivity.class);
+//                        intent.putExtra(Constants.CLIENT_ID_KEY, mClientId);
+//                        intent.putExtra(Constants.ADDRESS_ID_KEY, getRef(position).getKey());
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                });
+//                updateProgresBar();
+//            }
+//        };
+//    }
+
     private void setupAdapter(Query query) {
-        mAdapter = new FirebaseRecyclerAdapter<Address, AddressViewHolder>(
+        mAdapter = new FirebaseIndexRecyclerAdapter<Address, AddressViewHolder>(
                 Address.class,
                 R.layout.item_address,
                 AddressViewHolder.class,
+                mQueryKeys,
                 query
         ) {
             @Override
@@ -85,6 +119,7 @@ public class ClientAddressesActivity extends AppCompatActivity {
                 updateProgresBar();
             }
         };
+
     }
 
     @Override
