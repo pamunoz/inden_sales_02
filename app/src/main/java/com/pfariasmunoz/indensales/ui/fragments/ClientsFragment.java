@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +39,8 @@ public class ClientsFragment extends Fragment {
     // client info to start the sales
     public static final String CLIENT_ID_KEY = "client_id_key";
     private RecyclerView mClientRecyclerView;
-    private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
+    //private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
+    private FirebaseIndexRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private Query mQuery;
     private Query mAddressQuery;
     private ValueEventListener mAddressListener;
@@ -63,7 +65,7 @@ public class ClientsFragment extends Fragment {
     @Override
     public void onViewCreated(View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
-        mQuery = FirebaseDb.sClientsRef.limitToFirst(30);
+        mQuery = FirebaseDb.sClientsRef;
         mClientRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_content);
         mClientRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.pb_loading_indicator);
@@ -74,7 +76,7 @@ public class ClientsFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(mClientRecyclerView.getContext(), layoutManager.getOrientation());
         mClientRecyclerView.addItemDecoration(dividerItemDecoration);
-        setUpAdapter(mQuery);
+        setupAdapter(mQuery);
 
     }
 
@@ -86,22 +88,22 @@ public class ClientsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        //setupAdapter();
     }
 
-    private void setUpAdapter(Query query) {
-        mAdapter = new FirebaseRecyclerAdapter<Client, ClientViewHolder>(
+    private void setupAdapter(Query query) {
+        mAdapter = new FirebaseIndexRecyclerAdapter<Client, ClientViewHolder>(
                 Client.class,
                 R.layout.item_client,
                 ClientViewHolder.class,
+                FirebaseDb.getDatabase().getReference().child("clientesPorVendedor").child(FirebaseDb.getUserId()),
                 query
         ) {
             @Override
-            protected void populateViewHolder(ClientViewHolder holder, Client model, final int position) {
-                holder.bind(model);
+            protected void populateViewHolder(ClientViewHolder viewHolder, Client model, final int position) {
+                viewHolder.bind(model);
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mClientRecyclerView.setVisibility(View.VISIBLE);
-                holder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
+                viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
                         mAddressQuery = FirebaseDb.getClientAddresByClientId(getRef(position).getKey());
@@ -132,6 +134,8 @@ public class ClientsFragment extends Fragment {
         };
         mClientRecyclerView.setAdapter(mAdapter);
     }
+
+
 
     @Override
     public void onPause() {
@@ -170,18 +174,18 @@ public class ClientsFragment extends Fragment {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
                             Query numberQuery = FirebaseDb.getClientsRutQuery(newText);
-                            setUpAdapter(numberQuery);
+                            setupAdapter(numberQuery);
                         } else {
                             String text = newText.toUpperCase();
                             Query nameQuery = FirebaseDb.getClientsNameQuery(text);
-                            setUpAdapter(nameQuery);
+                            setupAdapter(nameQuery);
                         }
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
 
                     } else {
-                        mQuery = FirebaseDb.sClientsRef.limitToLast(50);
-                        setUpAdapter(mQuery);
+                        mQuery = FirebaseDb.sClientsRef;
+                        setupAdapter(mQuery);
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
                     }
