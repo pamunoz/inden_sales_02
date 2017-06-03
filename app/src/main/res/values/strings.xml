@@ -71,6 +71,7 @@
     <string name="no_article_added_message">Add an article to sale</string>
     <string name="empty_sales_report_message">You do not have sales registered</string>
     <string name="see_articles_in_sale">see articles in sale</string>
+    <string name="aproved_sale">aproved</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -71,7 +73,7 @@ public class SalesFragment extends Fragment {
 
 
             @Override
-            protected void populateViewHolder(SalesReportViewHolder viewHolder, final SaleReport model, final int position) {
+            protected void populateViewHolder(final SalesReportViewHolder viewHolder, final SaleReport model, final int position) {
 
                 viewHolder.bind(model);
                 mProgressBar.setVisibility(View.GONE);
@@ -84,6 +86,15 @@ public class SalesFragment extends Fragment {
                         startActivity(startArticlesDetails);
                     }
                 });
+                viewHolder.getAprobSaleStateSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        String aprob = "aprob";
+                        getRef(position).child(aprob).setValue(isChecked);
+                        FirebaseDb.sSalesRef.child(model.idventa).child(aprob).setValue(isChecked);
+                    }
+                });
+
             }
 
 

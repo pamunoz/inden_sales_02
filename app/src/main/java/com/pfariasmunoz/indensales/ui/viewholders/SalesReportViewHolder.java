@@ -35,8 +35,8 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
     TextView mDateSaleTextView;
     @BindView(R.id.tv_time)
     TextView mTimeSaleTextView;
-    @BindView(R.id.tv_aprob_sale)
-    TextView mAprobSaleTextView;
+//    @BindView(R.id.tv_aprob_sale)
+//    TextView mAprobSaleTextView;
     @BindView(R.id.sw_aprob_sale_state)
     Switch mAprobSaleStateSwitch;
     @BindView(R.id.bt_see_articles_in_sale)
@@ -63,13 +63,17 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
         mTimeSaleTextView.setText(time);
         mAprobSaleStateSwitch.setChecked(report.aprob);
         if (report.aprob) {
-            mAprobSaleTextView.setTextColor(Color.GREEN);
+            mAprobSaleStateSwitch.setTextColor(Color.GREEN);
         } else {
-            mAprobSaleTextView.setTextColor(Color.RED);
+            mAprobSaleStateSwitch.setTextColor(Color.RED);
         }
     }
 
     public Button getArticlesInSalesButton() {
         return mSeeArticlesInSalesButton;
+    }
+
+    public Switch getAprobSaleStateSwitch() {
+        return mAprobSaleStateSwitch;
     }
 }
