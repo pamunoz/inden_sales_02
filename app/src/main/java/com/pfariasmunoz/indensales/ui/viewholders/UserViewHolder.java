@@ -1,0 +1,64 @@
+package com.pfariasmunoz.indensales.ui.viewholders;
+
+import android.content.res.Resources;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.pfariasmunoz.indensales.R;
+import com.pfariasmunoz.indensales.data.DbContract;
+import com.pfariasmunoz.indensales.data.models.IndenUser;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+/**
+ * Created by Pablo Farias on 05-06-17.
+ */
+
+public class UserViewHolder extends RecyclerView.ViewHolder {
+
+    @BindView(R.id.imv_user_profile_pic)
+    CircleImageView mUserPhotoImageView;
+    @BindView(R.id.tv_user_name)
+    TextView mUserNameTextView;
+    @BindView(R.id.tv_user_rut)
+    TextView mUserRutTextView;
+    @BindView(R.id.tv_user_email)
+    TextView mUserEmailTextView;
+    @BindView(R.id.tv_user_phone)
+    TextView mUserPhoneTextView;
+    @BindView(R.id.tv_user_rol)
+    TextView mUserRolTextView;
+
+    public UserViewHolder(View itemView) {
+        super(itemView);
+        ButterKnife.bind(this, itemView);
+    }
+
+    public void bind(IndenUser user) {
+        if (user.getPhotoUrl() != null) {
+            Glide.with(itemView.getContext()).load(user.getPhotoUrl()).into(mUserPhotoImageView);
+        }
+        mUserNameTextView.setText(user.getNombre());
+        mUserRutTextView.setText(user.getRut());
+        mUserEmailTextView.setText(user.getEmail());
+        mUserPhoneTextView.setText(user.getTelefono());
+        mUserRolTextView.setText(getUserRole(user.getRole()));
+    }
+
+    private String getUserRole(int role) {
+        Resources res = itemView.getContext().getResources();
+        String userRole = null;
+        if (role == DbContract.USER_ROLE_ADMIN) {
+            userRole = res.getString(R.string.user_rol_admin);
+        } else if (role == DbContract.USER_ROLE_SALESCLERK) {
+            userRole = res.getString(R.string.user_rol_salesclerk);
+        } else {
+            userRole = res.getString(R.string.user_rol_guest);
+        }
+        return userRole;
+    }
+}

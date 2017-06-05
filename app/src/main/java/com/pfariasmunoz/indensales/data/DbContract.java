@@ -42,9 +42,9 @@ public class DbContract {
      * Valores de usuario.
      */
     protected static final String EMPTY_STRING_VALUE = "Not available";
-    protected static final int USER_ROLE_SALESCLERK = 30;
-    protected static final int USER_ROLE_ADMIN = 500;
-    protected static final int USER_ROLE_GUEST = 200;
+    public static final int USER_ROLE_SALESCLERK = 30;
+    public static final int USER_ROLE_ADMIN = 500;
+    public static final int USER_ROLE_GUEST = 200;
     protected static final String USERS_ND = "usuarios";
 
 
