@@ -39,4 +39,7 @@
     <string name="empty_sales_report_message">Usted no tiene ventas registradas.</string>
     <string name="see_articles_in_sale">ver articulos en venta</string>
     <string name="aproved_sale">aprovada</string>
+    <string name="user_rol_admin">Administrador</string>
+    <string name="user_rol_guest">Invitado</string>
+    <string name="user_rol_salesclerk">Vendedor(a)</string>
 </resources>

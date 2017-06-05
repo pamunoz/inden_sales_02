@@ -21,8 +21,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imv_user_profile_pic"
@@ -40,6 +39,8 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="9"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -67,15 +68,39 @@
             </LinearLayout>
 
         </LinearLayout>
-        <TextView
-            android:id="@+id/tv_user_rol"
-            tools:text="Administrador"
-            android:textAllCaps="true"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_weight="0.3"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+
+            android:layout_height="wrap_content"
+            android:gravity="fill_horizontal"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_user_rol"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                tools:text="Administrador"
+                android:textAllCaps="true"
+                android:layout_gravity="center_vertical|left"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"/>
+
+            <Button
+                android:id="@+id/bt_add_clients"
+                android:layout_weight="3"
+                android:textAlignment="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:maxLines="2"
+                android:textColor="@color/colorAccent"
+                style="?android:attr/borderlessButtonStyle"
+                android:gravity="end"
+                android:text="add clients"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 
