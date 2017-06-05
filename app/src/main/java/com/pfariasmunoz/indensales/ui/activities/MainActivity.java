@@ -48,6 +48,7 @@ import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.fragments.ClientsFragment;
 import com.pfariasmunoz.indensales.ui.fragments.SalesFragment;
+import com.pfariasmunoz.indensales.ui.fragments.UsersFragment;
 import com.pfariasmunoz.indensales.utils.Constants;
 
 import java.util.ArrayList;
@@ -166,9 +167,11 @@ public class MainActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager) {
         String clientsFragmentTitle = getResources().getString(R.string.clients_fragment_title);
         String salesFragmentTitle = getResources().getString(R.string.sales_fragment_title);
+        String userFragmentTitle = "Users";
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new ClientsFragment(), clientsFragmentTitle);
         adapter.addFragment(new SalesFragment(), salesFragmentTitle);
+        adapter.addFragment(new UsersFragment(), userFragmentTitle);
         viewPager.setAdapter(adapter);
     }
 

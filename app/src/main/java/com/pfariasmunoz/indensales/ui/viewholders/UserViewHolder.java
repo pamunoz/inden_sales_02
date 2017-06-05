@@ -46,12 +46,13 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         mUserRutTextView.setText(user.getRut());
         mUserEmailTextView.setText(user.getEmail());
         mUserPhoneTextView.setText(user.getTelefono());
-        mUserRolTextView.setText(getUserRole(user.getRole()));
+        String userRole = getUserRole(user.getRole());
+        mUserRolTextView.setText(userRole);
     }
 
     private String getUserRole(int role) {
         Resources res = itemView.getContext().getResources();
-        String userRole = null;
+        String userRole;
         if (role == DbContract.USER_ROLE_ADMIN) {
             userRole = res.getString(R.string.user_rol_admin);
         } else if (role == DbContract.USER_ROLE_SALESCLERK) {
