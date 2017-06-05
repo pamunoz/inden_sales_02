@@ -127,7 +127,7 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
         mClientAddress = "";
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUserId = mUser != null ? mUser.getUid() : "Unknown User";
+        mUserId = mUser != null ? mUser.getUid() : "Unknown IndenUser";
 
         // Initialize the queries
         mClientQuery = FirebaseDb.sClientsRef.child(mClientId);

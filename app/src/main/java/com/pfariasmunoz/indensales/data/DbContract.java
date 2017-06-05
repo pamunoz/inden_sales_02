@@ -38,5 +38,15 @@ public class DbContract {
     protected static final String ARTICLES_DESCRIPTION_KEY = "descripcion";
     protected static final String ARTICLES_UID_KEY = "idarticulo";
 
+    /**
+     * Valores de usuario.
+     */
+    protected static final String EMPTY_STRING_VALUE = "Not available";
+    protected static final int USER_ROLE_SALESCLERK = 30;
+    protected static final int USER_ROLE_ADMIN = 500;
+    protected static final int USER_ROLE_GUEST = 200;
+    protected static final String USERS_ND = "usuarios";
+
+
 
 }

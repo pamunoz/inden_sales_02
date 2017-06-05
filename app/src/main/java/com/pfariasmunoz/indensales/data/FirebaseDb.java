@@ -5,8 +5,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.pfariasmunoz.indensales.data.models.IndenUser;
+import com.pfariasmunoz.indensales.utils.Constants;
 
 public class FirebaseDb {
+
+
 
     /**
      * Metodo que entrega una instancia de la base de datos.
@@ -31,6 +35,17 @@ public class FirebaseDb {
         }
         return userId;
     }
+
+    public static IndenUser getIndenUser(FirebaseUser user) {
+        String name = user.getDisplayName();
+        String rut = DbContract.EMPTY_STRING_VALUE;
+        String email = user.getEmail();
+        String phone = DbContract.EMPTY_STRING_VALUE;
+        String photoUrl = user.getPhotoUrl().toString();
+        int role = DbContract.USER_ROLE_GUEST;
+        return new IndenUser(name, rut, email, phone, photoUrl, role);
+    }
+
 
     // ***** Referencias por articulos *****
     /**
@@ -60,6 +75,10 @@ public class FirebaseDb {
      */
     public static final DatabaseReference sClientAdressRef = getDatabase().getReference(DbContract.CLIENT_ADDRESS_ND);
 
+    /**
+     * Referencia para el nodo de los usuarios.
+     */
+    public static final DatabaseReference sUsers = getDatabase().getReference(DbContract.USERS_ND);
     // *** Referencias por las ventas
 
     public static final DatabaseReference sSaleReportRef = getDatabase().getReference(DbContract.SALE_REPORTS);

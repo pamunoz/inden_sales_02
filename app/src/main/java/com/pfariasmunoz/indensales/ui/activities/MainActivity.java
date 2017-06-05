@@ -2,6 +2,7 @@ package com.pfariasmunoz.indensales.ui.activities;
 
 import android.content.Intent;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ import com.pfariasmunoz.indensales.BuildConfig;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Address;
+import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.fragments.ClientsFragment;
 import com.pfariasmunoz.indensales.ui.fragments.SalesFragment;
 import com.pfariasmunoz.indensales.utils.Constants;
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity
 
     private static final String ANONYMOUS = "anonymous";
     private String mUserName = ANONYMOUS;
+    private String mUserEmail;
+    private Uri mUserPhotoUri;
+    private String mUserProviderId;
 
     // views for the drawer views
     private TextView mNavBarUserEmailTextView;
@@ -79,6 +84,8 @@ public class MainActivity extends AppCompatActivity
     // this is a flag for when we return from starting the activity for the result
     public static final int RC_SIGN_IN = 1;
     public static final int MAKE_SALE_REQUEST = 2;
+    private DatabaseReference mUserReference;
+    private ValueEventListener mUsersListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +93,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        updateDataBase();
 
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -144,6 +149,7 @@ public class MainActivity extends AppCompatActivity
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    writeNewUserIfNeeded(user);
                     // the user is signed in
                     onSignedInInitialize(user);
                     setupViewPager(mViewPager);
@@ -151,10 +157,10 @@ public class MainActivity extends AppCompatActivity
                     onSignedOutCleanup();
                     // the user is signed out, so, launch the sign in flow
                     startSignInFlow();
+
                 }
             }
         };
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -212,14 +218,15 @@ public class MainActivity extends AppCompatActivity
         if (user != null) {
 
             mUserName = user.getDisplayName();
-            String userEmail = user.getEmail();
+            mUserEmail = user.getEmail();
+            mUserPhotoUri = user.getPhotoUrl();
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             View headerView = navigationView.getHeaderView(0);
             mNavBarUserEmailTextView = (TextView) headerView.findViewById(R.id.tv_email_nav_bar);
             mNavBarUserNameTextView = (TextView) headerView.findViewById(R.id.tv_user_name_nav_bar);
             mNavBarUserPhotoImageView = (ImageView) headerView.findViewById(R.id.imv_user_photo);
-            if (!TextUtils.isEmpty(userEmail)) {
-                mNavBarUserEmailTextView.setText(userEmail);
+            if (!TextUtils.isEmpty(mUserEmail)) {
+                mNavBarUserEmailTextView.setText(mUserEmail);
             }
             if (!TextUtils.isEmpty(mUserName)) {
                 mNavBarUserNameTextView.setText(mUserName);
@@ -303,6 +310,9 @@ public class MainActivity extends AppCompatActivity
         if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
+        if (mUsersListener != null) {
+            mUserReference.removeEventListener(mUsersListener);
+        }
     }
 
     @Override
@@ -341,8 +351,25 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void updateDataBase() {
+    private void writeNewUserIfNeeded(final FirebaseUser user) {
+        mUserReference = FirebaseDb.sUsers.child(FirebaseDb.getUserId());
+        if (user != null) {
+            mUsersListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        IndenUser indenUser = FirebaseDb.getIndenUser(user);
+                        mUserReference.setValue(indenUser);
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+            mUserReference.addListenerForSingleValueEvent(mUsersListener);
+        }
     }
 
 }
