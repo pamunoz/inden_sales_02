@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity
 
     private void onSignedInInitialize(FirebaseUser user) {
         if (user != null) {
+
             mUserName = user.getDisplayName();
             String userEmail = user.getEmail();
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

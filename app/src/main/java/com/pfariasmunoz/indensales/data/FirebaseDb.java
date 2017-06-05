@@ -8,7 +8,10 @@ import com.google.firebase.database.Query;
 
 public class FirebaseDb {
 
-    public static FirebaseDatabase mDatabase;
+    /**
+     * Metodo que entrega una instancia de la base de datos.
+     */
+    private static FirebaseDatabase mDatabase;
     public static FirebaseDatabase getDatabase() {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();
@@ -16,14 +19,10 @@ public class FirebaseDb {
         }
         return mDatabase;
     }
-    public static final DatabaseReference sArticlesRef = getDatabase().getReference(DbContract.ARTICLES_ND);
-    public static final DatabaseReference sClientAdressRef = getDatabase().getReference(DbContract.CLIENT_ADDRESS_ND);
-
-    public static final DatabaseReference sClientsRef = getDatabase().getReference(DbContract.CLIENTS_ND);
-    public static final DatabaseReference sSaleReportRef = getDatabase().getReference(DbContract.SALE_REPORTS);
-    public static final DatabaseReference sArticlesSalesRef = getDatabase().getReference(DbContract.ARTICLES_SALE_ND);
-    public static final DatabaseReference sSalesRef = getDatabase().getReference(DbContract.SALES_ND);
-
+    /**
+     * Metodo que entrega la uid del usuario
+     * @return
+     */
     public static String getUserId() {
         String userId = "unknown";
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -33,16 +32,62 @@ public class FirebaseDb {
         return userId;
     }
 
+    // ***** Referencias por articulos *****
+    /**
+     * Referencia para el nodo de los articulos
+     */
+    public static final DatabaseReference sArticlesRef = getDatabase().getReference(DbContract.ARTICLES_ND);
 
+    // *** Referencias por clientes
+    /**
+     * Referencias para el nodo de los clientes
+     */
+    public static final DatabaseReference sClientsRef = getDatabase().getReference().child(DbContract.CLIENTS_ND);
+
+    /**
+     * Kesys de la referencia de clientes que determinan el orden de los clientes por el nombre;
+     */
+    public static final DatabaseReference sClientsRefKeysByName = getDatabase().getReference(DbContract.CLIENTS_NAMES_REF_KEYS).child(getUserId());
+
+    /**
+     * Kesys de la referencia de clientes que determinan el orden de los clientes por el rut.
+     */
+    public static final DatabaseReference sClientsRefKeysByRut = getDatabase().getReference(DbContract.CLIENTS_RUTS_REF_KEYS).child(getUserId());
+
+    // *** Referencias por direcciones
+    /**
+     * Referencia para el nodo de las direcciones por de cada cliente.
+     */
+    public static final DatabaseReference sClientAdressRef = getDatabase().getReference(DbContract.CLIENT_ADDRESS_ND);
+
+    // *** Referencias por las ventas
+
+    public static final DatabaseReference sSaleReportRef = getDatabase().getReference(DbContract.SALE_REPORTS);
+    public static final DatabaseReference sArticlesSalesRef = getDatabase().getReference(DbContract.ARTICLES_SALE_ND);
+    public static final DatabaseReference sSalesRef = getDatabase().getReference(DbContract.SALES_ND);
+
+    /**
+     * Metodos para obtener queries de los el nodo de los clientes por nombre.
+     * @param newName el texto de busqueda que ingresa el usuario.
+     * @return entrega la lista de clientes que empiesan por newName.
+     */
     public static Query getClientsNameQuery(String newName) {
         String endtext = newName + "\uf8ff";
         return sClientsRef.orderByChild(DbContract.CLIENT_NAME_KEY).startAt(newName).endAt(endtext);
     }
 
+    // *** Metodos para la obtención de queries del nodo de clientes
+    /**
+     * Metodos para obtener queries de los el nodo de los clientes por rut.
+     * @param newRut el texto de busqueda que ingresa el usuario.
+     * @return entrega la lista de clientes que empiesan por newRut.
+     */
     public static Query getClientsRutQuery(String newRut) {
         String endtext = newRut + "\uf8ff";
         return sClientsRef.orderByChild(DbContract.CLIENT_RUT_KEY).startAt(newRut).endAt(endtext);
     }
+
+    // *** Metodos para la obtención de queries del nodo de articulos
 
     public static Query getArticlesCodeQuery(String newCode) {
         String endtext = newCode + "\uf8ff";
@@ -54,6 +99,8 @@ public class FirebaseDb {
         return sArticlesRef.orderByChild(DbContract.ARTICLES_DESCRIPTION_KEY).startAt(newDescription).endAt(endtext);
     }
 
+    // *** Metodos para la obtención de queries del nodo de ventas
+
     public static Query getSaleReportByClientName(String clientName) {
         String endtext = clientName + "\uf8ff";
         return sSaleReportRef.child(getUserId()).orderByChild(DbContract.SALE_REPORT_CLIENT_NAME_FD).startAt(clientName).endAt(endtext);
@@ -63,10 +110,6 @@ public class FirebaseDb {
         String endtext = clientRut + "\uf8ff";
         return sSaleReportRef.child(getUserId()).orderByChild(DbContract.SALE_REPORT_CLIENT_RUT_FD).startAt(clientRut).endAt(endtext);
         //return sSaleReportRef.orderByChild(DbContract.SALE_REPORT_CLIENT_NAME_FD).startAt(clientRut).endAt(endtext);
-    }
-
-    public static Query getClientAddresByClientId(String clientId) {
-        return FirebaseDb.sClientAdressRef.child(clientId);
     }
 
     public static Query getArticlesSalesBySaleUid(String saleUid, String description, String code ) {
@@ -81,6 +124,22 @@ public class FirebaseDb {
             return FirebaseDb.sArticlesSalesRef.child(saleUid);
         }
 
+    }
+
+    // *** Metodos para la obtención de queries del nodo de direcciones
+
+    public static Query getClientAddresByClientId(String clientId) {
+        return FirebaseDb.sClientAdressRef.child(clientId);
+    }
+
+    public static Query getUserClientsByName(String name) {
+        String endtext = name + "\uf8ff";
+        return sClientsRefKeysByName.orderByValue().startAt(name).endAt(endtext);
+    }
+
+    public static Query getUserClientsByRut(String rut) {
+        String endtext = rut + "\uf8ff";
+        return sClientsRefKeysByRut.orderByValue().startAt(rut).endAt(endtext);
     }
 
     public static Query getClientAddresByClientIdAndSearch(String clientId, String newAddress) {

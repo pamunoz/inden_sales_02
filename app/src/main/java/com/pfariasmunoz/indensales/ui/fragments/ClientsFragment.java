@@ -42,6 +42,7 @@ public class ClientsFragment extends Fragment {
     //private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private FirebaseIndexRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private Query mQuery;
+    private Query mKeysRef;
     private Query mAddressQuery;
     private ValueEventListener mAddressListener;
     private ProgressBar mProgressBar;
@@ -65,7 +66,7 @@ public class ClientsFragment extends Fragment {
     @Override
     public void onViewCreated(View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
-        mQuery = FirebaseDb.sClientsRef;
+
         mClientRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_content);
         mClientRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.pb_loading_indicator);
@@ -76,7 +77,9 @@ public class ClientsFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(mClientRecyclerView.getContext(), layoutManager.getOrientation());
         mClientRecyclerView.addItemDecoration(dividerItemDecoration);
-        setupAdapter(mQuery);
+        mQuery = FirebaseDb.sClientsRef;
+        mKeysRef = FirebaseDb.sClientsRefKeysByName;
+        setupAdapter(mQuery, mKeysRef);
 
     }
 
@@ -90,12 +93,12 @@ public class ClientsFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    private void setupAdapter(Query query) {
+    private void setupAdapter(Query query, Query keysRef) {
         mAdapter = new FirebaseIndexRecyclerAdapter<Client, ClientViewHolder>(
                 Client.class,
                 R.layout.item_client,
                 ClientViewHolder.class,
-                FirebaseDb.getDatabase().getReference().child("clientesPorVendedor").child(FirebaseDb.getUserId()),
+                keysRef,
                 query
         ) {
             @Override
@@ -173,19 +176,19 @@ public class ClientsFragment extends Fragment {
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
-                            Query numberQuery = FirebaseDb.getClientsRutQuery(newText);
-                            setupAdapter(numberQuery);
+                            Query rutQueryKeys = FirebaseDb.getUserClientsByRut(newText);
+                            setupAdapter(mQuery, rutQueryKeys);
                         } else {
                             String text = newText.toUpperCase();
-                            Query nameQuery = FirebaseDb.getClientsNameQuery(text);
-                            setupAdapter(nameQuery);
+                            Query nameQueryKeys = FirebaseDb.getUserClientsByName(text);
+                            setupAdapter(mQuery, nameQueryKeys);
                         }
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
 
                     } else {
                         mQuery = FirebaseDb.sClientsRef;
-                        setupAdapter(mQuery);
+                        setupAdapter(mQuery, mKeysRef);
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
                     }
