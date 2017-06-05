@@ -60,8 +60,7 @@ public class SalesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.recycler_view, container, false);
-        return rootView;
+        return inflater.inflate(R.layout.recycler_view, container, false);
     }
 
     private void setUpAdapter(Query query) {

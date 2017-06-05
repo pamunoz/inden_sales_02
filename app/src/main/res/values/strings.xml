@@ -72,10 +72,13 @@
     <string name="empty_sales_report_message">You do not have sales registered</string>
     <string name="see_articles_in_sale">see articles in sale</string>
     <string name="aproved_sale">aproved</string>
-    
+
     <string name="user_rol_salesclerk">Salesclerk</string>
     <string name="user_rol_admin">Administrator</string>
     <string name="user_rol_guest">Guest</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
