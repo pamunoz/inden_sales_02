@@ -21,14 +21,15 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imv_user_profile_pic"
-                android:layout_weight="2"
-                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:src="@drawable/com_facebook_profile_picture_blank_square"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 app:civ_border_width="2dp"
@@ -38,7 +39,7 @@
                 android:layout_marginRight="16dp"/>
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="9"
+                android:layout_weight="8"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_height="wrap_content"
@@ -46,26 +47,50 @@
 
                 <TextView
                     android:id="@+id/tv_user_name"
+                    android:textColor="@color/color_dark_grey_primary"
                     tools:text="Pablo Farias Muñoz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/tv_user_rut"
+                    android:textColor="@color/color_light_grey_primary"
                     tools:text="15663392-7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:id="@+id/tv_user_email"
                     tools:text="pfariasmunoz@gmail.com"
+                    android:textColor="@color/colorPrimaryLight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-                <TextView
-                    android:id="@+id/tv_user_phone"
-                    tools:text="94062006"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/color_dark_grey_primary"
+                        android:src="@drawable/ic_phone_black_24px"/>
+                    <TextView
+                        android:id="@+id/tv_user_phone"
+                        android:layout_marginLeft="8dp"
+                        tools:text="94062006"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
 
             </LinearLayout>
+            <ImageButton
+
+                android:src="@drawable/ic_edit_black_24dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:background="@color/tw__transparent"
+                android:tint="@color/color_dark_grey_primary"
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
         <LinearLayout
@@ -79,6 +104,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 tools:text="Administrador"
+                android:textColor="@color/color_dark_grey_primary"
                 android:textAllCaps="true"
                 android:layout_gravity="center_vertical|left"
                 android:textSize="16sp"

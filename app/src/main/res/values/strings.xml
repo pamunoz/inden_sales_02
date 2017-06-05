@@ -77,8 +77,5 @@
     <string name="user_rol_admin">Administrator</string>
     <string name="user_rol_guest">Guest</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
 
 </resources>
