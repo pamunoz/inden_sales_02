@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     // this is a flag for when we return from starting the activity for the result
     public static final int RC_SIGN_IN = 1;
     public static final int MAKE_SALE_REQUEST = 2;
+    public static final int ADD_CLIENTS_TO_USER_REQUEST = 3;
     private DatabaseReference mUserReference;
     private ValueEventListener mUsersListener;
 
@@ -269,6 +270,12 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(makeSaleIntent, MAKE_SALE_REQUEST);
         }
 
+    }
+
+    public void addClientsToUser(String userId) {
+        Intent addClientsToUserIntent = new Intent(getApplicationContext(), AddClientsActivity.class);
+        addClientsToUserIntent.putExtra(Constants.USER_ID_KEY, userId);
+        startActivityForResult(addClientsToUserIntent, ADD_CLIENTS_TO_USER_REQUEST);
     }
 
     @Override

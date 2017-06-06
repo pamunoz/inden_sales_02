@@ -3,6 +3,7 @@ package com.pfariasmunoz.indensales.ui.viewholders;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -32,6 +33,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     TextView mUserPhoneTextView;
     @BindView(R.id.tv_user_rol)
     TextView mUserRolTextView;
+    @BindView(R.id.bt_add_clients)
+    Button mAddClientsToUserButton;
 
     public UserViewHolder(View itemView) {
         super(itemView);
@@ -61,5 +64,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
             userRole = res.getString(R.string.user_rol_guest);
         }
         return userRole;
+    }
+
+    public Button getAddClientsToUserButton() {
+        return mAddClientsToUserButton;
     }
 }

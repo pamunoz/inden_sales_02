@@ -138,8 +138,6 @@ public class ClientsFragment extends Fragment {
         mClientRecyclerView.setAdapter(mAdapter);
     }
 
-
-
     @Override
     public void onPause() {
         super.onPause();

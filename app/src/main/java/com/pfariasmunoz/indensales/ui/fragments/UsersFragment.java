@@ -17,6 +17,7 @@ import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
+import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
 
 import butterknife.BindView;
@@ -68,10 +69,17 @@ public class UsersFragment extends Fragment {
                 query
         ) {
             @Override
-            protected void populateViewHolder(UserViewHolder viewHolder, IndenUser model, int position) {
+            protected void populateViewHolder(UserViewHolder viewHolder, IndenUser model, final int position) {
                 viewHolder.bind(model);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.INVISIBLE);
+
+                viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ((MainActivity)getContext()).addClientsToUser(getRef(position).getKey());
+                    }
+                });
             }
         };
         mRecyclerView.setAdapter(mAdapter);
