@@ -77,7 +77,8 @@ public class UsersFragment extends Fragment {
                 viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ((MainActivity)getContext()).addClientsToUser(getRef(position).getKey());
+                        String userUid = getRef(position).getKey();
+                        ((MainActivity)getContext()).addClientsToUser(userUid);
                     }
                 });
             }
