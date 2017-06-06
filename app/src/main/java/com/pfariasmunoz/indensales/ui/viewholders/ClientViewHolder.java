@@ -53,4 +53,6 @@ public class ClientViewHolder extends RecyclerView.ViewHolder {
     public Button getAddSaleButton() {
         return mAddSaleButton;
     }
+
+
 }

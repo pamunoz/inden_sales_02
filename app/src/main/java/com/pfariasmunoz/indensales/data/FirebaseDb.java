@@ -166,4 +166,8 @@ public class FirebaseDb {
         return FirebaseDb.sClientAdressRef.child(clientId).orderByChild(DbContract.CLIENT_ADDRESS_AD_FD).startAt(newAddress).endAt(endText);
     }
 
+    public static Query getClientsByUser(String userId) {
+        return getDatabase().getReference(DbContract.CLIENTS_NAMES_REF_KEYS).child(userId);
+    }
+
 }

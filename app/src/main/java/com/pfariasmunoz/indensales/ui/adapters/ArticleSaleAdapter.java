@@ -107,7 +107,10 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     }
 
     public void cleanup() {
-        mQuery.removeEventListener(mEventListener);
+        if (mEventListener != null) {
+            mQuery.removeEventListener(mEventListener);
+        }
+
     }
 
     @Override
@@ -279,4 +282,6 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             mArticlesKeys.add(articleKey);
         }
     }
+
+
 }
