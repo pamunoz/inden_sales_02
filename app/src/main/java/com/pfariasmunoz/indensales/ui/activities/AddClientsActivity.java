@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -42,12 +43,18 @@ public class AddClientsActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     private List<String> mClientIdList = new ArrayList<>();
 
+    private String mRemoveClient;
+    private String mAddClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_clients);
 
         ButterKnife.bind(this);
+
+        mRemoveClient = getResources().getString(R.string.remove);
+        mAddClient = getResources().getString(R.string.add);
 
         mUserId = getIntent().getStringExtra(Constants.USER_ID_KEY);
         mLayoutManager = new LinearLayoutManager(this);
@@ -71,10 +78,19 @@ public class AddClientsActivity extends AppCompatActivity {
                 viewHolder.bind(model);
                 if (mClientIdList.contains(getRef(position).getKey())) {
                     viewHolder.itemView.setBackgroundColor(Color.CYAN);
+                    viewHolder.getAddSaleButton().setText(mRemoveClient);
                 } else {
                     viewHolder.itemView.setBackgroundColor(Color.WHITE);
+                    viewHolder.getAddSaleButton().setText(mAddClient);
                 }
-                viewHolder.getAddSaleButton();
+                viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseDb.sClientsRefKeysName.child(mUserId).child(getRef(position).getKey()).setValue(model.nombre);
+                        FirebaseDb.sClientsRefKeysRut.child(mUserId).child(getRef(position).getKey()).setValue(model.rut);
+                        viewHolder.itemView.setBackgroundColor(Color.CYAN);
+                    }
+                });
 
             }
         };

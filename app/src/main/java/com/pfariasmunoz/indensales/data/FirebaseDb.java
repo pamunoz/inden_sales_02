@@ -69,6 +69,14 @@ public class FirebaseDb {
      */
     public static final DatabaseReference sClientsRefKeysByRut = getDatabase().getReference(DbContract.CLIENTS_RUTS_REF_KEYS).child(getUserId());
 
+    /**
+     *
+     */
+
+    public static final DatabaseReference sClientsRefKeysName = getDatabase().getReference(DbContract.CLIENTS_NAMES_REF_KEYS);
+
+    public static final DatabaseReference sClientsRefKeysRut = getDatabase().getReference(DbContract.CLIENTS_RUTS_REF_KEYS);
+
     // *** Referencias por direcciones
     /**
      * Referencia para el nodo de las direcciones por de cada cliente.
