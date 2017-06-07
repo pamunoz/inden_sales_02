@@ -52,12 +52,6 @@ public class SalesFragment extends BaseFragment {
     }
 
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recycler_view, container, false);
-    }
-
     private void setUpAdapter(Query query) {
         mRecyclerAdapter = new FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder>(
                 SaleReport.class,
