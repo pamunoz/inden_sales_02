@@ -12,6 +12,7 @@ import android.view.View;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
@@ -86,9 +87,28 @@ public class AddClientsActivity extends AppCompatActivity {
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FirebaseDb.sClientsRefKeysName.child(mUserId).child(getRef(position).getKey()).setValue(model.nombre);
-                        FirebaseDb.sClientsRefKeysRut.child(mUserId).child(getRef(position).getKey()).setValue(model.rut);
-                        viewHolder.itemView.setBackgroundColor(Color.CYAN);
+                        DatabaseReference refName = FirebaseDb.sClientsRefKeysName.child(mUserId).child(getRef(position).getKey());
+                        DatabaseReference refRut = FirebaseDb.sClientsRefKeysRut.child(mUserId).child(getRef(position).getKey());
+                        if (!mClientIdList.contains(getRef(position).getKey())) {
+                            refName.setValue(model.nombre);
+                            refRut.setValue(model.rut);
+                            viewHolder.itemView.setBackgroundColor(Color.CYAN);
+                            viewHolder.getAddSaleButton().setText(mRemoveClient);
+                            mClientIdList.add(getRef(position).getKey());
+                        } else {
+                            viewHolder.itemView.setBackgroundColor(Color.WHITE);
+                            viewHolder.getAddSaleButton().setText(mAddClient);
+
+                            for (int i = 0; i < mClientIdList.size(); i++) {
+                                if (mClientIdList.get(i).equals(getRef(position).getKey())) {
+                                    mClientIdList.remove(i);
+                                }
+                            }
+                            refName.removeValue();
+                            refRut.removeValue();
+
+                        }
+
                     }
                 });
 
