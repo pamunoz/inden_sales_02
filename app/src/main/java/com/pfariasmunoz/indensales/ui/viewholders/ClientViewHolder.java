@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,8 @@ public class ClientViewHolder extends RecyclerView.ViewHolder {
     TextView mRutTextView;
     @BindView(R.id.bt_add_sale)
     Button mAddSaleButton;
+    @BindView(R.id.cb_is_client_added)
+    CheckBox mIsClientAddedCheckBox;
 
 
     public ClientViewHolder(View itemView) {
@@ -54,5 +57,7 @@ public class ClientViewHolder extends RecyclerView.ViewHolder {
         return mAddSaleButton;
     }
 
-
+    public CheckBox getIsClientAddedCheckBox() {
+        return mIsClientAddedCheckBox;
+    }
 }

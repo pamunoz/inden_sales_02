@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
@@ -92,6 +93,8 @@ public class ClientsFragment extends BaseFragment {
             @Override
             protected void populateViewHolder(ClientViewHolder viewHolder, Client model, final int position) {
                 viewHolder.bind(model);
+                viewHolder.getIsClientAddedCheckBox().setVisibility(View.GONE);
+
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mClientRecyclerView.setVisibility(View.VISIBLE);
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {

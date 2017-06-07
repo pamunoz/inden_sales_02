@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.DbContract;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
+import com.pfariasmunoz.indensales.utils.TextHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,9 +46,11 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         if (user.getPhotoUrl() != null) {
             Glide.with(itemView.getContext()).load(user.getPhotoUrl()).into(mUserPhotoImageView);
         }
-        mUserNameTextView.setText(user.getNombre());
+        String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
+        mUserNameTextView.setText(userName);
         mUserRutTextView.setText(user.getRut());
-        mUserEmailTextView.setText(user.getEmail());
+        String userEmail = user.getEmail().toLowerCase();
+        mUserEmailTextView.setText(userEmail);
         mUserPhoneTextView.setText(user.getTelefono());
         String userRole = getUserRole(user.getRole());
         mUserRolTextView.setText(userRole);

@@ -46,6 +46,7 @@ public class DbContract {
     public static final int USER_ROLE_ADMIN = 500;
     public static final int USER_ROLE_GUEST = 200;
     protected static final String USERS_ND = "usuarios";
+    protected static final String USER_NAME_KEY = "nombre";
 
 
 

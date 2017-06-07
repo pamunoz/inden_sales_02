@@ -55,9 +55,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CreateSaleActivity extends AppCompatActivity implements View.OnClickListener{
-
-    public static final String TAG = CreateSaleActivity.class.getSimpleName();
+public class CreateSaleActivity extends SearchableActivity implements View.OnClickListener{
 
     @BindView(R.id.tv_client_name)
     TextView mClientNameTextView;
@@ -156,7 +154,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i(TAG, "CHECKING CLIENT LISTENER");
                 if (dataSnapshot.exists() && dataSnapshot.getValue() != null) {
                     Client client = dataSnapshot.getValue(Client.class);
                     mClientName = client.nombre;
@@ -164,7 +161,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
                     String discount = client.descuento;
                     String stringName = TextHelper.capitalizeFirestLetter(mClientName);
                     mClientNameTextView.setText(stringName);
-                    Log.i(TAG, "CLIENT NAME: " + stringName);
                     mClientRutTextView.setText(mClientRut);
                 }
             }
@@ -180,7 +176,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
 
 
                 if (dataSnapshot.exists() && dataSnapshot.getValue() != null) {
-                    Log.i(TAG, "CHECKING ADDRESS LISTENER");
 
 
                     Address address = dataSnapshot.getValue(Address.class);
@@ -311,11 +306,6 @@ public class CreateSaleActivity extends AppCompatActivity implements View.OnClic
         detachReadListeners();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
     public void updateProgressView() {
         mProgressBar.setVisibility(View.INVISIBLE);

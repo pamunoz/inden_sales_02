@@ -28,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddClientsActivity extends AppCompatActivity {
+public class AddClientsActivity extends SearchableActivity {
 
     public static final String TAG = AddClientsActivity.class.getSimpleName();
 
@@ -77,6 +77,7 @@ public class AddClientsActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(final ClientViewHolder viewHolder, final Client model, final int position) {
                 viewHolder.bind(model);
+                viewHolder.getAddSaleButton().setVisibility(View.GONE);
                 if (mClientIdList.contains(getRef(position).getKey())) {
                     viewHolder.itemView.setBackgroundColor(Color.CYAN);
                     viewHolder.getAddSaleButton().setText(mRemoveClient);

@@ -37,9 +37,9 @@ public class FirebaseDb {
     }
 
     public static IndenUser getIndenUser(FirebaseUser user) {
-        String name = user.getDisplayName();
+        String name = user.getDisplayName().trim().toUpperCase();
         String rut = DbContract.EMPTY_STRING_VALUE;
-        String email = user.getEmail();
+        String email = user.getEmail().trim().toLowerCase();
         String phone = DbContract.EMPTY_STRING_VALUE;
         String photoUrl = user.getPhotoUrl().toString();
         int role = DbContract.USER_ROLE_GUEST;
@@ -82,6 +82,7 @@ public class FirebaseDb {
      * Referencia para el nodo de las direcciones por de cada cliente.
      */
     public static final DatabaseReference sClientAdressRef = getDatabase().getReference(DbContract.CLIENT_ADDRESS_ND);
+    // *** Referencias de usuario
 
     /**
      * Referencia para el nodo de los usuarios.
@@ -176,6 +177,13 @@ public class FirebaseDb {
 
     public static Query getClientsByUser(String userId) {
         return getDatabase().getReference(DbContract.CLIENTS_NAMES_REF_KEYS).child(userId);
+    }
+
+    // ***** Metodos para la obtencion de {@link Query} de usuarios
+
+    public static final Query getUserByName(String name) {
+        String endText = name + "\uf8ff";
+        return sUsers.orderByChild(DbContract.USER_NAME_KEY).startAt(name).endAt(endText);
     }
 
 }

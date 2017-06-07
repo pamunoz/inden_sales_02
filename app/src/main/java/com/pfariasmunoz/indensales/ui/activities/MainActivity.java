@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Timber.d("hola como estas");
 
 
         // Adding Toolbar to Main screen

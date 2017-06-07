@@ -6,7 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -19,6 +22,7 @@ import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
+import com.pfariasmunoz.indensales.utils.MathHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,7 +72,6 @@ public class UsersFragment extends BaseFragment {
                 viewHolder.bind(model);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mProgressBar.setVisibility(View.INVISIBLE);
-
                 viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -86,5 +89,44 @@ public class UsersFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.cleanup();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            SearchView searchView = (SearchView) item.getActionView();
+            searchView.setQueryHint(getActivity().getResources().getString(R.string.search_clients_hint));
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if (!TextUtils.isEmpty(newText)) {
+                        if (MathHelper.isNumeric(newText)) {
+                            setupAdapter(mQuery);
+                        } else {
+                            String name = newText.toUpperCase();
+                            Query nameQuery = FirebaseDb.getUserByName(name);
+                            setupAdapter(nameQuery);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mAdapter, false);
+
+                    } else {
+                        mQuery = FirebaseDb.sUsers;
+                        setupAdapter(mQuery);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mAdapter, false);
+                    }
+                    return false;
+                }
+            });
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

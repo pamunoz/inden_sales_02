@@ -113,4 +113,14 @@
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="0dp"/>
 
+    <CheckBox
+        android:id="@+id/cb_is_client_added"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        materialdesign:layout_constraintBottom_toBottomOf="parent"
+        materialdesign:layout_constraintTop_toTopOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>

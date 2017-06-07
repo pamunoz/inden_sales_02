@@ -23,7 +23,7 @@ import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class ArticlesInSaleActivity extends AppCompatActivity {
+public class ArticlesInSaleActivity extends SearchableActivity {
 
     private FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder> mAdapter;
     private RecyclerView mRecyclerView;
@@ -83,11 +83,6 @@ public class ArticlesInSaleActivity extends AppCompatActivity {
         mAdapter.cleanup();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

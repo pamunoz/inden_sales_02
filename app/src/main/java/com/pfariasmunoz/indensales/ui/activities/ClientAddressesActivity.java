@@ -24,7 +24,7 @@ import com.pfariasmunoz.indensales.ui.viewholders.AddressViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class ClientAddressesActivity extends AppCompatActivity {
+public class ClientAddressesActivity extends SearchableActivity {
 
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
