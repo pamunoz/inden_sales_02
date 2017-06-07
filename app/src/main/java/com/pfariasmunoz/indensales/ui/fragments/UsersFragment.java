@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UsersFragment extends Fragment {
+public class UsersFragment extends BaseFragment {
 
     private Query mQuery;
     @BindView(R.id.rv_content)

@@ -35,7 +35,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ClientsFragment extends Fragment {
+public class ClientsFragment extends BaseFragment {
 
     public static final String TAG = ClientsFragment.class.getSimpleName();
     // client info to start the sales
@@ -87,15 +87,6 @@ public class ClientsFragment extends Fragment {
 
     }
 
-    // This event fires 2nd, before views are created for the fragment
-    // The onCreate method is called when the Fragment instance is being created,
-    // or re-created. Use onCreate for any standard setup that does not
-    // require the activity to be fully created
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     private void setupAdapter(Query query, Query keysRef) {
         mAdapter = new FirebaseIndexRecyclerAdapter<Client, ClientViewHolder>(
@@ -151,12 +142,6 @@ public class ClientsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

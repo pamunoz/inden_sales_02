@@ -33,7 +33,7 @@ import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class SalesFragment extends Fragment {
+public class SalesFragment extends BaseFragment {
 
     public static final String TAG = SalesFragment.class.getSimpleName();
 
@@ -51,11 +51,6 @@ public class SalesFragment extends Fragment {
     public SalesFragment() {
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Nullable
     @Override
@@ -163,12 +158,6 @@ public class SalesFragment extends Fragment {
         if (mEmptyStateListener != null) {
             mSalesQuery.removeEventListener(mEmptyStateListener);
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
