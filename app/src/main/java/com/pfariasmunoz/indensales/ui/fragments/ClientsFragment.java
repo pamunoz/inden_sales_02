@@ -30,6 +30,8 @@ import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import timber.log.Timber;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -66,6 +68,8 @@ public class ClientsFragment extends Fragment {
     @Override
     public void onViewCreated(View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
+
+
 
         mClientRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_content);
         mClientRecyclerView.setVisibility(View.INVISIBLE);

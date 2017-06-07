@@ -10,6 +10,8 @@ import timber.log.Timber;
 
 public class IndenApplication extends Application {
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -18,7 +20,12 @@ public class IndenApplication extends Application {
         // y lo niniciamos con el tipo e log que queremos.
 
         if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
+            Timber.plant(new Timber.DebugTree() {
+                @Override
+                protected String createStackElementTag(StackTraceElement element) {
+                    return super.createStackElementTag(element) + ':' + element.getLineNumber();
+                }
+            });
         } else {
             Timber.plant(new ReleaseTree());
         }
