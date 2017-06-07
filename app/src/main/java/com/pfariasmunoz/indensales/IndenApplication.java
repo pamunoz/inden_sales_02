@@ -16,6 +16,11 @@ public class IndenApplication extends Application {
 
         // Este inicia la libreria de Timber para logging
         // y lo niniciamos con el tipo e log que queremos.
-        Timber.plant(new Timber.DebugTree());
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new ReleaseTree());
+        }
     }
 }
