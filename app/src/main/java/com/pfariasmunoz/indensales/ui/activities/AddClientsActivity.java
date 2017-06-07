@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -79,29 +81,21 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
             @Override
             protected void populateViewHolder(final ClientViewHolder viewHolder, final Client model, final int position) {
                 viewHolder.bind(model);
-                viewHolder.getAddSaleButton().setVisibility(View.GONE);
-                if (mClientIdList.contains(getRef(position).getKey())) {
-                    viewHolder.itemView.setBackgroundColor(Color.CYAN);
-                    viewHolder.getAddSaleButton().setText(mRemoveClient);
-                } else {
-                    viewHolder.itemView.setBackgroundColor(Color.WHITE);
-                    viewHolder.getAddSaleButton().setText(mAddClient);
-                }
-                viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
+                viewHolder.getAddSaleButton().setVisibility(View.INVISIBLE);
+                final CheckBox checkBox = viewHolder.getIsClientAddedCheckBox();
+                final DatabaseReference refName = FirebaseDb.sClientsRefKeysName.child(mUserId).child(getRef(position).getKey());
+                final DatabaseReference refRut = FirebaseDb.sClientsRefKeysRut.child(mUserId).child(getRef(position).getKey());
+                checkBox.setChecked(mClientIdList.contains(getRef(position).getKey()));
+
+                checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatabaseReference refName = FirebaseDb.sClientsRefKeysName.child(mUserId).child(getRef(position).getKey());
-                        DatabaseReference refRut = FirebaseDb.sClientsRefKeysRut.child(mUserId).child(getRef(position).getKey());
-                        if (!mClientIdList.contains(getRef(position).getKey())) {
+                        if (checkBox.isChecked()) {
                             refName.setValue(model.nombre);
                             refRut.setValue(model.rut);
-                            viewHolder.itemView.setBackgroundColor(Color.CYAN);
-                            viewHolder.getAddSaleButton().setText(mRemoveClient);
                             mClientIdList.add(getRef(position).getKey());
+                            checkBox.setChecked(true);
                         } else {
-                            viewHolder.itemView.setBackgroundColor(Color.WHITE);
-                            viewHolder.getAddSaleButton().setText(mAddClient);
-
                             for (int i = 0; i < mClientIdList.size(); i++) {
                                 if (mClientIdList.get(i).equals(getRef(position).getKey())) {
                                     mClientIdList.remove(i);
@@ -109,9 +103,8 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
                             }
                             refName.removeValue();
                             refRut.removeValue();
-
+                            checkBox.setChecked(false);
                         }
-
                     }
                 });
 
@@ -124,6 +117,7 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         mUserClientsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mClientIdList.clear();
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mClientIdList.add(snapshot.getKey());
