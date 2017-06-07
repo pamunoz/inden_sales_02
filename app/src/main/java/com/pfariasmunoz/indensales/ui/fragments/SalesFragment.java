@@ -28,12 +28,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.SaleReport;
+import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class SalesFragment extends BaseFragment {
+public class SalesFragment extends BaseFragment implements AdapterSetter{
 
     public static final String TAG = SalesFragment.class.getSimpleName();
 
@@ -51,8 +52,8 @@ public class SalesFragment extends BaseFragment {
     public SalesFragment() {
     }
 
-
-    private void setUpAdapter(Query query) {
+    @Override
+    public void setupAdapter(Query query) {
         mRecyclerAdapter = new FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder>(
                 SaleReport.class,
                 R.layout.item_sale,
@@ -94,7 +95,7 @@ public class SalesFragment extends BaseFragment {
         mEmptyStateListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                
+
                 if (dataSnapshot.getChildrenCount() == 0) {
                     mEmptyListMessage.setVisibility(View.VISIBLE);
                     mProgressBar.setVisibility(View.GONE);
@@ -133,10 +134,7 @@ public class SalesFragment extends BaseFragment {
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        setUpAdapter(mSalesQuery);
-
-
-
+        setupAdapter(mSalesQuery);
     }
 
     @Override
@@ -176,17 +174,17 @@ public class SalesFragment extends BaseFragment {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
                             Query numberQuery = FirebaseDb.getSaleReportByClientRut(newText);
-                            setUpAdapter(numberQuery);
+                            setupAdapter(numberQuery);
                         } else {
                             String text = newText.toUpperCase();
                             Query nameQuery = FirebaseDb.getSaleReportByClientName(text);
-                            setUpAdapter(nameQuery);
+                            setupAdapter(nameQuery);
                         }
                         mRecyclerAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mRecyclerAdapter, false);
                     } else {
                         mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(30);
-                        setUpAdapter(mSalesQuery);
+                        setupAdapter(mSalesQuery);
                         mRecyclerAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mRecyclerAdapter, false);
                     }

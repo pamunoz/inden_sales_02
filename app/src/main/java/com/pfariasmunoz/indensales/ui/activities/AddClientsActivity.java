@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Client;
+import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.adapters.AddClientsAdapter;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
@@ -28,7 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AddClientsActivity extends SearchableActivity {
+public class AddClientsActivity extends SearchableActivity implements AdapterSetter {
 
     public static final String TAG = AddClientsActivity.class.getSimpleName();
 
@@ -67,7 +68,8 @@ public class AddClientsActivity extends SearchableActivity {
 
     }
 
-    private void setupAdapter(Query query) {
+    @Override
+    public void setupAdapter(Query query) {
         mAdapter = new FirebaseRecyclerAdapter<Client, ClientViewHolder>(
                 Client.class,
                 R.layout.item_client,

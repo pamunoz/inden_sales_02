@@ -19,11 +19,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
+import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class ArticlesInSaleActivity extends SearchableActivity {
+public class ArticlesInSaleActivity extends SearchableActivity implements AdapterSetter {
 
     private FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder> mAdapter;
     private RecyclerView mRecyclerView;
@@ -61,7 +62,8 @@ public class ArticlesInSaleActivity extends SearchableActivity {
         setupAdapter(mSaleReportQuery);
     }
 
-    private void setupAdapter(Query query) {
+    @Override
+    public void setupAdapter(Query query) {
         mAdapter = new FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder>(
                 ArticleSale.class,
                 R.layout.item_article_sale,

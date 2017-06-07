@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
+import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UsersFragment extends BaseFragment {
+public class UsersFragment extends BaseFragment implements AdapterSetter{
 
     private Query mQuery;
     @BindView(R.id.rv_content)
@@ -60,7 +61,8 @@ public class UsersFragment extends BaseFragment {
         setupAdapter(mQuery);
     }
 
-    private void setupAdapter(Query query) {
+    @Override
+    public void setupAdapter(Query query) {
         mAdapter = new FirebaseRecyclerAdapter<IndenUser, UserViewHolder>(
                 IndenUser.class,
                 R.layout.item_user,
@@ -82,7 +84,6 @@ public class UsersFragment extends BaseFragment {
             }
         };
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     @Override

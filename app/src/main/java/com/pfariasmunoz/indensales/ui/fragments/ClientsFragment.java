@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Client;
+import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
@@ -36,7 +37,7 @@ import timber.log.Timber;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ClientsFragment extends BaseFragment {
+public class ClientsFragment extends BaseFragment implements AdapterSetter {
 
     public static final String TAG = ClientsFragment.class.getSimpleName();
     // client info to start the sales
@@ -77,18 +78,19 @@ public class ClientsFragment extends BaseFragment {
         mClientRecyclerView.addItemDecoration(dividerItemDecoration);
         mQuery = FirebaseDb.sClientsRef;
         mKeysRef = FirebaseDb.sClientsRefKeysByName;
-        setupAdapter(mQuery, mKeysRef);
+        setupAdapter(mKeysRef);
 
     }
 
 
-    private void setupAdapter(Query query, Query keysRef) {
+    @Override
+    public void setupAdapter(Query queryKeys) {
         mAdapter = new FirebaseIndexRecyclerAdapter<Client, ClientViewHolder>(
                 Client.class,
                 R.layout.item_client,
                 ClientViewHolder.class,
-                keysRef,
-                query
+                queryKeys,
+                mQuery
         ) {
             @Override
             protected void populateViewHolder(ClientViewHolder viewHolder, Client model, final int position) {
@@ -160,18 +162,18 @@ public class ClientsFragment extends BaseFragment {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
                             Query rutQueryKeys = FirebaseDb.getUserClientsByRut(newText);
-                            setupAdapter(mQuery, rutQueryKeys);
+                            setupAdapter(rutQueryKeys);
                         } else {
                             String text = newText.toUpperCase();
                             Query nameQueryKeys = FirebaseDb.getUserClientsByName(text);
-                            setupAdapter(mQuery, nameQueryKeys);
+                            setupAdapter(nameQueryKeys);
                         }
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
 
                     } else {
                         mQuery = FirebaseDb.sClientsRef;
-                        setupAdapter(mQuery, mKeysRef);
+                        setupAdapter(mKeysRef);
                         mAdapter.notifyDataSetChanged();
                         mClientRecyclerView.swapAdapter(mAdapter, false);
                     }

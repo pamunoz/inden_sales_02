@@ -38,7 +38,8 @@
         app:layout_constraintRight_toLeftOf="@+id/bt_add_sale"
         app:layout_constraintLeft_toRightOf="@+id/imv_client_profile_pic"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/tv_client_rut"/>
+        app:layout_constraintBottom_toTopOf="@+id/tv_client_rut"
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/tv_client_rut"
@@ -62,7 +63,9 @@
         android:background="@color/tw__transparent"
         app:layout_constraintLeft_toLeftOf="@+id/tv_client_rut"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_client_rut"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_client_rut"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="8dp"/>
 
     <ImageButton
         android:id="@+id/imbt_edit_client"
@@ -121,6 +124,9 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintRight_toRightOf="parent"
         materialdesign:layout_constraintBottom_toBottomOf="parent"
-        materialdesign:layout_constraintTop_toTopOf="parent"/>
+        materialdesign:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/tv_client_rut"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintHorizontal_bias="0.85"/>
 
 </android.support.constraint.ConstraintLayout>

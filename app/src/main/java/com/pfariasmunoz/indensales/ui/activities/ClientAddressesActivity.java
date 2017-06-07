@@ -20,11 +20,12 @@ import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Address;
+import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.AddressViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class ClientAddressesActivity extends SearchableActivity {
+public class ClientAddressesActivity extends SearchableActivity implements AdapterSetter{
 
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
@@ -66,34 +67,8 @@ public class ClientAddressesActivity extends SearchableActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-//    private void setupAdapter(Query query) {
-//        mAdapter = new FirebaseRecyclerAdapter<Address, AddressViewHolder>(
-//                Address.class,
-//                R.layout.item_address,
-//                AddressViewHolder.class,
-//                query
-//        ) {
-//            @Override
-//            protected void populateViewHolder(AddressViewHolder viewHolder, Address model, final int position) {
-//                viewHolder.bind(model);
-//                viewHolder.getRootView().setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(ClientAddressesActivity.this, CreateSaleActivity.class);
-//                        intent.putExtra(Constants.CLIENT_ID_KEY, mClientId);
-//                        intent.putExtra(Constants.ADDRESS_ID_KEY, getRef(position).getKey());
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                });
-//                updateProgresBar();
-//            }
-//        };
-//    }
-
-    private void setupAdapter(Query query) {
+    @Override
+    public void setupAdapter(Query query) {
         mAdapter = new FirebaseIndexRecyclerAdapter<Address, AddressViewHolder>(
                 Address.class,
                 R.layout.item_address,
@@ -119,7 +94,6 @@ public class ClientAddressesActivity extends SearchableActivity {
                 updateProgresBar();
             }
         };
-
     }
 
     @Override
