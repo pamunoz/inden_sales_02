@@ -18,6 +18,7 @@ import com.pfariasmunoz.indensales.data.models.IndenUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import timber.log.Timber;
 
 public class EditUserActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class EditUserActivity extends AppCompatActivity {
     @BindView(R.id.img_user_bg)
     ImageView mProfileBackgroundImageView;
     @BindView(R.id.img_user_profile_pic)
-    ImageView mUserProfileImageView;
+    CircleImageView mUserProfileImageView;
     @BindView(R.id.et_user_name)
     EditText mUserNameEditText;
     @BindView(R.id.et_user_email)
