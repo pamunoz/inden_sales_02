@@ -62,7 +62,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MAPS_API_KEY"/>
 
-        <activity android:name=".ui.activities.EditUserActivity">
+        <activity
+            android:name=".ui.activities.EditUserActivity"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

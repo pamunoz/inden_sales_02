@@ -103,7 +103,7 @@
 
             </LinearLayout>
             <ImageButton
-
+                android:id="@+id/imb_edit_user"
                 android:src="@drawable/ic_edit_black_24dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"

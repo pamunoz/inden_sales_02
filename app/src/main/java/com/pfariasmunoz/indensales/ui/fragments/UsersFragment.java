@@ -1,6 +1,7 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
+import com.pfariasmunoz.indensales.ui.activities.EditUserActivity;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
@@ -79,6 +81,15 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                     public void onClick(View v) {
                         String userUid = getRef(position).getKey();
                         ((MainActivity)getContext()).addClientsToUser(userUid);
+                    }
+                });
+
+                viewHolder.getEditUserButton().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), EditUserActivity.class);
+                        intent.putExtra("user_id", getRef(position).getKey());
+                        startActivity(intent);
                     }
                 });
             }

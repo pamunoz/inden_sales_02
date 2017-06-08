@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -36,6 +37,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     TextView mUserRolTextView;
     @BindView(R.id.bt_add_clients)
     Button mAddClientsToUserButton;
+    @BindView(R.id.imb_edit_user)
+    ImageButton mEditUserButton;
 
     public UserViewHolder(View itemView) {
         super(itemView);
@@ -71,5 +74,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
     public Button getAddClientsToUserButton() {
         return mAddClientsToUserButton;
+    }
+
+    public ImageButton getEditUserButton() {
+        return mEditUserButton;
     }
 }
