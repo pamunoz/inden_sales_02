@@ -8,7 +8,9 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Client;
+import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
@@ -28,15 +31,29 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 
 public class AddClientsActivity extends SearchableActivity implements AdapterSetter {
 
+    // Data for the list of clients
     private ValueEventListener mUserClientsListener;
     private Query mUserClientsQuery;
+
+    // Data for the user data
     private String mUserId;
+    private ValueEventListener mUserListener;
+    private Query mUserQuery;
 
     private Query mQuery;
     private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
+
+    @BindView(R.id.imv_user_profile_pic)
+    CircleImageView mUserPhotoImageView;
+    @BindView(R.id.tv_user_name)
+    TextView mUserNameTextView;
+    @BindView(R.id.tv_amount_of_user_clients)
+    TextView mClientsUserTextView;
 
     @BindView(R.id.rv_add_clients)
     RecyclerView mRecyclerView;
@@ -51,6 +68,9 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         ButterKnife.bind(this);
 
         mUserId = getIntent().getStringExtra(Constants.USER_ID_KEY);
+
+        mUserQuery = FirebaseDb.sUsers.child(mUserId);
+        setupUserListener(mUserQuery);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mUserClientsQuery = FirebaseDb.getClientsByUser(mUserId);
@@ -131,6 +151,36 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         if (mUserClientsListener != null) {
             mUserClientsQuery.removeEventListener(mUserClientsListener);
         }
+        if (mUserListener != null) {
+            mUserQuery.removeEventListener(mUserListener);
+        }
+    }
+
+    private void bindUserData(IndenUser user) {
+        if (user.getPhotoUrl() != null) {
+            Glide.with(this).load(user.getPhotoUrl()).into(mUserPhotoImageView);
+        }
+        mUserNameTextView.setText(user.getNombre());
+        mClientsUserTextView.setText(String.valueOf(mClientIdList.size()));
+    }
+
+    private void setupUserListener(Query userQuery) {
+        mUserListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists() && dataSnapshot.getValue() != null) {
+
+                    IndenUser user = dataSnapshot.getValue(IndenUser.class);
+                    bindUserData(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        userQuery.addListenerForSingleValueEvent(mUserListener);
     }
 
     @Override
