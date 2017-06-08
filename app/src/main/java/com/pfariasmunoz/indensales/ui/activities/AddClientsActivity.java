@@ -1,15 +1,13 @@
 package com.pfariasmunoz.indensales.ui.activities;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -21,9 +19,9 @@ import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
-import com.pfariasmunoz.indensales.ui.adapters.AddClientsAdapter;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
+import com.pfariasmunoz.indensales.utils.MathHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,22 +31,17 @@ import butterknife.ButterKnife;
 
 public class AddClientsActivity extends SearchableActivity implements AdapterSetter {
 
-    public static final String TAG = AddClientsActivity.class.getSimpleName();
-
     private ValueEventListener mUserClientsListener;
     private Query mUserClientsQuery;
     private String mUserId;
 
-    private Query mClientsQuery;
+    private Query mQuery;
     private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
 
     @BindView(R.id.rv_add_clients)
     RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private List<String> mClientIdList = new ArrayList<>();
-
-    private String mRemoveClient;
-    private String mAddClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +50,13 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
 
         ButterKnife.bind(this);
 
-        mRemoveClient = getResources().getString(R.string.remove);
-        mAddClient = getResources().getString(R.string.add);
-
         mUserId = getIntent().getStringExtra(Constants.USER_ID_KEY);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mUserClientsQuery = FirebaseDb.getClientsByUser(mUserId);
         setupKeysListener();
-        mClientsQuery = FirebaseDb.sClientsRef;
-        setupAdapter(mClientsQuery);
+        mQuery = FirebaseDb.sClientsRef.limitToLast(50);
+        setupAdapter(mQuery);
 
     }
 
@@ -143,4 +133,42 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_search) {
+            SearchView searchView = (SearchView) item.getActionView();
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if (!TextUtils.isEmpty(newText)) {
+                        if (MathHelper.isNumeric(newText)) {
+                            Query rutQueryKeys = FirebaseDb.getClientsRutQuery(newText);
+                            setupAdapter(rutQueryKeys);
+                        } else {
+                            String text = newText.toUpperCase();
+                            Query nameQueryKeys = FirebaseDb.getClientsNameQuery(text);
+                            setupAdapter(nameQueryKeys);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mAdapter, false);
+
+                    } else {
+                        setupAdapter(mQuery);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mAdapter, false);
+                    }
+                    return false;
+                }
+            });
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

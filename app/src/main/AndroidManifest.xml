@@ -54,7 +54,8 @@
                 android:value=".ui.activities.MainActivity"/>
         </activity>
         <activity
-            android:name=".ui.activities.AddClientsActivity">
+            android:name=".ui.activities.AddClientsActivity"
+            android:label="@string/add_clients_to_user">
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
