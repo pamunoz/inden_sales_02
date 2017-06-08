@@ -78,6 +78,7 @@
     <string name="user_rol_guest">Guest</string>
 
     <string name="add_clients_to_user">Add clients</string>
+    <string name="edit_profile_title">Edit Profile</string>
 
 
 </resources>
