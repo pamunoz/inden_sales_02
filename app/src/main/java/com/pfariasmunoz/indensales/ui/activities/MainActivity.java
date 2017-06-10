@@ -3,6 +3,7 @@ package com.pfariasmunoz.indensales.ui.activities;
 import android.content.Intent;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,8 +66,6 @@ public class MainActivity extends AppCompatActivity
     private static final String ANONYMOUS = "anonymous";
     private String mUserName = ANONYMOUS;
     private String mUserEmail;
-    private Uri mUserPhotoUri;
-    private String mUserProviderId;
 
     // views for the drawer views
     private TextView mNavBarUserEmailTextView;
@@ -96,27 +95,42 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
 
+
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Setting ViewPager for each Tabs
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(mViewPager);
+
         //setupViewPager(viewPager);
         // Set Tabs inside Toolbar
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mViewPager);
         // Create Navigation drawer and inlfate layout
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
         // Adding menu icon to Toolbar
-        ActionBar supportActionBar = getSupportActionBar();
-        if (supportActionBar != null) {
-            VectorDrawableCompat indicator
-                    = VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme());
-            indicator.setTint(ResourcesCompat.getColor(getResources(),R.color.white,getTheme()));
-            supportActionBar.setHomeAsUpIndicator(indicator);
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
+//        ActionBar supportActionBar = getSupportActionBar();
+//
+//        if (supportActionBar != null) {
+//            VectorDrawableCompat indicator
+//                    = VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme());
+//            if (indicator != null ) {
+//                indicator.setTint(ResourcesCompat.getColor(getResources(),R.color.white,getTheme()));
+//                supportActionBar.setHomeAsUpIndicator(indicator);
+//                supportActionBar.setDisplayHomeAsUpEnabled(true);
+//            }
+//        }
+
         Intent intent = getIntent();
         String saleResult = intent.getStringExtra(Constants.SALE_SUCCESS_KEY);
         if (saleResult != null) {
@@ -134,12 +148,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
 
-        navigationView.setNavigationItemSelectedListener(this);
 
 
         // Initialize Firebase components
@@ -150,12 +159,15 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+
                 if (user != null) {
+
                     writeNewUserIfNeeded(user);
                     // the user is signed in
                     onSignedInInitialize(user);
-                    setupViewPager(mViewPager);
+
                 } else {
+
                     onSignedOutCleanup();
                     // the user is signed out, so, launch the sign in flow
                     startSignInFlow();
@@ -163,9 +175,13 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         };
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
+
+
         String clientsFragmentTitle = getResources().getString(R.string.clients_fragment_title);
         String salesFragmentTitle = getResources().getString(R.string.sales_fragment_title);
         String userFragmentTitle = "Users";
@@ -223,7 +239,6 @@ public class MainActivity extends AppCompatActivity
 
             mUserName = user.getDisplayName();
             mUserEmail = user.getEmail();
-            mUserPhotoUri = user.getPhotoUrl();
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             View headerView = navigationView.getHeaderView(0);
             mNavBarUserEmailTextView = (TextView) headerView.findViewById(R.id.tv_email_nav_bar);
@@ -244,17 +259,33 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void startSignInFlow() {
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setLogo(R.drawable.indenlogo2)
-                        .setIsSmartLockEnabled(!BuildConfig.DEBUG)
-                        .setProviders(Arrays.asList(
-                                new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()))
-                        .build(),
-                RC_SIGN_IN);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setLogo(R.drawable.indenlogo2)
+                            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                            .setProviders(Arrays.asList(
+                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
+                            ))
+                            .build(),
+                    RC_SIGN_IN);
+        } else {
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setLogo(R.drawable.indenlogo2)
+                            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                            .setProviders(Arrays.asList(
+                                    new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
+                            ))
+                            .build(),
+                    RC_SIGN_IN);
+        }
+
     }
 
     public void startSale(String clientId, String addressId) {
@@ -338,6 +369,8 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -362,6 +395,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void writeNewUserIfNeeded(final FirebaseUser user) {
+
         mUserReference = FirebaseDb.sUsers.child(FirebaseDb.getUserId());
         if (user != null) {
             mUsersListener = new ValueEventListener() {

@@ -64,8 +64,6 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
     public void onViewCreated(View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
 
-
-
         mClientRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_content);
         mClientRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar = (ProgressBar) rootView.findViewById(R.id.pb_loading_indicator);
@@ -79,6 +77,7 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
         mQuery = FirebaseDb.sClientsRef;
         mKeysRef = FirebaseDb.sClientsRefKeysByName;
         setupAdapter(mKeysRef);
+
 
     }
 

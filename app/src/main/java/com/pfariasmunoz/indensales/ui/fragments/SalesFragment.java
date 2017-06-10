@@ -34,6 +34,8 @@ import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import timber.log.Timber;
+
 public class SalesFragment extends BaseFragment implements AdapterSetter{
 
     public static final String TAG = SalesFragment.class.getSimpleName();
@@ -120,6 +122,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         super.onViewCreated(view, savedInstanceState);
 
 
+
         mEmptyListMessage = (TextView) view.findViewById(R.id.tv_empty_list);
 
         mUserId = FirebaseDb.getUserId();
@@ -135,6 +138,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         setupAdapter(mSalesQuery);
+
     }
 
     @Override

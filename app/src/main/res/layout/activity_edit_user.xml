@@ -10,6 +10,7 @@
     <ImageView
         android:id="@+id/img_user_bg"
         android:alpha=".75"
+        android:foreground="@color/color_dark_grey_primary"
         android:scaleType="centerCrop"
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="133%"
@@ -20,6 +21,8 @@
         android:id="@+id/tv_edit_user_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/white"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
@@ -39,6 +42,7 @@
 
     <EditText
         android:id="@+id/et_user_name"
+        android:textColor="@color/white"
         android:layout_alignBottom="@+id/img_user_bg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

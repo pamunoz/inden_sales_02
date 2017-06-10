@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 
 import com.pfariasmunoz.indensales.R;
 
+import butterknife.ButterKnife;
+import timber.log.Timber;
+
 /**
  * Created by Pablo Farias on 07-06-17.
  */
@@ -21,12 +24,16 @@ public class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recycler_view, container, false);
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
+
+        return view;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +31,7 @@ import com.pfariasmunoz.indensales.utils.MathHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,12 +50,10 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
+
         mRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         mRecyclerView.setHasFixedSize(false);
@@ -61,6 +62,14 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
 
         mQuery = FirebaseDb.sUsers;
         setupAdapter(mQuery);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
