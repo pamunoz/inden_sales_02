@@ -44,4 +44,8 @@
     <string name="user_rol_salesclerk">Vendedor(a)</string>
     <string name="add_clients_to_user">Agrege clientes</string>
     <string name="edit_profile_title">Editar Perfil</string>
+    <string name="phone">telefono</string>
+    <string name="user_role_admin">Administrador(a)</string>
+    <string name="user_role_guest">Invitado(a)</string>
+    <string name="user_role_salesclerk">Vendedor(a)</string>
 </resources>

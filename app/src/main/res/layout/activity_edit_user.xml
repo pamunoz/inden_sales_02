@@ -7,10 +7,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.pfariasmunoz.indensales.ui.ForegroundImageView
         android:id="@+id/img_user_bg"
         android:alpha=".75"
-        android:foreground="@color/color_dark_grey_primary"
         android:scaleType="centerCrop"
         app:layout_widthPercent="100%"
         app:layout_aspectRatio="133%"
@@ -42,6 +41,7 @@
 
     <EditText
         android:id="@+id/et_user_name"
+        android:textColorHint="@color/white"
         android:textColor="@color/white"
         android:layout_alignBottom="@+id/img_user_bg"
         android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:imeOptions="actionDone"
         android:layout_centerHorizontal="true"
         />
     <EditText
@@ -58,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/rut"
         android:inputType="number"
         android:layout_centerHorizontal="true"
         />
@@ -68,9 +69,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
         android:ems="10"
+        android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
         android:layout_below="@+id/et_user_rut"
         android:layout_centerHorizontal="true"
+        android:imeOptions="actionDone"
         />
 
     <EditText
@@ -80,16 +83,20 @@
         android:layout_marginTop="1dp"
         android:layout_below="@id/et_user_email"
         android:ems="10"
+        android:hint="@string/phone"
         android:inputType="phone"
+        android:imeOptions="actionDone"
         android:layout_centerHorizontal="true"
         />
 
     <Spinner
         android:id="@+id/sp_user_role"
+        android:layout_marginTop="16dp"
         android:layout_below="@id/et_user_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         />
+
 
 </android.support.percent.PercentRelativeLayout>

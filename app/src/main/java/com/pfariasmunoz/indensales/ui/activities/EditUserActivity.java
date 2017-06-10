@@ -2,6 +2,7 @@ package com.pfariasmunoz.indensales.ui.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -15,6 +16,9 @@ import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.DbContract;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
+import com.pfariasmunoz.indensales.ui.ForegroundImageView;
+import com.pfariasmunoz.indensales.utils.Constants;
+import com.pfariasmunoz.indensales.utils.TextHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +28,7 @@ import timber.log.Timber;
 public class EditUserActivity extends AppCompatActivity {
 
     @BindView(R.id.img_user_bg)
-    ImageView mProfileBackgroundImageView;
+    ForegroundImageView mProfileBackgroundImageView;
     @BindView(R.id.img_user_profile_pic)
     CircleImageView mUserProfileImageView;
     @BindView(R.id.et_user_name)
@@ -49,6 +53,9 @@ public class EditUserActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        setupSpinner(mUserRoleSpinner);
+        mProfileBackgroundImageView.setForegroundResource(R.color.color_dark_grey_primary);
+
         mUserId = getIntent().getStringExtra("user_id");
         mUserQuery = FirebaseDb.sUsers.child(mUserId);
         setupUserListener();
@@ -72,6 +79,16 @@ public class EditUserActivity extends AppCompatActivity {
         mUserQuery.addListenerForSingleValueEvent(mUserListener);
     }
 
+    private void setupSpinner(Spinner spinner) {
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.users_roles_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+    }
+
     private void bindUserData(IndenUser user) {
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mProfileBackgroundImageView);
@@ -79,7 +96,8 @@ public class EditUserActivity extends AppCompatActivity {
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserProfileImageView);
         }
-        mUserNameEditText.setHint(user.getNombre());
+        String name = TextHelper.capitalizeFirestLetter(user.getNombre());
+        mUserNameEditText.setHint(name);
         mUserEmailEditText.setHint(user.getEmail());
         mUserRutEditText.setHint(user.getRut());
         mUserPhoneEditText.setHint(user.getTelefono());

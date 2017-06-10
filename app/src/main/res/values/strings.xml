@@ -79,6 +79,18 @@
 
     <string name="add_clients_to_user">Add clients</string>
     <string name="edit_profile_title">Edit Profile</string>
+    <string name="rut" translatable="false">Rut</string>
+    <string name="phone">phone</string>
+
+    <string name="user_role_admin">Admin</string>
+    <string name="user_role_salesclerk">Salesclerk</string>
+    <string name="user_role_guest">Guest</string>
+
+    <string-array name="users_roles_array">
+        <item>@string/user_rol_admin</item>
+        <item>@string/user_rol_salesclerk</item>
+        <item>@string/user_rol_guest</item>
+    </string-array>
 
 
 </resources>
