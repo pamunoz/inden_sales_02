@@ -6,4 +6,6 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
+    <dimen name="common_wide_margin">16dp</dimen>
+    <dimen name="common_narrow_margin">8dp</dimen>
 </resources>

@@ -97,10 +97,10 @@ public class EditUserActivity extends AppCompatActivity {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserProfileImageView);
         }
         String name = TextHelper.capitalizeFirestLetter(user.getNombre());
-        mUserNameEditText.setHint(name);
-        mUserEmailEditText.setHint(user.getEmail());
-        mUserRutEditText.setHint(user.getRut());
-        mUserPhoneEditText.setHint(user.getTelefono());
+        mUserNameEditText.setText(name);
+        mUserEmailEditText.setText(user.getEmail());
+        mUserRutEditText.setText(user.getRut());
+        mUserPhoneEditText.setText(user.getTelefono());
 
     }
 

@@ -82,6 +82,11 @@
     <string name="rut" translatable="false">Rut</string>
     <string name="phone">phone</string>
 
+    <string name="label_full_name">Full Name</string>
+    <string name="label_phone">Phone</string>
+    <string name="label_email">Email</string>
+    <string name="label_rut">Rut</string>
+
     <string name="user_role_admin">Admin</string>
     <string name="user_role_salesclerk">Salesclerk</string>
     <string name="user_role_guest">Guest</string>
