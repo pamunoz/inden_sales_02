@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity
 
         String clientsFragmentTitle = getResources().getString(R.string.clients_fragment_title);
         String salesFragmentTitle = getResources().getString(R.string.sales_fragment_title);
-        String userFragmentTitle = "Users";
+        String userFragmentTitle = getResources().getString(R.string.users_fragment_title);
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new ClientsFragment(), clientsFragmentTitle);
         adapter.addFragment(new SalesFragment(), salesFragmentTitle);

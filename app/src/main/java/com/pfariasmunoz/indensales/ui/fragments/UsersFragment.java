@@ -39,11 +39,6 @@ import timber.log.Timber;
 public class UsersFragment extends BaseFragment implements AdapterSetter{
 
     private Query mQuery;
-    @BindView(R.id.rv_content)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.pb_loading_indicator)
-    ProgressBar mProgressBar;
-    private LinearLayoutManager mLayoutManager;
     private FirebaseRecyclerAdapter<IndenUser, UserViewHolder> mAdapter;
 
     public UsersFragment() {
@@ -53,23 +48,8 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mRecyclerView.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
         mQuery = FirebaseDb.sUsers;
         setupAdapter(mQuery);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.recycler_view, container, false);
-        ButterKnife.bind(this, view);
-        return view;
     }
 
     @Override
@@ -83,8 +63,7 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
             @Override
             protected void populateViewHolder(UserViewHolder viewHolder, IndenUser model, final int position) {
                 viewHolder.bind(model);
-                mRecyclerView.setVisibility(View.VISIBLE);
-                mProgressBar.setVisibility(View.INVISIBLE);
+                showRecyclerView();
                 viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -104,12 +83,14 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
             }
         };
         mRecyclerView.setAdapter(mAdapter);
+        setupEmptyListListener(query);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         mAdapter.cleanup();
+        cleanupEmptyListListener(mQuery);
     }
 
     @Override

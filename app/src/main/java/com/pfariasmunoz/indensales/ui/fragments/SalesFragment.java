@@ -38,17 +38,10 @@ import timber.log.Timber;
 
 public class SalesFragment extends BaseFragment implements AdapterSetter{
 
-    public static final String TAG = SalesFragment.class.getSimpleName();
-
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
     private Query mSalesQuery;
-    private ProgressBar mProgressBar;
-    private TextView mEmptyListMessage;
     private String mUserId;
 
     FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder> mRecyclerAdapter;
-    private ValueEventListener mEmptyStateListener;
 
 
     public SalesFragment() {
@@ -67,8 +60,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
             protected void populateViewHolder(final SalesReportViewHolder viewHolder, final SaleReport model, final int position) {
 
                 viewHolder.bind(model);
-                mProgressBar.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
+                showRecyclerView();
                 viewHolder.getArticlesInSalesButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -94,66 +86,26 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         };
         mRecyclerView.setAdapter(mRecyclerAdapter);
 
-        mEmptyStateListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.getChildrenCount() == 0) {
-                    mEmptyListMessage.setVisibility(View.VISIBLE);
-                    mProgressBar.setVisibility(View.GONE);
-                    mRecyclerView.setVisibility(View.GONE);
-                } else {
-                    mEmptyListMessage.setVisibility(View.GONE);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        query.addValueEventListener(mEmptyStateListener);
+        setupEmptyListListener(query);
 
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
-        mEmptyListMessage = (TextView) view.findViewById(R.id.tv_empty_list);
-
         mUserId = FirebaseDb.getUserId();
-        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(30);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_content);
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar =(ProgressBar) view.findViewById(R.id.pb_loading_indicator);
-        mProgressBar.setVisibility(View.VISIBLE);
-
-        mRecyclerView.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(ITEMS_LIMIT);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-        mRecyclerView.setLayoutManager(mLayoutManager);
         setupAdapter(mSalesQuery);
 
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mRecyclerAdapter.cleanup();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mRecyclerAdapter.cleanup();
-        if (mEmptyStateListener != null) {
-            mSalesQuery.removeEventListener(mEmptyStateListener);
-        }
+        cleanupEmptyListListener(mSalesQuery);
     }
 
     @Override
@@ -187,7 +139,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                         mRecyclerAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mRecyclerAdapter, false);
                     } else {
-                        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(30);
+                        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(ITEMS_LIMIT);
                         setupAdapter(mSalesQuery);
                         mRecyclerAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mRecyclerAdapter, false);

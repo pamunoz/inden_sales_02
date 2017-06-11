@@ -39,17 +39,12 @@ import timber.log.Timber;
  */
 public class ClientsFragment extends BaseFragment implements AdapterSetter {
 
-    public static final String TAG = ClientsFragment.class.getSimpleName();
-    // client info to start the sales
-    public static final String CLIENT_ID_KEY = "client_id_key";
-    private RecyclerView mClientRecyclerView;
     //private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private FirebaseIndexRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private Query mQuery;
     private Query mKeysRef;
     private Query mAddressQuery;
     private ValueEventListener mAddressListener;
-    private ProgressBar mProgressBar;
 
     public ClientsFragment() {
         // Required empty public constructor
@@ -63,22 +58,12 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
     @Override
     public void onViewCreated(View rootView, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(rootView, savedInstanceState);
-
-        mClientRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_content);
-        mClientRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.pb_loading_indicator);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mClientRecyclerView.setHasFixedSize(false);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mClientRecyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration =
-                new DividerItemDecoration(mClientRecyclerView.getContext(), layoutManager.getOrientation());
-        mClientRecyclerView.addItemDecoration(dividerItemDecoration);
+                new DividerItemDecoration(mRecyclerView.getContext(), mLayoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
         mQuery = FirebaseDb.sClientsRef;
         mKeysRef = FirebaseDb.sClientsRefKeysByName;
         setupAdapter(mKeysRef);
-
-
     }
 
 
@@ -96,8 +81,7 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 viewHolder.bind(model);
                 viewHolder.getIsClientAddedCheckBox().setVisibility(View.GONE);
 
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mClientRecyclerView.setVisibility(View.VISIBLE);
+                showRecyclerView();
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
@@ -127,18 +111,19 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 });
             }
         };
-        mClientRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
+        setupEmptyListListener(queryKeys);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onDestroy() {
+        super.onDestroy();
         mAdapter.cleanup();
         if (mAddressListener != null) {
             mAddressQuery.removeEventListener(mAddressListener);
         }
+        cleanupEmptyListListener(mKeysRef);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -168,13 +153,13 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                             setupAdapter(nameQueryKeys);
                         }
                         mAdapter.notifyDataSetChanged();
-                        mClientRecyclerView.swapAdapter(mAdapter, false);
+                        mRecyclerView.swapAdapter(mAdapter, false);
 
                     } else {
                         mQuery = FirebaseDb.sClientsRef;
                         setupAdapter(mKeysRef);
                         mAdapter.notifyDataSetChanged();
-                        mClientRecyclerView.swapAdapter(mAdapter, false);
+                        mRecyclerView.swapAdapter(mAdapter, false);
                     }
                     return false;
                 }
