@@ -81,8 +81,13 @@ public class FirebaseDb {
     /**
      * Referencia para el nodo de las direcciones por de cada cliente.
      */
-    public static final DatabaseReference sClientAdressRef = getDatabase().getReference(DbContract.CLIENT_ADDRESS_ND);
+    public static final DatabaseReference sClientAdressRef = getDatabase().getReference(DbContract.CLIENT_ADDRESS_ND_KEYS);
     // *** Referencias de usuario
+
+    /**
+     * Referencia para el nodo de las direcciones.
+     */
+    public static final DatabaseReference sAddressesRef = getDatabase().getReference(DbContract.ADDRESSES);
 
     /**
      * Referencia para el nodo de los usuarios.
@@ -172,7 +177,7 @@ public class FirebaseDb {
 
     public static Query getClientAddresByClientIdAndSearch(String clientId, String newAddress) {
         String endText = newAddress + "\uf8ff";
-        return FirebaseDb.sClientAdressRef.child(clientId).orderByChild(DbContract.CLIENT_ADDRESS_AD_FD).startAt(newAddress).endAt(endText);
+        return FirebaseDb.sClientAdressRef.child(clientId).orderByValue().startAt(newAddress).endAt(endText);
     }
 
     public static Query getClientsByUser(String userId) {

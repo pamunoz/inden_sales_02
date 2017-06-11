@@ -24,11 +24,16 @@ import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ArticlesInSaleActivity extends SearchableActivity implements AdapterSetter {
 
     private FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder> mAdapter;
-    private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBar;
+    @BindView(R.id.rv_articles_sales_content)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.pb_loading_indicator_client_adress)
+    ProgressBar mProgressBar;
     private String mSaleId;
 
     private Query mSaleReportQuery;
@@ -37,6 +42,8 @@ public class ArticlesInSaleActivity extends SearchableActivity implements Adapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles_in_sale);
+
+        ButterKnife.bind(this);
 
 
         String activityTitle = getResources().getString(R.string.client_address_activity_title);
@@ -48,9 +55,6 @@ public class ArticlesInSaleActivity extends SearchableActivity implements Adapte
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_articles_sales_content);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator_client_adress);
         mRecyclerView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
         mSaleId = getIntent().getStringExtra(Constants.SALE_REPORT_KEY);

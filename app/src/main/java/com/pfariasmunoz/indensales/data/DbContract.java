@@ -13,7 +13,7 @@ public class DbContract {
      * Nombres del nodo clientes.
      */
     protected static final String CLIENTS_ND = "clientes";
-    protected static final String CLIENT_ADDRESS_ND = "direcciones-por-cliente";
+    protected static final String CLIENT_ADDRESS_ND_KEYS = "direcciones-por-cliente";
     protected static final String CLIENT_ADDRESS_AD_FD = "direccion";
 
 
@@ -37,6 +37,7 @@ public class DbContract {
     protected static final String CLIENT_RUT_KEY = "rut";
     protected static final String ARTICLES_DESCRIPTION_KEY = "descripcion";
     protected static final String ARTICLES_UID_KEY = "idarticulo";
+    protected static final String ADDRESSES = "direcciones";
 
     /**
      * Valores de usuario.

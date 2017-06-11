@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -74,8 +75,8 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
     @BindView(R.id.main_content)
     CoordinatorLayout mCoordinatorLayout;
-
-    private ViewPager mViewPager;
+    @BindView(R.id.viewpager)
+    ViewPager mViewPager;
 
     // Firebase authentication
     private FirebaseAuth mFirebaseAuth;
@@ -95,12 +96,10 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
 
-
         // Adding Toolbar to Main screen
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Setting ViewPager for each Tabs
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(mViewPager);
 
         //setupViewPager(viewPager);
@@ -117,20 +116,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        // Adding menu icon to Toolbar
-//        ActionBar supportActionBar = getSupportActionBar();
-//
-//        if (supportActionBar != null) {
-//            VectorDrawableCompat indicator
-//                    = VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme());
-//            if (indicator != null ) {
-//                indicator.setTint(ResourcesCompat.getColor(getResources(),R.color.white,getTheme()));
-//                supportActionBar.setHomeAsUpIndicator(indicator);
-//                supportActionBar.setDisplayHomeAsUpEnabled(true);
-//            }
-//        }
-
         Intent intent = getIntent();
         String saleResult = intent.getStringExtra(Constants.SALE_SUCCESS_KEY);
         if (saleResult != null) {
@@ -143,13 +128,6 @@ public class MainActivity extends AppCompatActivity
             }
             Toast.makeText(this, saleResult, Toast.LENGTH_SHORT).show();
         }
-
-
-
-
-
-
-
 
         // Initialize Firebase components
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -171,12 +149,9 @@ public class MainActivity extends AppCompatActivity
                     onSignedOutCleanup();
                     // the user is signed out, so, launch the sign in flow
                     startSignInFlow();
-
                 }
             }
         };
-
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -413,5 +388,6 @@ public class MainActivity extends AppCompatActivity
             mUserReference.addListenerForSingleValueEvent(mUsersListener);
         }
     }
+
 
 }

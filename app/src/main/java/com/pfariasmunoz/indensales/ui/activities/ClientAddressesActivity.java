@@ -25,10 +25,19 @@ import com.pfariasmunoz.indensales.ui.viewholders.AddressViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
-public class ClientAddressesActivity extends SearchableActivity implements AdapterSetter{
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBar;
+public class ClientAddressesActivity extends SearchableActivity implements AdapterSetter {
+
+
+    @BindView(R.id.rv_addresses_content)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.pb_loading_indicator_client_adress)
+    ProgressBar mProgressBar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
     private String mClientId;
     private Query mAddressQuery;
     private Query mQuery;
@@ -41,40 +50,40 @@ public class ClientAddressesActivity extends SearchableActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_addresses);
 
+        ButterKnife.bind(this);
+
         String activityTitle = getResources().getString(R.string.client_address_activity_title);
         setTitle(activityTitle);
 
         // Adding Toolbar to Main screen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_addresses_content);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator_client_adress);
         mRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         mClientId = getIntent().getStringExtra(Constants.CLIENT_ID_KEY);
         mAddressQuery = FirebaseDb.getClientAddresByClientId(mClientId);
-        mQuery = FirebaseDb.getDatabase().getReference("direcciones");
-        mQueryKeys = FirebaseDb.getDatabase().getReference("direcciones-por-cliente").child(mClientId);
-        setupAdapter(mQuery);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+        mQuery = FirebaseDb.sAddressesRef;
+        mQueryKeys = FirebaseDb.sClientAdressRef.child(mClientId);
+        setupAdapter(mQueryKeys);
+
     }
 
     @Override
-    public void setupAdapter(Query query) {
+    public void setupAdapter(Query keysRef) {
         mAdapter = new FirebaseIndexRecyclerAdapter<Address, AddressViewHolder>(
                 Address.class,
                 R.layout.item_address,
                 AddressViewHolder.class,
-                mQueryKeys,
-                query
+                keysRef,
+                mQuery
         ) {
             @Override
             protected void populateViewHolder(AddressViewHolder viewHolder, Address model, final int position) {
@@ -94,6 +103,7 @@ public class ClientAddressesActivity extends SearchableActivity implements Adapt
                 updateProgresBar();
             }
         };
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -134,18 +144,12 @@ public class ClientAddressesActivity extends SearchableActivity implements Adapt
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
-                        if (MathHelper.isNumeric(newText)) {
-
-                        } else {
-                            String text = newText.toUpperCase();
-                            Query nameQuery = FirebaseDb.getClientAddresByClientIdAndSearch(mClientId, text);
-                            setupAdapter(nameQuery);
-                        }
+                        String text = newText.toUpperCase();
+                        Query nameQuery = FirebaseDb.getClientAddresByClientIdAndSearch(mClientId, text);
+                        setupAdapter(nameQuery);
                         mRecyclerView.swapAdapter(mAdapter, false);
 
                         mAdapter.notifyDataSetChanged();
-
-
                     }
                     return false;
                 }

@@ -72,6 +72,10 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     LinearLayout mLayout;
     @BindView(R.id.img_toggle_image)
     ImageView mToggleImageView;
+    @BindView(R.id.rv_numbers)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.pb_loading_indicator_sales)
+    ProgressBar mProgressBar;
 
     ExpandableWeightLayout mExpandableLayout;
 
@@ -81,7 +85,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     private String mClientName;
     private String mClientRut;
     private String mClientAddress;
-    private FirebaseUser mUser;
 
     private ValueEventListener mClientListener;
     private ValueEventListener mClientAddressListener;
@@ -91,8 +94,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     private Query mArticlesQuery;
 
     ArticleSaleAdapter mAdapter;
-    RecyclerView mRecyclerView;
-    private ProgressBar mProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,23 +122,18 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         // Initialize Firebase components
         mClientId = getIntent().getStringExtra(Constants.CLIENT_ID_KEY);
         mClientAddressId = getIntent().getStringExtra(Constants.ADDRESS_ID_KEY);
-        mClientName = "";
-        mClientRut = "";
-        mClientAddress = "";
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUserId = mUser != null ? mUser.getUid() : "Unknown IndenUser";
+
+        mUserId = FirebaseDb.getUserId();
 
         // Initialize the queries
         mClientQuery = FirebaseDb.sClientsRef.child(mClientId);
-        mClientAddressQuery = FirebaseDb.getDatabase().getReference("direcciones").child(mClientAddressId);
+        mClientAddressQuery = FirebaseDb.sAddressesRef.child(mClientAddressId);
         mArticlesQuery = FirebaseDb.sArticlesRef.limitToFirst(30);
 
         mAdapter = new ArticleSaleAdapter(this, mArticlesQuery);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator_sales);
         mProgressBar.setVisibility(View.VISIBLE);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_numbers);
         mRecyclerView.setVisibility(View.INVISIBLE);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setReverseLayout(false);
