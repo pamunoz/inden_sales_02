@@ -48,4 +48,10 @@
     <string name="user_role_admin">Administrador(a)</string>
     <string name="user_role_guest">Invitado(a)</string>
     <string name="user_role_salesclerk">Vendedor(a)</string>
+    <string name="label_email">Email</string>
+    <string name="label_full_name">Nombre Completo</string>
+    <string name="label_phone">Telefono</string>
+    <string name="label_rol">Rol</string>
+    <string name="label_rut">Rut</string>
+    <string name="message_spinner_user_role">El usuario(a) es ahora un(a)</string>
 </resources>

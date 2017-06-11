@@ -46,7 +46,14 @@ public class DbContract {
     public static final int USER_ROLE_ADMIN = 500;
     public static final int USER_ROLE_GUEST = 200;
     protected static final String USERS_ND = "usuarios";
+
+    protected static final String USER_EMAIL_KEY = "email";
     protected static final String USER_NAME_KEY = "nombre";
+    protected static final String USER_PHOTOURL_KEY = "photoUrl";
+    protected static final String USER_ROLE_KEY = "role";
+    protected static final String USER_RUT_KEY = "rut";
+    protected static final String USER_PHONE_KEY = "telefono";
+
 
 
 

@@ -86,10 +86,13 @@
     <string name="label_phone">Phone</string>
     <string name="label_email">Email</string>
     <string name="label_rut">Rut</string>
+    <string name="label_rol">Role</string>
 
     <string name="user_role_admin">Admin</string>
     <string name="user_role_salesclerk">Salesclerk</string>
     <string name="user_role_guest">Guest</string>
+
+    <string name="message_spinner_user_role">The user is now a</string>
 
     
 

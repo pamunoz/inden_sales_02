@@ -57,6 +57,7 @@ dependencies {
     compile "com.google.firebase:firebase-database:$rootProject.ext.firebaseVersion"
     compile "com.google.firebase:firebase-auth:$rootProject.ext.firebaseVersion"
     compile "com.google.android.gms:play-services-auth:$rootProject.ext.firebaseVersion"
+    compile "com.satsuware.lib:usefulviews:$rootProject.ext.usefulviewsVersion"
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"

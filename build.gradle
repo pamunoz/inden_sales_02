@@ -27,6 +27,7 @@ task clean(type: Delete) {
 }
 ext{
     //dependencies
+    usefulviewsVersion = '2.3.6'
     junitVersion = '4.12'
     espressoVersion = '2.2.2'
     supportLibraryVersion = '25.3.1'

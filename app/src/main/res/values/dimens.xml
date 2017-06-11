@@ -8,4 +8,5 @@
     <dimen name="md_keylines">16dp</dimen>
     <dimen name="common_wide_margin">16dp</dimen>
     <dimen name="common_narrow_margin">8dp</dimen>
+    <dimen name="common_tiny_margin">4dp</dimen>
 </resources>

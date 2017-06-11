@@ -181,9 +181,33 @@ public class FirebaseDb {
 
     // ***** Metodos para la obtencion de {@link Query} de usuarios
 
-    public static final Query getUserByName(String name) {
+    public static Query getUserByName(String name) {
         String endText = name + "\uf8ff";
         return sUsers.orderByChild(DbContract.USER_NAME_KEY).startAt(name).endAt(endText);
+    }
+
+    public static DatabaseReference getUserRole(String userId) {
+        return FirebaseDb.sUsers.child(userId).child(DbContract.USER_ROLE_KEY);
+    }
+
+    public static DatabaseReference getUserName(String userId) {
+        return FirebaseDb.sUsers.child(userId).child(DbContract.USER_NAME_KEY);
+    }
+
+    public static DatabaseReference getUserEmail(String userId) {
+        return FirebaseDb.sUsers.child(userId).child(DbContract.USER_EMAIL_KEY);
+    }
+
+    public static DatabaseReference getUserPhotoUrl(String userId) {
+        return FirebaseDb.sUsers.child(userId).child(DbContract.USER_PHOTOURL_KEY);
+    }
+
+    public static DatabaseReference getUserPhone(String userId) {
+        return FirebaseDb.sUsers.child(userId).child(DbContract.USER_PHONE_KEY);
+    }
+
+    public static DatabaseReference getUserRut(String userId) {
+        return FirebaseDb.sUsers.child(userId).child(DbContract.USER_RUT_KEY);
     }
 
 }
