@@ -191,16 +191,45 @@ public class EditUserActivity extends AppCompatActivity
     }
 
     private TextView.OnEditorActionListener getListener(final DatabaseReference ref) {
+
         return new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public boolean onEditorAction(final TextView v, int actionId, KeyEvent event) {
+
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    ref.setValue(v.getText().toString());
+                    ref.setValue(v.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            String message = getValueSaved(v.getId()) + " " + getResources().getString(R.string.value);;
+                            Toast.makeText(EditUserActivity.this, message, Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     handled = true;
                 }
                 return handled;
             }
         };
+    }
+
+    private String getValueSaved(int viewId) {
+        String valueSaved;
+        switch (viewId) {
+            case R.id.et_user_name:
+                valueSaved = getResources().getString(R.string.label_full_name);
+                break;
+            case R.id.et_user_email:
+                valueSaved = getResources().getString(R.string.label_email);
+                break;
+            case R.id.et_user_phone:
+                valueSaved = getResources().getString(R.string.label_phone);
+                break;
+            case R.id.et_user_rut:
+                valueSaved = getResources().getString(R.string.label_rut);
+                break;
+            default:
+                valueSaved = getResources().getString(R.string.value);
+        }
+        return valueSaved;
     }
 }
