@@ -3,22 +3,15 @@ package com.pfariasmunoz.indensales.ui.activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -26,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableWeightLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +30,6 @@ import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.data.models.Client;
-import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.data.models.SaleReport;
 import com.pfariasmunoz.indensales.ui.adapters.ArticleSaleAdapter;
 import com.pfariasmunoz.indensales.utils.Constants;
@@ -96,8 +86,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     private Query mClientAddressQuery;
     private Query mArticlesQuery;
 
-    ArticleSaleAdapter mAdapter;
-
+    private ArticleSaleAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,16 +206,16 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
             String saleReportUid = saleReportRef.getKey();
 
-            FirebaseDb.getDatabase().getReference("ventas-usuario-nombre-cliente").child(mUserId).child(saleReportUid).setValue(saleReport.nombre_cliente);
-            FirebaseDb.getDatabase().getReference("ventas-usuario-rut-cliente").child(mUserId).child(saleReportUid).setValue(saleReport.rut_cliente);
+            FirebaseDb.sSalesKeysNames.child(mUserId).child(saleReportUid).setValue(saleReport.nombre_cliente);
+            FirebaseDb.sSalesKeysRuts.child(mUserId).child(saleReportUid).setValue(saleReport.rut_cliente);
 
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
-                String key = (String) pair.getKey();
+                String articleKey = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
-                FirebaseDb.sArticlesSalesRef.child(saleReportUid).push().setValue(articleSale);
+                FirebaseDb.sArticlesSalesRef.child(saleReportUid).child(articleKey).setValue(articleSale);
                 it.remove(); // avoids a ConcurrentModificationException
             }
             Intent saleSuccessIntent = new Intent(CreateSaleActivity.this, MainActivity.class);
@@ -288,7 +277,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mAdapter.cleanup();
         detachReadListeners();
     }
-
 
     public void updateProgressView() {
         mProgressBar.setVisibility(View.INVISIBLE);

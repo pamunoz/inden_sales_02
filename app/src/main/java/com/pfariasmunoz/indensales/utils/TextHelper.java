@@ -28,7 +28,7 @@ public class TextHelper {
         if (value != null && !TextUtils.isEmpty(value)) {
 
             word = value.toLowerCase();
-            if (word.length() > 2)
+            if (word.length() > 1)
                 return word.substring(0, 1).toUpperCase() + word.substring(1);
             else {
                 return word.substring(0, 1).toUpperCase();
