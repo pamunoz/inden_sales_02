@@ -139,6 +139,8 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         mClientIdList.add(snapshot.getKey());
+                        String amount = String.valueOf(mClientIdList.size());
+                        mClientsUserTextView.setText(amount);
                     }
                 }
 
