@@ -6,9 +6,9 @@ package com.pfariasmunoz.indensales.data.models;
 
 public class SaleReport {
     public boolean aprob;
+    public String iddireccion;
     public String idcliente;
     public String idvendedor;
-    public String idventa;
     public String nombre_cliente;
     public String rut_cliente;
     public long total;
@@ -18,20 +18,11 @@ public class SaleReport {
     public SaleReport() {
     }
 
-    public SaleReport(
-            boolean aprob,
-            String idcliente,
-            String idvendedor,
-            String idventa,
-            String nombre_cliente,
-            String rut_cliente,
-            long total,
-            long timestamp,
-            String direccion) {
+    public SaleReport(boolean aprob, String iddireccion, String idcliente, String idvendedor, String nombre_cliente, String rut_cliente, long total, long timestamp, String direccion) {
         this.aprob = aprob;
+        this.iddireccion = iddireccion;
         this.idcliente = idcliente;
         this.idvendedor = idvendedor;
-        this.idventa = idventa;
         this.nombre_cliente = nombre_cliente;
         this.rut_cliente = rut_cliente;
         this.total = total;

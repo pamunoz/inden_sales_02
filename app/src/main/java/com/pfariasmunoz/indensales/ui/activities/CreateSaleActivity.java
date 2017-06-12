@@ -76,7 +76,10 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     RecyclerView mRecyclerView;
     @BindView(R.id.pb_loading_indicator_sales)
     ProgressBar mProgressBar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
+    @BindView(R.id.expandableLayout)
     ExpandableWeightLayout mExpandableLayout;
 
     private String mClientId;
@@ -100,15 +103,13 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_sale);
-        setTitle(getResources().getString(R.string.sales_activity_title));
         ButterKnife.bind(this);
 
         // Remueve el overdraw de esta activity
         getWindow().setBackgroundDrawable(null);
 
         // Adding Toolbar to Main screen
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mToolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -116,7 +117,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
         mLayout.setOnClickListener(this);
         mToggleImageView.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-        mExpandableLayout = (ExpandableWeightLayout) findViewById(R.id.expandableLayout);
         mExpandableLayout.setOnClickListener(this);
 
         // Initialize Firebase components
@@ -200,26 +200,22 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
             long currentTimeInMillis = System.currentTimeMillis();
 
             // Create and save the sale
-            Sale sale = new Sale(
-                    false,
-                    currentTimeInMillis,
-                    mClientId,
-                    mClientAddressId,
-                    mUserId,
-                    mAdapter.getTotalPrice());
-            DatabaseReference ref = FirebaseDb.sSalesRef.push();
+//            Sale sale = new Sale(
+//                    false,
+//                    currentTimeInMillis,
+//                    mClientId,
+//                    mClientAddressId,
+//                    mUserId,
+//                    mAdapter.getTotalPrice());
 
-            ref.setValue(sale);
-
-            String saleUid = ref.getKey();
 
             // Create and save the salereport
 
             SaleReport saleReport = new SaleReport(
                     false,
+                    mClientAddressId,
                     mClientId,
                     mUserId,
-                    saleUid,
                     mClientName,
                     mClientRut,
                     mAdapter.getTotalPrice(),
@@ -227,17 +223,25 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     mClientAddress
             );
 
-            DatabaseReference saleReportRef = FirebaseDb.sSaleReportRef.child(mUserId).push();
+//            DatabaseReference ref = FirebaseDb.sSalesRef.push();
+//
+//            ref.setValue(saleReport);
+//
+//            String saleUid = ref.getKey();
+
+            DatabaseReference saleReportRef = FirebaseDb.sSalesRef.push();
 
             saleReportRef.setValue(saleReport);
 
             String saleReportUid = saleReportRef.getKey();
 
+            FirebaseDb.getDatabase().getReference("ventas-usuario-nombre-cliente").child(mUserId).child(saleReportUid).setValue(saleReport.nombre_cliente);
+            FirebaseDb.getDatabase().getReference("ventas-usuario-rut-cliente").child(mUserId).child(saleReportUid).setValue(saleReport.rut_cliente);
+
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
-                articleSale.idventa = saleUid;
                 String key = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
                 FirebaseDb.sArticlesSalesRef.child(saleReportUid).push().setValue(articleSale);

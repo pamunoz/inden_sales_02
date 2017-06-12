@@ -20,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,26 +41,76 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
 
     private Query mSalesQuery;
     private String mUserId;
+    private Query mSalesKeys;
 
-    FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder> mRecyclerAdapter;
+   // FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder> mRecyclerAdapter;
+    FirebaseIndexRecyclerAdapter<SaleReport, SalesReportViewHolder> mAdapter;
 
 
     public SalesFragment() {
     }
 
     @Override
-    public void setupAdapter(Query query) {
-        mRecyclerAdapter = new FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder>(
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mUserId = FirebaseDb.getUserId();
+        mSalesQuery = FirebaseDb.sSalesRef;
+        mSalesKeys = FirebaseDb.getDatabase().getReference("ventas-usuario-nombre-cliente").child(mUserId);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        setupAdapter(mSalesKeys);
+
+    }
+
+    @Override
+    public void setupAdapter(Query keysRef) {
+//        mRecyclerAdapter = new FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder>(
+//                SaleReport.class,
+//                R.layout.item_sale,
+//                SalesReportViewHolder.class,
+//                query) {
+//
+//
+//            @Override
+//            protected void populateViewHolder(final SalesReportViewHolder viewHolder, final SaleReport model, final int position) {
+//
+//                viewHolder.bind(model);
+//                showRecyclerView();
+//                viewHolder.getArticlesInSalesButton().setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent startArticlesDetails = new Intent(v.getContext(), ArticlesInSaleActivity.class);
+//                        startArticlesDetails.putExtra(Constants.SALE_REPORT_KEY, getRef(position).getKey());
+//                        startActivity(startArticlesDetails);
+//                    }
+//                });
+//                viewHolder.getAprobSaleStateSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//                    @Override
+//                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                        String aprob = "aprob";
+//                        getRef(position).child(aprob).setValue(isChecked);
+//                        FirebaseDb.sSalesRef.child(getRef(position).getKey()).child(.aprob).setValue(isChecked);
+//                    }
+//                });
+//
+//            }
+//
+//
+//
+//
+//        };
+//        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mAdapter = new FirebaseIndexRecyclerAdapter<SaleReport, SalesReportViewHolder>(
                 SaleReport.class,
                 R.layout.item_sale,
                 SalesReportViewHolder.class,
-                query) {
-
-
+                keysRef,
+                mSalesQuery
+        ) {
             @Override
-            protected void populateViewHolder(final SalesReportViewHolder viewHolder, final SaleReport model, final int position) {
-
+            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, final int position) {
                 viewHolder.bind(model);
+                Timber.i("the report is aout " + model.nombre_cliente);
                 showRecyclerView();
                 viewHolder.getArticlesInSalesButton().setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -74,38 +125,22 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         String aprob = "aprob";
                         getRef(position).child(aprob).setValue(isChecked);
-                        FirebaseDb.sSalesRef.child(model.idventa).child(aprob).setValue(isChecked);
+                        //FirebaseDb.sSalesRef.child(getRef(position).getKey()).child(aprob).setValue(isChecked);
                     }
                 });
-
             }
-
-
-
-
         };
-        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
-        setupEmptyListListener(query);
-
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mUserId = FirebaseDb.getUserId();
-        mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(ITEMS_LIMIT);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
-        setupAdapter(mSalesQuery);
+        setupEmptyListListener(keysRef);
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mRecyclerAdapter.cleanup();
-        cleanupEmptyListListener(mSalesQuery);
+        mAdapter.cleanup();
+        cleanupEmptyListListener(mSalesKeys);
     }
 
     @Override
@@ -136,13 +171,13 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                             Query nameQuery = FirebaseDb.getSaleReportByClientName(text);
                             setupAdapter(nameQuery);
                         }
-                        mRecyclerAdapter.notifyDataSetChanged();
-                        mRecyclerView.swapAdapter(mRecyclerAdapter, false);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mAdapter, false);
                     } else {
                         mSalesQuery = FirebaseDb.sSaleReportRef.child(mUserId).limitToLast(ITEMS_LIMIT);
                         setupAdapter(mSalesQuery);
-                        mRecyclerAdapter.notifyDataSetChanged();
-                        mRecyclerView.swapAdapter(mRecyclerAdapter, false);
+                        mAdapter.notifyDataSetChanged();
+                        mRecyclerView.swapAdapter(mAdapter, false);
                     }
                     return false;
                 }
