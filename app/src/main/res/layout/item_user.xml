@@ -143,7 +143,7 @@
                 android:textColor="@color/mainThemeAC"
                 style="?android:attr/borderlessButtonStyle"
                 android:gravity="end"
-                android:text="add clients"/>
+                android:text="@string/add_clients_to_user"/>
         </LinearLayout>
 
 

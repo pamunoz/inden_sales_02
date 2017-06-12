@@ -185,9 +185,11 @@ public class EditUserActivity extends AppCompatActivity
 
     private void handleInput() {
         mUserNameEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserName(mUserId)));
-        mUserRutEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserRut(mUserId)));
+
         mUserEmailEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserEmail(mUserId)));
         mUserPhoneEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserPhone(mUserId)));
+
+        mUserRutEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserRut(mUserId)));
     }
 
     private TextView.OnEditorActionListener getListener(final DatabaseReference ref) {
