@@ -132,6 +132,8 @@ public class MainActivity extends AppCompatActivity
         // Initialize Firebase components
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        writeNewUserIfNeeded();
+
         // Initialize the authentication statle listener of firebase
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -140,7 +142,6 @@ public class MainActivity extends AppCompatActivity
 
                 if (user != null) {
 
-                    writeNewUserIfNeeded(user);
                     // the user is signed in
                     onSignedInInitialize(user);
 
@@ -319,8 +320,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
@@ -367,8 +368,8 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void writeNewUserIfNeeded(final FirebaseUser user) {
-
+    private void writeNewUserIfNeeded() {
+        final FirebaseUser user = mFirebaseAuth.getCurrentUser();
         mUserReference = FirebaseDb.sUsers.child(FirebaseDb.getUserId());
         if (user != null) {
             mUsersListener = new ValueEventListener() {

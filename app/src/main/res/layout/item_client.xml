@@ -89,7 +89,7 @@
         android:paddingRight="16dp"
         android:paddingStart="16dp"
         android:text="@string/add_sale_button"
-        android:textColor="#1E88E5"
+        android:textColor="@color/colorAccent"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tv_client_name"

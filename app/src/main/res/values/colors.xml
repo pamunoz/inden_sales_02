@@ -8,48 +8,39 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray_dark">#636363</color>
+    <color name="yellow">#FFEB3B</color>
 
-
-    <color name="color_palette_1">#C8553D</color>
-    <color name="color_palette_2">#EB5E28</color>
-    <color name="color_palette_3">#FFD5C2</color>
-    <color name="color_palette_4">#588B8B</color>
-    
-    <!-- Color palete 1 -->
-    <color name="sweet_brown">#AC3931</color>
-    <color name="jelly_bean">#E55C52</color>
-    <color name="light_carmine_pink">#E8756D</color>
-    <color name="spicy_mix">#8C5652</color>
-    <color name="old_burgundy">#472D2B</color>
-    
-    <!-- Color Orange Palette -->
-    <color name="mohogany">#AF3800</color>
-    <color name="giants_orange">#FF631C</color>
-    <color name="international_orange_aerospace">#FC4F00</color>
-    <color name="sinopia">#CE4100</color>
-
-    <color name="almost_black">#2A3129</color>
-    <color name="yellow_article_added">#F0D817</color>
-    
-    <!-- Color palete 2 -->
-    <color name="color_background_palette_2">#ff4e50</color>
-    <color name="color_orange_palette_2">#fc913a</color>
-    <color name="color_yellow_palette_2">#f9d62e</color>
-    <color name="color_yellow_light_palette_2">#eae374</color>
-    <color name="color_white_palette_2">#e2f4c7</color>
-    <color name="color_yellow_light">#feffa3</color>
-
-    <!--  Palete Create Sale Activity -->
-    <color name="color_top_bar">#f57f26</color>
-    <color name="color_search_bar">#f06232</color>
-    <color name="color_background_activity">#eb463f</color>
-    <color name="color_accent">#64d4ff</color>
-
-    <color name="color_primary_sales">#f4511e</color>
-    <color name="color_primary_dark_sales">#b91400</color>
     <color name="color_dark_grey_primary">#28283c</color>
     <color name="color_light_grey_primary">#7d7d87</color>
 
-    <color name="color_green">#00AC6B</color>
-    
+    <!-- Main Activity Theme -->
+    <color name="mainThemePDC">#1A237E</color>
+    <color name="mainThemePC">#283593</color>
+    <color name="mainThemeAC">@color/colorAccent</color>
+
+    <!-- Sales Activity Theme -->
+    <color name="salesThemePDC">#911D00</color>
+    <color name="salesThemePC">#DD2C00</color>
+    <color name="salesThemeAC">#00B1DD</color>
+
+    <!-- Clinet Addresses Theme -->
+    <color name="addressThemePDC">#19451C</color>
+    <color name="addressThemePC">#2E7D32</color>
+    <color name="addressThemeAC">#7D2E79</color>
+
+    <!-- Edit User Activity Theme -->
+    <color name="editUserThemePDC">#4A148C</color>
+    <color name="editUserThemePC">#6A1B9A</color>
+
+    <!-- Article in Sale Activity Theme -->
+    <color name="articlesInSaleThemePDC">#263238</color>
+    <color name="articlesInSaleThemePC">#37474F</color>
+    <color name="articlesInSaleThemeAC">#4CAF50</color>
+
+    <!-- Add Clients Activity Theme -->
+    <color name="addClientsThemePDC">#880E4F</color>
+    <color name="addClientsThemePC">#AD1457</color>
+    <color name="addClientsThemeAC">#009688</color>
+
+
 </resources>

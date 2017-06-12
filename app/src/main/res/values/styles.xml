@@ -3,9 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,18 +14,44 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="SalesTheme" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">#f4511e</item>
-        <item name="colorPrimaryDark">#b91400</item>
-        <item name="colorAccent">@color/color_accent</item>
+    <style name="MainTheme" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/mainThemePDC</item>
+        <item name="colorPrimary">@color/mainThemePC</item>
+        <item name="colorAccent">@color/mainThemeAC</item>
+    </style>
 
+    <style name="SalesTheme" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/salesThemePDC</item>
+        <item name="colorPrimary">@color/salesThemePC</item>
+        <item name="colorAccent">@color/salesThemeAC</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
     <style name="AddressTheme" parent="AppTheme.NoActionBar">
-        <item name="colorPrimary">@color/color_green</item>
-        <item name="colorPrimaryDark">#007046</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/addressThemePDC</item>
+        <item name="colorPrimary">@color/addressThemePC</item>
+        <item name="colorAccent">@color/addressThemeAC</item>
+        <item name="android:textColorPrimary">@color/white</item>
     </style>
+
+    <style name="EditUserTheme" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/editUserThemePDC</item>
+        <item name="colorPrimary">@color/editUserThemePC</item>
+    </style>
+
+    <style name="ArticlesInSaleTheme" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/articlesInSaleThemePDC</item>
+        <item name="colorPrimary">@color/articlesInSaleThemePC</item>
+        <item name="colorAccent">@color/articlesInSaleThemeAC</item>
+    </style>
+
+    <style name="AddClientsTheme" parent="AppTheme.NoActionBar">
+        <item name="colorPrimaryDark">@color/addClientsThemePDC</item>
+        <item name="colorPrimary">@color/addClientsThemePC</item>
+        <item name="colorAccent">@color/addClientsThemeAC</item>
+    </style>
+
+
 
     <style name="InputText">
         <item name="android:layout_marginRight">@dimen/common_wide_margin</item>

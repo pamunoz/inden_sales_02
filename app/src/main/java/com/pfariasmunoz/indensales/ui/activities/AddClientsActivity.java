@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
+import com.pfariasmunoz.indensales.utils.TextHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +68,12 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         setContentView(R.layout.activity_add_clients);
 
         ButterKnife.bind(this);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         mUserId = getIntent().getStringExtra(Constants.USER_ID_KEY);
 
@@ -160,7 +168,8 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserPhotoImageView);
         }
-        mUserNameTextView.setText(user.getNombre());
+        String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
+        mUserNameTextView.setText(userName);
         mClientsUserTextView.setText(String.valueOf(mClientIdList.size()));
     }
 

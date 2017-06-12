@@ -207,6 +207,7 @@ public class EditUserActivity extends AppCompatActivity
                     });
                     handled = true;
                 }
+
                 return handled;
             }
         };

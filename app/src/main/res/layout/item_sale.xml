@@ -116,7 +116,7 @@
                 android:layout_weight="1"
                 android:text="$"
                 android:textSize="12sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/mainThemePC"
                 android:layout_gravity="center_vertical"
                 android:gravity="end|center"/>
 
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/mainThemePC"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="start|center"
                 android:textSize="24sp"
@@ -152,7 +152,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="?android:attr/borderlessButtonStyle"
-            android:textColor="#1E88E5"/>
+            android:textColor="@color/mainThemeAC"/>
 
     </LinearLayout>
 
