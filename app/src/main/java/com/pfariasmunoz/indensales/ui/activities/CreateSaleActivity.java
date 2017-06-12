@@ -199,18 +199,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         if (articlesForSale != null) {
             long currentTimeInMillis = System.currentTimeMillis();
 
-            // Create and save the sale
-//            Sale sale = new Sale(
-//                    false,
-//                    currentTimeInMillis,
-//                    mClientId,
-//                    mClientAddressId,
-//                    mUserId,
-//                    mAdapter.getTotalPrice());
-
-
-            // Create and save the salereport
-
             SaleReport saleReport = new SaleReport(
                     false,
                     mClientAddressId,
@@ -222,12 +210,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     currentTimeInMillis,
                     mClientAddress
             );
-
-//            DatabaseReference ref = FirebaseDb.sSalesRef.push();
-//
-//            ref.setValue(saleReport);
-//
-//            String saleUid = ref.getKey();
 
             DatabaseReference saleReportRef = FirebaseDb.sSalesRef.push();
 

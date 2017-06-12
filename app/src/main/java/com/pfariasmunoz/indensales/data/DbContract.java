@@ -55,7 +55,7 @@ public class DbContract {
     protected static final String USER_RUT_KEY = "rut";
     protected static final String USER_PHONE_KEY = "telefono";
 
-
-
+    protected static final String SALES_KEYS_NAMES = "ventas-usuario-nombre-cliente";
+    protected static final String SALES_KEYS_RUTS = "ventas-usuario-rut-cliente";
 
 }
