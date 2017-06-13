@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_article_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        tools:text="This is a long description of a product, I don't know why is so long"
+        />
+    <TextView
+        android:id="@+id/tv_article_code"
+        android:layout_below="@+id/tv_article_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="67000000"/>
+    <TextView
+        android:id="@+id/tv_price_symbol"
+        android:layout_toStartOf="@+id/tv_article_price"
+        android:layout_toLeftOf="@+id/tv_article_price"
+        android:layout_below="@+id/tv_article_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$"/>
+    <TextView
+        android:id="@+id/tv_article_price"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_article_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12.999"/>
+
+</RelativeLayout>

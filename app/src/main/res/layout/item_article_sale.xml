@@ -65,7 +65,6 @@
                     android:layout_gravity="center">
 
                     <ImageView
-
                         android:id="@+id/iv_article_image"
                         android:layout_width="32dp"
                         android:layout_height="20dp"

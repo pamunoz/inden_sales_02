@@ -30,7 +30,7 @@ import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.data.models.Client;
-import com.pfariasmunoz.indensales.data.models.SaleReport;
+import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.ui.adapters.ArticleSaleAdapter;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
@@ -44,6 +44,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class CreateSaleActivity extends SearchableActivity implements View.OnClickListener{
 
@@ -82,8 +83,8 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     private ValueEventListener mClientListener;
     private ValueEventListener mClientAddressListener;
 
-    private Query mClientQuery;
-    private Query mClientAddressQuery;
+    private DatabaseReference mClientQuery;
+    private DatabaseReference mClientAddressQuery;
     private Query mArticlesQuery;
 
     private ArticleSaleAdapter mAdapter;
@@ -129,10 +130,9 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
-
         setTotals(0, 0);
-
         attachReadListeners();
+
     }
 
     private void attachReadListeners() {
@@ -188,7 +188,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         if (articlesForSale != null) {
             long currentTimeInMillis = System.currentTimeMillis();
 
-            SaleReport saleReport = new SaleReport(
+            Sale sale = new Sale(
                     false,
                     mClientAddressId,
                     mClientId,
@@ -200,14 +200,14 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     mClientAddress
             );
 
-            DatabaseReference saleReportRef = FirebaseDb.sSalesRef.push();
+            DatabaseReference saleRef = FirebaseDb.sSalesRef.push();
 
-            saleReportRef.setValue(saleReport);
+            saleRef.setValue(sale);
 
-            String saleReportUid = saleReportRef.getKey();
+            String saleUid = saleRef.getKey();
 
-            FirebaseDb.sSalesKeysNames.child(mUserId).child(saleReportUid).setValue(saleReport.nombre_cliente);
-            FirebaseDb.sSalesKeysRuts.child(mUserId).child(saleReportUid).setValue(saleReport.rut_cliente);
+            FirebaseDb.sSalesKeysNames.child(mUserId).child(saleUid).setValue(sale.nombre_cliente);
+            FirebaseDb.sSalesKeysRuts.child(mUserId).child(saleUid).setValue(sale.rut_cliente);
 
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
@@ -215,7 +215,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
                 String articleKey = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
-                FirebaseDb.sArticlesSalesRef.child(saleReportUid).child(articleKey).setValue(articleSale);
+                FirebaseDb.sArticlesSalesRef.child(saleUid).push().setValue(articleSale);
                 it.remove(); // avoids a ConcurrentModificationException
             }
             Intent saleSuccessIntent = new Intent(CreateSaleActivity.this, MainActivity.class);

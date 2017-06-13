@@ -1,6 +1,5 @@
 package com.pfariasmunoz.indensales.ui.viewholders;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,11 +8,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.models.Address;
-import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.data.models.Sale;
-import com.pfariasmunoz.indensales.data.models.SaleReport;
-import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 import com.pfariasmunoz.indensales.utils.TextHelper;
 
@@ -21,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class SalesReportViewHolder extends RecyclerView.ViewHolder {
+public class SaleViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.tv_total_price_sale)
     TextView mTotalSalePriceTextView;
@@ -42,12 +37,12 @@ public class SalesReportViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.bt_see_articles_in_sale)
     Button mSeeArticlesInSalesButton;
 
-    public SalesReportViewHolder(View itemView) {
+    public SaleViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(SaleReport report) {
+    public void bind(Sale report) {
         String total = String.valueOf(report.total);
         String stringTotal = MathHelper.getLocalCurrency(total);
         String totalWithoutSimbol = stringTotal.substring(1);

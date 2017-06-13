@@ -3,9 +3,7 @@ package com.pfariasmunoz.indensales.ui.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,8 +15,6 @@ import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.ui.activities.CreateSaleActivity;
-import com.pfariasmunoz.indensales.utils.MathHelper;
-import com.pfariasmunoz.indensales.utils.TextHelper;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
 
 import java.util.ArrayList;
@@ -27,11 +23,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
+import timber.log.Timber;
 
 public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
-
-    public static final String TAG = ArticleSaleAdapter.class.getSimpleName();
 
     Context mContext;
     // New Data
@@ -74,13 +68,14 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     @Override
     public ArticleViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.item_article_sale;
-        LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
+        int layoutIdForListItem = R.layout.item_article_for_sale;
 
-        View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
-        ArticleViewHolder viewHolder = new ArticleViewHolder(view);
-        return viewHolder;
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
+        Timber.d("STILL WORKING...");
+        return new ArticleViewHolder(view);
     }
 
     private ValueEventListener setUpListener() {
@@ -114,7 +109,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(final ArticleViewHolder holder, final int position) {
+    public void onBindViewHolder(final ArticleViewHolder holder, int position) {
 
         final ArticleSale articleSale = mArticleSaleList.get(position);
         final Article article = mArticleList.get(position);
@@ -130,27 +125,27 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         }
 
         holder.bind(article, articleSale, code);
-        holder.mAddArticleButton.setOnClickListener(new View.OnClickListener() {
+        holder.getAddArticleButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 int amount = articleSale.cantidad + 1;
                 long total = Long.valueOf(article.precio.trim()) * amount;
                 holder.itemView.setBackgroundColor(Color.argb(240,216,23,0));
-                mArticleSaleList.set(position, new ArticleSale(amount, article.descripcion, articleKey, null, total));
+                mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.descripcion, articleKey, null, total));
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
             }
         });
-        holder.mSubtractArticleButton.setOnClickListener(new View.OnClickListener() {
+        holder.getSubtractArticleButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (articleSale.cantidad <= 1) {
-                    mArticleSaleList.set(position, new ArticleSale(0, article.descripcion, articleKey, null, 0L));
+                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(0, article.descripcion, articleKey, null, 0L));
                 } else {
                     int amount = articleSale.cantidad - 1;
                     long total = Long.valueOf(article.precio) * amount;
-                    mArticleSaleList.set(position, new ArticleSale(amount, article.descripcion, articleKey, null, total));
+                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.descripcion, articleKey, null, total));
                 }
                 notifyDataSetChanged();
                 setToalPriceAndAmount();

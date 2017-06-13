@@ -1,37 +1,22 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
-import com.pfariasmunoz.indensales.data.models.SaleReport;
+import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
-import com.pfariasmunoz.indensales.ui.viewholders.SalesReportViewHolder;
+import com.pfariasmunoz.indensales.ui.viewholders.SaleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
@@ -43,8 +28,8 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
     private String mUserId;
     private Query mSalesKeys;
 
-   // FirebaseRecyclerAdapter<SaleReport, SalesReportViewHolder> mRecyclerAdapter;
-    FirebaseIndexRecyclerAdapter<SaleReport, SalesReportViewHolder> mAdapter;
+   // FirebaseRecyclerAdapter<Sale, SaleViewHolder> mRecyclerAdapter;
+    FirebaseIndexRecyclerAdapter<Sale, SaleViewHolder> mAdapter;
 
 
     public SalesFragment() {
@@ -64,15 +49,15 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
 
     @Override
     public void setupAdapter(Query keysRef) {
-        mAdapter = new FirebaseIndexRecyclerAdapter<SaleReport, SalesReportViewHolder>(
-                SaleReport.class,
+        mAdapter = new FirebaseIndexRecyclerAdapter<Sale, SaleViewHolder>(
+                Sale.class,
                 R.layout.item_sale,
-                SalesReportViewHolder.class,
+                SaleViewHolder.class,
                 keysRef,
                 mSalesQuery
         ) {
             @Override
-            protected void populateViewHolder(SalesReportViewHolder viewHolder, SaleReport model, final int position) {
+            protected void populateViewHolder(SaleViewHolder viewHolder, Sale model, final int position) {
                 viewHolder.bind(model);
                 Timber.i("the report is aout " + model.nombre_cliente);
                 showRecyclerView();

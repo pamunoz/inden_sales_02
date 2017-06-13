@@ -1,33 +1,32 @@
 package com.pfariasmunoz.indensales.data.models;
 
-import com.google.firebase.database.Exclude;
-import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Created by Pablo Farias on 20-04-17.
+ * Created by Pablo Farias on 16-05-17.
  */
-@IgnoreExtraProperties
-public class Sale {
 
+public class Sale {
     public boolean aprob;
-    public long timestamp;
-    public String idcliente;
     public String iddireccion;
+    public String idcliente;
     public String idvendedor;
+    public String nombre_cliente;
+    public String rut_cliente;
     public long total;
+    public long timestamp;
+    public String direccion;
 
     public Sale() {
     }
 
-    public Sale(boolean aprob, long timestamp, String idcliente, String iddireccion, String idvendedor, long total) {
+    public Sale(boolean aprob, String iddireccion, String idcliente, String idvendedor, String nombre_cliente, String rut_cliente, long total, long timestamp, String direccion) {
         this.aprob = aprob;
-        this.timestamp = timestamp;
-        this.idcliente = idcliente;
         this.iddireccion = iddireccion;
+        this.idcliente = idcliente;
         this.idvendedor = idvendedor;
+        this.nombre_cliente = nombre_cliente;
+        this.rut_cliente = rut_cliente;
         this.total = total;
+        this.timestamp = timestamp;
+        this.direccion = direccion;
     }
 }

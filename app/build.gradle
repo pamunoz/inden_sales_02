@@ -49,7 +49,7 @@ dependencies {
     compile "com.android.support:design:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:gridlayout-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:cardview-v7:$rootProject.ext.supportLibraryVersion"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile "com.android.support:percent:$rootProject.ext.supportLibraryVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
     compile "com.firebaseui:firebase-ui-database:$rootProject.ext.firebaseUiVersion"
@@ -61,6 +61,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.jakewharton.timber:timber:4.5.1'
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+
 
     testCompile "junit:junit:$rootProject.ext.junitVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"

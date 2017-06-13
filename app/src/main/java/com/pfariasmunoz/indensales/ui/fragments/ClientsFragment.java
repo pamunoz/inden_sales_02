@@ -5,27 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.ClientsNode;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
@@ -41,8 +34,8 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
 
     //private FirebaseRecyclerAdapter<Client, ClientViewHolder> mAdapter;
     private FirebaseIndexRecyclerAdapter<Client, ClientViewHolder> mAdapter;
-    private Query mQuery;
-    private Query mKeysRef;
+    private DatabaseReference mQuery;
+    private DatabaseReference mKeysRef;
     private Query mAddressQuery;
     private ValueEventListener mAddressListener;
 
@@ -61,8 +54,8 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(mRecyclerView.getContext(), mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
-        mQuery = FirebaseDb.sClientsRef;
-        mKeysRef = FirebaseDb.sClientsRefKeysByName;
+        mQuery = ClientsNode.sClientsRef;
+        mKeysRef = ClientsNode.sMyClientsRefKeysByName;
         setupAdapter(mKeysRef);
     }
 
@@ -85,7 +78,7 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        mAddressQuery = FirebaseDb.getDatabase().getReference("direcciones-por-cliente").child(getRef(position).getKey());
+                        mAddressQuery = FirebaseDb.sClientAdressRef.child(getRef(position).getKey());
                         mAddressListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -105,6 +98,7 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
 
                             }
                         };
+                        Timber.i(mAddressQuery.getRef().toString());
                         mAddressQuery.addListenerForSingleValueEvent(mAddressListener);
 
                     }
@@ -145,11 +139,11 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
-                            Query rutQueryKeys = FirebaseDb.getUserClientsByRut(newText);
+                            Query rutQueryKeys = ClientsNode.getMyClientsByName(newText);
                             setupAdapter(rutQueryKeys);
                         } else {
                             String text = newText.toUpperCase();
-                            Query nameQueryKeys = FirebaseDb.getUserClientsByName(text);
+                            Query nameQueryKeys = ClientsNode.getMyClientsByRut(text);
                             setupAdapter(nameQueryKeys);
                         }
                         mAdapter.notifyDataSetChanged();

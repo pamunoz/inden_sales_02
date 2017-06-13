@@ -31,7 +31,7 @@ public class MathHelper {
             n = Long.valueOf(number);
         }
         NumberFormat format = NumberFormat.getInstance();
-        return "$" + String.valueOf(format.format(n));
+        return String.valueOf(format.format(n));
 
     }
 

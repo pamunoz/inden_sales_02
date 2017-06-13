@@ -1,7 +1,7 @@
 package com.pfariasmunoz.indensales.ui.viewholders;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,30 +16,18 @@ import com.pfariasmunoz.indensales.utils.TextHelper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by Pablo Farias on 12-05-17.
- */
+public class ArticleViewHolder extends BaseArticleViewHolder {
 
-public class ArticleViewHolder extends RecyclerView.ViewHolder{
-
-    public static final String TAG = ArticleViewHolder.class.getSimpleName();
-
-    @BindView(R.id.iv_article_image)
-    public ImageView mArticleImageView;
-    @BindView(R.id.tv_article_code)
-    public TextView mArticleCodeTextView;
-    @BindView(R.id.tv_article_description)
-    public TextView mArticleDescriptionTextView;
-    @BindView(R.id.tv_article_price)
-    public TextView mArticlePriceTextView;
+//    @BindView(R.id.iv_article_image)
+//    ImageView mArticleImageView;
     @BindView(R.id.tv_article_total_price)
-    public TextView mArticlesTotalPriceTextView;
+    TextView mArticlesTotalPriceTextView;
     @BindView(R.id.tv_article_amount)
-    public TextView mArticlesAmountTextView;
+    TextView mArticlesAmountTextView;
     @BindView(R.id.imb_up_arrow)
-    public ImageButton mAddArticleButton;
+    ImageButton mAddArticleButton;
     @BindView(R.id.imb_down_arrow)
-    public ImageButton mSubtractArticleButton;
+    ImageButton mSubtractArticleButton;
 
     public ArticleViewHolder(View itemView) {
         super(itemView);
@@ -73,5 +61,13 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder{
         mArticleCodeTextView.setText(articleSale.idarticulo);
 
 
+    }
+
+    public ImageButton getAddArticleButton() {
+        return mAddArticleButton;
+    }
+
+    public ImageButton getSubtractArticleButton() {
+        return mSubtractArticleButton;
     }
 }
