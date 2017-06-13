@@ -65,6 +65,15 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
+    <style name="quantityBtn">
+        <item name="android:scaleX">1.5</item>
+        <item name="android:scaleY">1.5</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/none_dimen</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
 
 
 </resources>
