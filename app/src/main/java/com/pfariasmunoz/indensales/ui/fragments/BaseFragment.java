@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
+import com.pfariasmunoz.indensales.data.FbContract;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +41,10 @@ public class BaseFragment extends Fragment {
 
     LinearLayoutManager mLayoutManager;
     ValueEventListener mEmptyListListener;
+
+    public String getUid() {
+        return FbContract.getUserId();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
