@@ -124,7 +124,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             holder.itemView.setBackgroundResource(white);
         }
 
-        holder.bind(article, articleSale, code);
+        holder.bind(articleSale, article, code);
         holder.getAddArticleButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

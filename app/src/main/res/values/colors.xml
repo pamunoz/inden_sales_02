@@ -10,6 +10,7 @@
     <color name="gray_dark">#636363</color>
     <color name="yellow">#FFEB3B</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="red">#cc3333</color>
 
     <color name="color_dark_grey_primary">#28283c</color>
     <color name="color_light_grey_primary">#7d7d87</color>

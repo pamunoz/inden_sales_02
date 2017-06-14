@@ -21,6 +21,7 @@ import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
+import com.pfariasmunoz.indensales.ui.viewholders.BaseArticleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 
 public class ArticlesInSaleActivity extends SearchableActivity implements AdapterSetter {
 
-    private FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<ArticleSale, BaseArticleViewHolder> mAdapter;
     @BindView(R.id.rv_articles_sales_content)
     RecyclerView mRecyclerView;
     @BindView(R.id.pb_loading_indicator_client_adress)
@@ -68,15 +69,15 @@ public class ArticlesInSaleActivity extends SearchableActivity implements Adapte
 
     @Override
     public void setupAdapter(Query query) {
-        mAdapter = new FirebaseRecyclerAdapter<ArticleSale, ArticleViewHolder>(
+        mAdapter = new FirebaseRecyclerAdapter<ArticleSale, BaseArticleViewHolder>(
                 ArticleSale.class,
-                R.layout.item_article_sale,
-                ArticleViewHolder.class,
+                R.layout.item_article_sold,
+                BaseArticleViewHolder.class,
                 query
         ) {
             @Override
-            protected void populateViewHolder(ArticleViewHolder viewHolder, ArticleSale model, int position) {
-                viewHolder.bindArticleInSale(model);
+            protected void populateViewHolder(BaseArticleViewHolder viewHolder, ArticleSale model, int position) {
+                viewHolder.bind(model, null, null);
 
             }
         };

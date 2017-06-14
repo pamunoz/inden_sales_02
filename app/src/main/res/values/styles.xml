@@ -24,7 +24,6 @@
         <item name="colorPrimaryDark">@color/salesThemePDC</item>
         <item name="colorPrimary">@color/salesThemePC</item>
         <item name="colorAccent">@color/salesThemeAC</item>
-        <item name="android:textColorPrimary">@color/white</item>
     </style>
 
     <style name="AddressTheme" parent="AppTheme.NoActionBar">
@@ -73,7 +72,5 @@
         <item name="android:layout_weight">1</item>
         <item name="android:background">@color/transparent</item>
     </style>
-
-
-
+    
 </resources>
