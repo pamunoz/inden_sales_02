@@ -13,7 +13,7 @@ import android.widget.ProgressBar;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb.SaleEntry;
+import com.pfariasmunoz.indensales.data.FbContract.SaleEntry;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.BaseArticleViewHolder;

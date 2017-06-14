@@ -12,8 +12,8 @@ import android.widget.CompoundButton;
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
-import com.pfariasmunoz.indensales.data.FirebaseDb.SaleEntry;
+import com.pfariasmunoz.indensales.data.FbContract;
+import com.pfariasmunoz.indensales.data.FbContract.SaleEntry;
 import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
@@ -39,7 +39,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mUserId = FirebaseDb.getUserId();
+        mUserId = FbContract.getUserId();
         mSalesQuery = SaleEntry.sRef;
         mSalesKeys = SaleEntry.sKeysNames.child(mUserId);
         mLayoutManager.setReverseLayout(true);

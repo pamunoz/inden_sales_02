@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FbContract;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 
 /**
@@ -13,14 +13,14 @@ import com.pfariasmunoz.indensales.data.models.IndenUser;
 
 public class BaseActivity extends AppCompatActivity {
     public String getUid() {
-        return FirebaseDb.getUserId();
+        return FbContract.getUserId();
     }
 
     public DatabaseReference getDb() {
-        return FirebaseDb.sDbRef;
+        return FbContract.sDbRef;
     }
 
     public IndenUser getIndenUser(FirebaseUser user) {
-        return FirebaseDb.getIndenUser(user);
+        return FbContract.getIndenUser(user);
     }
 }

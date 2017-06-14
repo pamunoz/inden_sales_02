@@ -33,7 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.BuildConfig;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
+import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.fragments.ClientsFragment;
 import com.pfariasmunoz.indensales.ui.fragments.SalesFragment;

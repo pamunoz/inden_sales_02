@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
+import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.ForegroundImageView;
 import com.pfariasmunoz.indensales.utils.TextHelper;

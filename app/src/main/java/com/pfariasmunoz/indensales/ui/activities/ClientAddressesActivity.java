@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb.AddressEntry;
+import com.pfariasmunoz.indensales.data.FbContract.AddressEntry;
 import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.AddressViewHolder;

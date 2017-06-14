@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.DbContract;
-import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
+import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.utils.TextHelper;
 

@@ -1,38 +1,25 @@
 package com.pfariasmunoz.indensales.ui.fragments;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
-import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
+import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.EditUserActivity;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
