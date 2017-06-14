@@ -18,7 +18,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
-import com.pfariasmunoz.indensales.data.FirebaseDb.ClientsNode;
+import com.pfariasmunoz.indensales.data.FirebaseDb.ClientEntry;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
@@ -54,8 +54,8 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
         DividerItemDecoration dividerItemDecoration =
                 new DividerItemDecoration(mRecyclerView.getContext(), mLayoutManager.getOrientation());
         mRecyclerView.addItemDecoration(dividerItemDecoration);
-        mQuery = ClientsNode.sClientsRef;
-        mKeysRef = ClientsNode.sMyClientsRefKeysByName;
+        mQuery = ClientEntry.sRef;
+        mKeysRef = ClientEntry.sMyClientsRefKeysByName;
         setupAdapter(mKeysRef);
     }
 
@@ -139,18 +139,18 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
-                            Query rutQueryKeys = ClientsNode.getMyClientsByName(newText);
+                            Query rutQueryKeys = ClientEntry.getMyClientsByName(newText);
                             setupAdapter(rutQueryKeys);
                         } else {
                             String text = newText.toUpperCase();
-                            Query nameQueryKeys = ClientsNode.getMyClientsByRut(text);
+                            Query nameQueryKeys = ClientEntry.getMyClientsByRut(text);
                             setupAdapter(nameQueryKeys);
                         }
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mAdapter, false);
 
                     } else {
-                        mQuery = FirebaseDb.sClientsRef;
+                        mQuery = ClientEntry.sRef;
                         setupAdapter(mKeysRef);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mAdapter, false);

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -27,6 +26,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.ClientEntry;
+import com.pfariasmunoz.indensales.data.FirebaseDb.ArticleEntry;
 import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
@@ -45,7 +46,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 public class CreateSaleActivity extends SearchableActivity implements View.OnClickListener{
 
@@ -118,9 +118,9 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mUserId = FirebaseDb.getUserId();
 
         // Initialize the queries
-        mClientQuery = FirebaseDb.sClientsRef.child(mClientId);
+        mClientQuery = ClientEntry.sRef.child(mClientId);
         mClientAddressQuery = FirebaseDb.sAddressesRef.child(mClientAddressId);
-        mArticlesQuery = FirebaseDb.sArticlesRef.limitToFirst(30);
+        mArticlesQuery = ArticleEntry.sRef.limitToFirst(30);
 
         mAdapter = new ArticleSaleAdapter(this, mArticlesQuery);
 
@@ -235,7 +235,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
     @OnClick(R.id.bt_reset_sale)
     public void resetSales() {
-        mArticlesQuery = FirebaseDb.sArticlesRef.limitToFirst(30);
+        mArticlesQuery = ArticleEntry.sRef.limitToFirst(100);
 
         mAdapter = new ArticleSaleAdapter(this, mArticlesQuery);
         mAdapter.notifyDataSetChanged();
@@ -303,11 +303,11 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
                         if (!TextUtils.isEmpty(newText)) {
                             if (MathHelper.isNumeric(newText)) {
-                                Query query = FirebaseDb.getArticlesCodeQuery(newText).limitToFirst(30);
+                                Query query = ArticleEntry.getArticlesCodeQuery(newText).limitToFirst(30);
                                 updateAdapter(query, false, true);
                             } else {
                                 String text = newText.toUpperCase();
-                                Query query = FirebaseDb.getArticlesDescriptionQuery(text);
+                                Query query = ArticleEntry.getArticlesDescriptionQuery(text);
                                 updateAdapter(query, true, false);
                             }
                             mAdapter.notifyDataSetChanged();

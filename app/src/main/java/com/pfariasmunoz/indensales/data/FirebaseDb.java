@@ -6,7 +6,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
-import com.pfariasmunoz.indensales.utils.Constants;
 
 public final class FirebaseDb {
     /**
@@ -44,28 +43,46 @@ public final class FirebaseDb {
     /**
      * Articles node
      */
-    public static final DatabaseReference sArticlesRef = sDbRef.child(DbContract.ARTICLES_ND);
+//    public static final DatabaseReference sRef = sDbRef.child(DbContract.ARTICLES_ND);
+//
+//    public static Query getArticlesCodeQuery(String newCode) {
+//        String endtext = newCode + "\uf8ff";
+//        return sRef.orderByKey().startAt(newCode).endAt(endtext);
+//    }
+//    public static Query getArticlesDescriptionQuery(String newDescription) {
+//        String endtext = newDescription + "\uf8ff";
+//        return sRef.orderByChild(DbContract.ARTICLES_DESCRIPTION_KEY).startAt(newDescription).endAt(endtext);
+//    }
 
-    public static Query getArticlesCodeQuery(String newCode) {
-        String endtext = newCode + "\uf8ff";
-        return sArticlesRef.orderByKey().startAt(newCode).endAt(endtext);
-    }
-    public static Query getArticlesDescriptionQuery(String newDescription) {
-        String endtext = newDescription + "\uf8ff";
-        return sArticlesRef.orderByChild(DbContract.ARTICLES_DESCRIPTION_KEY).startAt(newDescription).endAt(endtext);
+    public static class ArticleEntry {
+        public static final String ARTICLES_ND = "articulos";
+        public static final String ARTICLE_DESCRIPTION = "descripcion";
+        public static final DatabaseReference sRef = sDbRef.child(ARTICLES_ND);
+
+        public static Query getArticlesCodeQuery(String newCode) {
+            String endtext = newCode + "\uf8ff";
+            return sRef.orderByKey().startAt(newCode).endAt(endtext);
+        }
+        public static Query getArticlesDescriptionQuery(String newDescription) {
+            String endtext = newDescription + "\uf8ff";
+            return sRef.orderByChild(ARTICLE_DESCRIPTION).startAt(newDescription).endAt(endtext);
+        }
     }
 
     /**
      * Clients node
      */
-    public static final DatabaseReference sClientsRef = sDbRef.child(DbContract.CLIENTS_ND);
-    public static final DatabaseReference sClientsRefKeysName = sDbRef.child(DbContract.CLIENTS_NAMES_REF_KEYS);
-    public static final DatabaseReference sClientsRefKeysRut = sDbRef.child(DbContract.CLIENTS_RUTS_REF_KEYS);
-    public static final DatabaseReference sMyClientsRefKeysByName = sClientsRefKeysName.child(getUserId());
-    public static final DatabaseReference sMyClientsRefKeysByRut = sClientsRefKeysRut.child(getUserId());
+//    public static final DatabaseReference sRef = sDbRef.child(DbContract.CLIENTS_ND);
+//    public static final DatabaseReference sRefKeysName = sDbRef.child(DbContract.CLIENTS_NAMES_REF_KEYS);
+//    public static final DatabaseReference sRefKeysRut = sDbRef.child(DbContract.CLIENTS_RUTS_REF_KEYS);
+//    public static final DatabaseReference sMyClientsRefKeysByName = sRefKeysName.child(getUserId());
+//    public static final DatabaseReference sMyClientsRefKeysByRut = sRefKeysRut.child(getUserId());
 
 
-    public static class ClientsNode {
+    public static class ClientEntry {
+
+        private ClientEntry() {
+        }
 
         public static final String CLIENTS_ND = "clientes";
         public static final String CLIENT_DISCOUNT = "descuento";
@@ -76,19 +93,19 @@ public final class FirebaseDb {
         // Referencia de key pra busqueda por nombre del cliente
         public static final String CLIENTS_RUTS_REF_KEYS = "clientes-rut-por-usuario";
 
-        public static final DatabaseReference sClientsRef = sDbRef.child(CLIENTS_ND);
-        public static final DatabaseReference sClientsRefKeysName = sDbRef.child(CLIENTS_NAMES_REF_KEYS);
-        public static final DatabaseReference sClientsRefKeysRut = sDbRef.child(CLIENTS_RUTS_REF_KEYS);
-        public static final DatabaseReference sMyClientsRefKeysByName = sClientsRefKeysName.child(getUserId());
-        public static final DatabaseReference sMyClientsRefKeysByRut = sClientsRefKeysRut.child(getUserId());
+        public static final DatabaseReference sRef = sDbRef.child(CLIENTS_ND);
+        public static final DatabaseReference sRefKeysName = sDbRef.child(CLIENTS_NAMES_REF_KEYS);
+        public static final DatabaseReference sRefKeysRut = sDbRef.child(CLIENTS_RUTS_REF_KEYS);
+        public static final DatabaseReference sMyClientsRefKeysByName = sRefKeysName.child(getUserId());
+        public static final DatabaseReference sMyClientsRefKeysByRut = sRefKeysRut.child(getUserId());
 
         public static Query getClientsNameQuery(String newName) {
             String endtext = newName + "\uf8ff";
-            return sClientsRef.orderByChild(CLIENT_NAME).startAt(newName).endAt(endtext);
+            return sRef.orderByChild(CLIENT_NAME).startAt(newName).endAt(endtext);
         }
         public static Query getClientsRutQuery(String newRut) {
             String endtext = newRut + "\uf8ff";
-            return sClientsRef.orderByChild(CLIENT_RUT).startAt(newRut).endAt(endtext);
+            return sRef.orderByChild(CLIENT_RUT).startAt(newRut).endAt(endtext);
         }
         public static Query getMyClientsByName(String name) {
             String endtext = name + "\uf8ff";
@@ -99,46 +116,50 @@ public final class FirebaseDb {
             return sMyClientsRefKeysByRut.orderByValue().startAt(rut).endAt(endtext);
         }
         public static Query getClientsByUser(String userId) {
-            return sClientsRefKeysName.child(userId);
+            return sRefKeysName.child(userId);
         }
 
-        public static Query getUserClientsKeysNameByUserId(String userId) {
-            return sClientsRefKeysName.child(userId);
+        public static DatabaseReference getUserClientsNamesKeysByUserId(String userId) {
+            return sRefKeysName.child(userId);
         }
 
-        public static Query getFilterUserClientsByName(String userId, String clientName) {
+        public static DatabaseReference getUserClientsRutsKeysByUserId(String userId) {
+            return sRefKeysRut.child(userId);
+        }
+
+        public static Query filterUserClientsByName(String userId, String clientName) {
             String endtext = clientName + "\uf8ff";
-            return sClientsRefKeysName.child(userId).orderByValue().startAt(clientName).endAt(endtext);
+            return sRefKeysName.child(userId).orderByValue().startAt(clientName).endAt(endtext);
         }
 
-        public static Query getFilterUserClientsByRut(String userId, String clientRut) {
+        public static Query filterUserClientsByRut(String userId, String clientRut) {
             String endtext = clientRut + "\uf8ff";
-            return sClientsRefKeysRut.child(userId).orderByValue().startAt(clientRut).endAt(endtext);
+            return sRefKeysRut.child(userId).orderByValue().startAt(clientRut).endAt(endtext);
         }
 
     }
-
-    public static Query getClientsNameQuery(String newName) {
-        String endtext = newName + "\uf8ff";
-        return sClientsRef.orderByChild(DbContract.CLIENT_NAME_KEY).startAt(newName).endAt(endtext);
-    }
-    public static Query getClientsRutQuery(String newRut) {
-        String endtext = newRut + "\uf8ff";
-        return sClientsRef.orderByChild(DbContract.CLIENT_RUT_KEY).startAt(newRut).endAt(endtext);
-    }
-
-    public static Query getMyClientsByName(String name) {
-        String endtext = name + "\uf8ff";
-        return sMyClientsRefKeysByName.orderByValue().startAt(name).endAt(endtext);
-    }
-    public static Query getMyClientsByRut(String rut) {
-        String endtext = rut + "\uf8ff";
-        return sMyClientsRefKeysByRut.orderByValue().startAt(rut).endAt(endtext);
-    }
-
-    public static Query getClientsByUser(String userId) {
-        return getDatabase().getReference(DbContract.CLIENTS_NAMES_REF_KEYS).child(userId);
-    }
+//
+//    public static Query getClientsNameQuery(String newName) {
+//        String endtext = newName + "\uf8ff";
+//        return sRef.orderByChild(DbContract.CLIENT_NAME_KEY).startAt(newName).endAt(endtext);
+//    }
+//    public static Query getClientsRutQuery(String newRut) {
+//        String endtext = newRut + "\uf8ff";
+//        return sRef.orderByChild(DbContract.CLIENT_RUT_KEY).startAt(newRut).endAt(endtext);
+//    }
+//
+//    public static Query getMyClientsByName(String name) {
+//        String endtext = name + "\uf8ff";
+//        return sMyClientsRefKeysByName.orderByValue().startAt(name).endAt(endtext);
+//    }
+//    public static Query getMyClientsByRut(String rut) {
+//        String endtext = rut + "\uf8ff";
+//        return sMyClientsRefKeysByRut.orderByValue().startAt(rut).endAt(endtext);
+//    }
+//
+//    public static Query getClientsByUser(String userId) {
+//        return getDatabase().getReference(DbContract.CLIENTS_NAMES_REF_KEYS).child(userId);
+//    }
 
     /**
      * Addresses db references

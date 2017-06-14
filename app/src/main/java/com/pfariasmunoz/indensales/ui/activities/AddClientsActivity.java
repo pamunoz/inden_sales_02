@@ -20,6 +20,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.ClientEntry;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
@@ -34,7 +35,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import timber.log.Timber;
 
 public class AddClientsActivity extends SearchableActivity implements AdapterSetter {
 
@@ -81,9 +81,9 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         setupUserListener(mUserQuery);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mUserClientsQuery = FirebaseDb.getClientsByUser(mUserId);
+        mUserClientsQuery = ClientEntry.getClientsByUser(mUserId);
         setupKeysListener();
-        mQuery = FirebaseDb.sClientsRef.limitToLast(50);
+        mQuery = ClientEntry.sRef.limitToLast(100);
         setupAdapter(mQuery);
 
     }
@@ -101,8 +101,8 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
                 viewHolder.bind(model);
                 viewHolder.getAddSaleButton().setVisibility(View.INVISIBLE);
                 final CheckBox checkBox = viewHolder.getIsClientAddedCheckBox();
-                final DatabaseReference refName = FirebaseDb.sClientsRefKeysName.child(mUserId).child(getRef(position).getKey());
-                final DatabaseReference refRut = FirebaseDb.sClientsRefKeysRut.child(mUserId).child(getRef(position).getKey());
+                final DatabaseReference refName = ClientEntry.getUserClientsNamesKeysByUserId(mUserId).child(getRef(position).getKey());
+                final DatabaseReference refRut = ClientEntry.getUserClientsRutsKeysByUserId(mUserId).child(getRef(position).getKey());
                 checkBox.setChecked(mClientIdList.contains(getRef(position).getKey()));
 
                 checkBox.setOnClickListener(new View.OnClickListener() {
@@ -210,11 +210,11 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
-                            Query rutQueryKeys = FirebaseDb.getClientsRutQuery(newText);
+                            Query rutQueryKeys = ClientEntry.getClientsRutQuery(newText);
                             setupAdapter(rutQueryKeys);
                         } else {
                             String text = newText.toUpperCase();
-                            Query nameQueryKeys = FirebaseDb.getClientsNameQuery(text);
+                            Query nameQueryKeys = ClientEntry.getClientsNameQuery(text);
                             setupAdapter(nameQueryKeys);
                         }
                         mAdapter.notifyDataSetChanged();
