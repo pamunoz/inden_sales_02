@@ -1,9 +1,7 @@
 package com.pfariasmunoz.indensales.ui.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -15,15 +13,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.AddressEntry;
 import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.viewholders.AddressViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
-import com.pfariasmunoz.indensales.utils.MathHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,14 +60,14 @@ public class ClientAddressesActivity extends SearchableActivity implements Adapt
         mRecyclerView.setVisibility(View.INVISIBLE);
         mProgressBar.setVisibility(View.VISIBLE);
         mClientId = getIntent().getStringExtra(Constants.CLIENT_ID_KEY);
-        mAddressQuery = FirebaseDb.getClientAddresByClientId(mClientId);
+        //mAddressQuery = AddressEntry.sClientsKeysRef.child(mClientId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(layoutManager);
-        mQuery = FirebaseDb.sAddressesRef;
-        mQueryKeys = FirebaseDb.sClientAdressRef.child(mClientId);
+        mQuery = AddressEntry.sRef;
+        mQueryKeys = AddressEntry.sClientsKeysRef.child(mClientId);
         setupAdapter(mQueryKeys);
 
     }
@@ -145,7 +141,7 @@ public class ClientAddressesActivity extends SearchableActivity implements Adapt
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
                         String text = newText.toUpperCase();
-                        Query nameQuery = FirebaseDb.getClientAddresByClientIdAndSearch(mClientId, text);
+                        Query nameQuery = AddressEntry.getClientAddresByClientIdAndSearch(mClientId, text);
                         setupAdapter(nameQuery);
                         mRecyclerView.swapAdapter(mAdapter, false);
 

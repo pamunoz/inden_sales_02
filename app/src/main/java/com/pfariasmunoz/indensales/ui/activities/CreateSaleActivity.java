@@ -25,9 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.FirebaseDb.ClientEntry;
 import com.pfariasmunoz.indensales.data.FirebaseDb.ArticleEntry;
+import com.pfariasmunoz.indensales.data.FirebaseDb.AddressEntry;
+import com.pfariasmunoz.indensales.data.FirebaseDb.SaleEntry;
 import com.pfariasmunoz.indensales.data.models.Address;
 import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
@@ -75,7 +76,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     ExpandableWeightLayout mExpandableLayout;
 
     private String mClientId;
-    private String mUserId;
     private String mClientAddressId;
     private String mClientName;
     private String mClientRut;
@@ -114,12 +114,9 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mClientId = getIntent().getStringExtra(Constants.CLIENT_ID_KEY);
         mClientAddressId = getIntent().getStringExtra(Constants.ADDRESS_ID_KEY);
 
-
-        mUserId = FirebaseDb.getUserId();
-
         // Initialize the queries
         mClientQuery = ClientEntry.sRef.child(mClientId);
-        mClientAddressQuery = FirebaseDb.sAddressesRef.child(mClientAddressId);
+        mClientAddressQuery = AddressEntry.sRef.child(mClientAddressId);
         mArticlesQuery = ArticleEntry.sRef.limitToFirst(30);
 
         mAdapter = new ArticleSaleAdapter(this, mArticlesQuery);
@@ -193,7 +190,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     false,
                     mClientAddressId,
                     mClientId,
-                    mUserId,
+                    getUid(),
                     mClientName,
                     mClientRut,
                     mAdapter.getTotalPrice(),
@@ -201,14 +198,14 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     mClientAddress
             );
 
-            DatabaseReference saleRef = FirebaseDb.sSalesRef.push();
+            DatabaseReference saleRef = SaleEntry.sRef.push();
 
             saleRef.setValue(sale);
 
             String saleUid = saleRef.getKey();
 
-            FirebaseDb.sSalesKeysNames.child(mUserId).child(saleUid).setValue(sale.nombre_cliente);
-            FirebaseDb.sSalesKeysRuts.child(mUserId).child(saleUid).setValue(sale.rut_cliente);
+            SaleEntry.sKeysNames.child(getUid()).child(saleUid).setValue(sale.nombre_cliente);
+            SaleEntry.sKeysRuts.child(getUid()).child(saleUid).setValue(sale.rut_cliente);
 
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
@@ -216,7 +213,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
                 String articleKey = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
-                FirebaseDb.sArticlesSalesRef.child(saleUid).push().setValue(articleSale);
+                SaleEntry.sArticlesSalesRef.child(saleUid).push().setValue(articleSale);
                 it.remove(); // avoids a ConcurrentModificationException
             }
             Intent saleSuccessIntent = new Intent(CreateSaleActivity.this, MainActivity.class);

@@ -13,6 +13,7 @@ import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.SaleEntry;
 import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.ArticlesInSaleActivity;
@@ -39,8 +40,8 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUserId = FirebaseDb.getUserId();
-        mSalesQuery = FirebaseDb.sSalesRef;
-        mSalesKeys = FirebaseDb.sSalesKeysNames.child(mUserId);
+        mSalesQuery = SaleEntry.sRef;
+        mSalesKeys = SaleEntry.sKeysNames.child(mUserId);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         setupAdapter(mSalesKeys);
@@ -112,17 +113,17 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
-                            Query numberQuery = FirebaseDb.getSalesKeysByClientRut(newText);
+                            Query numberQuery = SaleEntry.getSalesKeysByClientRut(newText);
                             setupAdapter(numberQuery);
                         } else {
                             String text = newText.toUpperCase();
-                            Query nameQuery = FirebaseDb.getSalesKeysByClientName(text);
+                            Query nameQuery = SaleEntry.getSalesKeysByClientName(text);
                             setupAdapter(nameQuery);
                         }
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mAdapter, false);
                     } else {
-                        mSalesKeys = FirebaseDb.sSalesRef.limitToLast(ITEMS_LIMIT);
+                        mSalesKeys = SaleEntry.sRef.limitToLast(ITEMS_LIMIT);
                         setupAdapter(mSalesKeys);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mAdapter, false);

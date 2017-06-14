@@ -1,26 +1,21 @@
 package com.pfariasmunoz.indensales.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.SaleEntry;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
-import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
 import com.pfariasmunoz.indensales.ui.viewholders.BaseArticleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
@@ -59,7 +54,7 @@ public class ArticlesInSaleActivity extends SearchableActivity implements Adapte
         mRecyclerView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
         mSaleId = getIntent().getStringExtra(Constants.SALE_REPORT_KEY);
-        mSaleReportQuery = FirebaseDb.getArticlesSalesBySaleUid(mSaleId, null, null);
+        mSaleReportQuery = SaleEntry.getArticlesSalesBySaleUid(mSaleId, null, null);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(false);
         mRecyclerView.setHasFixedSize(false);
@@ -113,18 +108,18 @@ public class ArticlesInSaleActivity extends SearchableActivity implements Adapte
                     if (!TextUtils.isEmpty(newText)) {
                         if (MathHelper.isNumeric(newText)) {
                             String text = newText.toUpperCase();
-                            Query codeQuery = FirebaseDb.getArticlesSalesBySaleUid(mSaleId, null, text);
+                            Query codeQuery = SaleEntry.getArticlesSalesBySaleUid(mSaleId, null, text);
                             setupAdapter(codeQuery);
 
                         } else {
                             String text = newText.toUpperCase();
-                            Query descriptionQuery = FirebaseDb.getArticlesSalesBySaleUid(mSaleId, text, null);
+                            Query descriptionQuery = SaleEntry.getArticlesSalesBySaleUid(mSaleId, text, null);
                             setupAdapter(descriptionQuery);
                         }
                         mRecyclerView.swapAdapter(mAdapter, false);
                         mAdapter.notifyDataSetChanged();
                     } else {
-                        mSaleReportQuery = FirebaseDb.getArticlesSalesBySaleUid(mSaleId, null, null);
+                        mSaleReportQuery = SaleEntry.getArticlesSalesBySaleUid(mSaleId, null, null);
                         setupAdapter(mSaleReportQuery);
                         mRecyclerView.swapAdapter(mAdapter, false);
                         mAdapter.notifyDataSetChanged();

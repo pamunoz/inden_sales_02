@@ -19,8 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.FirebaseDb.ClientEntry;
+import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
@@ -77,7 +77,7 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
 
         mUserId = getIntent().getStringExtra(Constants.USER_ID_KEY);
 
-        mUserQuery = FirebaseDb.sUsers.child(mUserId);
+        mUserQuery = UserEntry.sRef.child(mUserId);
         setupUserListener(mUserQuery);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

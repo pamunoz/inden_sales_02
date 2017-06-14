@@ -1,17 +1,13 @@
 package com.pfariasmunoz.indensales.ui.activities;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,18 +20,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
-import com.pfariasmunoz.indensales.data.DbContract;
-import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.ForegroundImageView;
-import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.TextHelper;
 import com.satsuware.usefulviews.LabelledSpinner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import timber.log.Timber;
 
 public class EditUserActivity extends AppCompatActivity
         implements LabelledSpinner.OnItemChosenListener {
@@ -69,7 +62,7 @@ public class EditUserActivity extends AppCompatActivity
         setupSpinner(mUserRoleSpinner);
         mProfileBackgroundImageView.setForegroundResource(R.color.color_dark_grey_primary);
         mUserId = getIntent().getStringExtra("user_id");
-        mUserQuery = FirebaseDb.sUsers.child(mUserId);
+        mUserQuery = UserEntry.sRef.child(mUserId);
         handleInput();
         setupUserListener();
     }
@@ -112,13 +105,13 @@ public class EditUserActivity extends AppCompatActivity
         mUserEmailEditText.setText(user.getEmail());
         mUserRutEditText.setText(user.getRut());
         mUserPhoneEditText.setText(user.getTelefono());
-        int userRole = user.getRole();
+        int userRole = user.getRol();
         int selection;
         switch (userRole) {
-            case DbContract.USER_ROLE_ADMIN:
+            case UserEntry.USER_ROLE_ADMIN:
                 selection = 2;
                 break;
-            case DbContract.USER_ROLE_SALESCLERK:
+            case UserEntry.USER_ROLE_SALESCLERK:
                 selection = 1;
                 break;
             default:
@@ -142,7 +135,7 @@ public class EditUserActivity extends AppCompatActivity
         final String selectedText = adapterView.getItemAtPosition(position).toString();
         switch (labelledSpinner.getId()) {
             case R.id.sp_user_role:
-            FirebaseDb.getUserRole(mUserId).setValue(getRole(position)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            UserEntry.getRefUserRole(mUserId).setValue(getRole(position)).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     String firstPartMessage = getResources().getString(R.string.message_spinner_user_role);
@@ -169,13 +162,13 @@ public class EditUserActivity extends AppCompatActivity
         int role;
         switch (position) {
             case 2:
-                role = DbContract.USER_ROLE_ADMIN;
+                role = UserEntry.USER_ROLE_ADMIN;
                 break;
             case 1:
-                role = DbContract.USER_ROLE_SALESCLERK;
+                role = UserEntry.USER_ROLE_SALESCLERK;
                 break;
             default:
-                role = DbContract.USER_ROLE_GUEST;
+                role = UserEntry.USER_ROLE_GUEST;
         }
         return role;
 
@@ -184,12 +177,12 @@ public class EditUserActivity extends AppCompatActivity
 
 
     private void handleInput() {
-        mUserNameEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserName(mUserId)));
+        mUserNameEditText.setOnEditorActionListener(getListener(UserEntry.getRefUserName(mUserId)));
 
-        mUserEmailEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserEmail(mUserId)));
-        mUserPhoneEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserPhone(mUserId)));
+        mUserEmailEditText.setOnEditorActionListener(getListener(UserEntry.getRefUserEmail(mUserId)));
+        mUserPhoneEditText.setOnEditorActionListener(getListener(UserEntry.getRefUserPhone(mUserId)));
 
-        mUserRutEditText.setOnEditorActionListener(getListener(FirebaseDb.getUserRut(mUserId)));
+        mUserRutEditText.setOnEditorActionListener(getListener(UserEntry.getRefUserRut(mUserId)));
     }
 
     private TextView.OnEditorActionListener getListener(final DatabaseReference ref) {

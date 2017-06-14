@@ -22,6 +22,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
+import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.EditUserActivity;
@@ -48,7 +49,7 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mQuery = FirebaseDb.sUsers;
+        mQuery = UserEntry.sRef;
         setupAdapter(mQuery);
     }
 
@@ -112,14 +113,14 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                             setupAdapter(mQuery);
                         } else {
                             String name = newText.toUpperCase();
-                            Query nameQuery = FirebaseDb.getUserByName(name);
+                            Query nameQuery = UserEntry.getUserByName(name);
                             setupAdapter(nameQuery);
                         }
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mAdapter, false);
 
                     } else {
-                        mQuery = FirebaseDb.sUsers;
+                        mQuery = UserEntry.sRef;
                         setupAdapter(mQuery);
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.swapAdapter(mAdapter, false);

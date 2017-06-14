@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.DbContract;
+import com.pfariasmunoz.indensales.data.FirebaseDb.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.utils.TextHelper;
 
@@ -55,16 +56,16 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         String userEmail = user.getEmail().toLowerCase();
         mUserEmailTextView.setText(userEmail);
         mUserPhoneTextView.setText(user.getTelefono());
-        String userRole = getUserRole(user.getRole());
+        String userRole = getUserRole(user.getRol());
         mUserRolTextView.setText(userRole);
     }
 
     private String getUserRole(int role) {
         Resources res = itemView.getContext().getResources();
         String userRole;
-        if (role == DbContract.USER_ROLE_ADMIN) {
+        if (role == UserEntry.USER_ROLE_ADMIN) {
             userRole = res.getString(R.string.user_rol_admin);
-        } else if (role == DbContract.USER_ROLE_SALESCLERK) {
+        } else if (role == UserEntry.USER_ROLE_SALESCLERK) {
             userRole = res.getString(R.string.user_rol_salesclerk);
         } else {
             userRole = res.getString(R.string.user_rol_guest);

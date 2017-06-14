@@ -10,18 +10,18 @@ public class IndenUser {
     private String email;
     private String telefono;
     private String photoUrl;
-    private int role;
+    private int rol;
 
     public IndenUser() {
     }
 
-    public IndenUser(String nombre, String rut, String email, String telefono, String photoUrl, int role) {
+    public IndenUser(String nombre, String rut, String email, String telefono, String photoUrl, int rol) {
         this.nombre = nombre;
         this.rut = rut;
         this.email = email;
         this.telefono = telefono;
         this.photoUrl = photoUrl;
-        this.role = role;
+        this.rol = rol;
     }
 
     public String getNombre() {
@@ -64,11 +64,11 @@ public class IndenUser {
         this.photoUrl = photoUrl;
     }
 
-    public int getRole() {
-        return role;
+    public int getRol() {
+        return rol;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setRol(int rol) {
+        this.rol = rol;
     }
 }

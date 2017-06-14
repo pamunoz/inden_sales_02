@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FirebaseDb;
 import com.pfariasmunoz.indensales.data.FirebaseDb.ClientEntry;
+import com.pfariasmunoz.indensales.data.FirebaseDb.AddressEntry;
 import com.pfariasmunoz.indensales.data.models.Client;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
@@ -78,7 +79,7 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        mAddressQuery = FirebaseDb.sClientAdressRef.child(getRef(position).getKey());
+                        mAddressQuery = AddressEntry.sClientsKeysRef.child(getRef(position).getKey());
                         mAddressListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

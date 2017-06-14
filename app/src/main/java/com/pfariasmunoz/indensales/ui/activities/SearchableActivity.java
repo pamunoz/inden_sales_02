@@ -9,7 +9,7 @@ import com.pfariasmunoz.indensales.R;
  * Created by Pablo Farias on 07-06-17.
  */
 
-public class SearchableActivity extends AppCompatActivity {
+public class SearchableActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
