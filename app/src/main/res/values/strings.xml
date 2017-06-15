@@ -97,8 +97,7 @@
     <string name="value">Value</string>
 
     <string name="users_fragment_title">Users</string>
-
-    
+    <string name="quantity">Quantity</string>
 
 
 </resources>

@@ -10,4 +10,6 @@
     <dimen name="common_narrow_margin">8dp</dimen>
     <dimen name="common_tiny_margin">4dp</dimen>
     <dimen name="none_dimen">0dp</dimen>
+    <dimen name="dimen_icon">16dp</dimen>
+    <dimen name="large">24dp</dimen>
 </resources>

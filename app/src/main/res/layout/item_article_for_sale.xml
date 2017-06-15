@@ -8,10 +8,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="125dp"
-    android:layout_marginBottom="4dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="4dp"
+    style="@style/narrowCardViewMargin"
     card_view:cardCornerRadius="2dp"
     card_view:contentPadding="8dp">
 

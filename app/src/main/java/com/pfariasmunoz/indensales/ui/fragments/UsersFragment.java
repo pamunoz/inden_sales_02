@@ -68,6 +68,7 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                         startActivity(intent);
                     }
                 });
+
             }
         };
         mRecyclerView.setAdapter(mAdapter);

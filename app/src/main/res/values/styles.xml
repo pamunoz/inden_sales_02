@@ -72,5 +72,23 @@
         <item name="android:layout_weight">1</item>
         <item name="android:background">@color/transparent</item>
     </style>
+
+    <style name="darkIcon">
+        <item name="android:layout_width">@dimen/dimen_icon</item>
+        <item name="android:layout_height">@dimen/dimen_icon</item>
+        <item name="android:tint">@color/color_dark_grey_primary</item>
+    </style>
+
+    <style name="wideHMargin">
+        <item name="android:layout_marginRight">@dimen/common_wide_margin</item>
+        <item name="android:layout_marginLeft">@dimen/common_wide_margin</item>
+    </style>
+
+    <style name="narrowCardViewMargin">
+        <item name="android:layout_marginRight">@dimen/common_narrow_margin</item>
+        <item name="android:layout_marginLeft">@dimen/common_narrow_margin</item>
+        <item name="android:layout_marginTop">@dimen/common_tiny_margin</item>
+        <item name="android:layout_marginBottom">@dimen/common_tiny_margin</item>
+    </style>
     
 </resources>
