@@ -74,7 +74,6 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 viewHolder.bind(model);
                 viewHolder.getIsClientAddedCheckBox().setVisibility(View.GONE);
 
-                showRecyclerView();
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
@@ -106,7 +105,6 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
             }
         };
         mRecyclerView.setAdapter(mAdapter);
-        setupEmptyListListener(queryKeys);
     }
 
     @Override
@@ -116,7 +114,6 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
         if (mAddressListener != null) {
             mAddressQuery.removeEventListener(mAddressListener);
         }
-        cleanupEmptyListListener(mKeysRef);
     }
 
     @Override

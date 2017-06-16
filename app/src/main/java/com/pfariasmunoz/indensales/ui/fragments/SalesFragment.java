@@ -58,7 +58,6 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
             protected void populateViewHolder(SaleViewHolder viewHolder, Sale model, final int position) {
                 viewHolder.bind(model);
                 Timber.i("the report is aout " + model.nombre_cliente);
-                showRecyclerView();
                 viewHolder.getArticlesInSalesButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -78,15 +77,12 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         };
         mRecyclerView.setAdapter(mAdapter);
 
-        setupEmptyListListener(keysRef);
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mAdapter.cleanup();
-        cleanupEmptyListListener(mSalesKeys);
     }
 
     @Override

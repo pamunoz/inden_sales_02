@@ -51,7 +51,6 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
             @Override
             protected void populateViewHolder(UserViewHolder viewHolder, IndenUser model, final int position) {
                 viewHolder.bind(model);
-                showRecyclerView();
                 viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -72,14 +71,12 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
             }
         };
         mRecyclerView.setAdapter(mAdapter);
-        setupEmptyListListener(query);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mAdapter.cleanup();
-        cleanupEmptyListListener(mQuery);
     }
 
     @Override

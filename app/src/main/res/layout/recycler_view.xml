@@ -4,25 +4,19 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_empty_list"
-        android:padding="16dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+    <include
+        layout="@layout/empty_list_clients"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:text="@string/empty_sales_report_message"
-        android:gravity="center"/>
+        android:layout_height="match_parent"/>
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_content"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

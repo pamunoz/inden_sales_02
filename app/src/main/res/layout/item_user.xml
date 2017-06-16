@@ -8,8 +8,8 @@
     android:layout_width="match_parent"
     android:layout_height="125dp"
     style="@style/narrowCardViewMargin"
-    card_view:cardCornerRadius="4dp"
-    card_view:contentPadding="8dp">
+    card_view:cardCornerRadius="@dimen/common_tiny_margin"
+    card_view:contentPadding="@dimen/common_narrow_margin">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             android:layout_below="@+id/tv_user_rut"
             android:layout_toEndOf="@+id/imv_user_profile_pic"
             android:layout_toRightOf="@+id/imv_user_profile_pic"
-            android:src="@drawable/ic_email_black_24dp"
+            app:srcCompat="@drawable/ic_email_black_24dp"
             android:tint="@color/color_dark_grey_primary"/>
         <TextView
             android:id="@+id/tv_user_email"
@@ -73,7 +73,7 @@
             android:layout_below="@+id/img_user_email"
             android:layout_toEndOf="@+id/imv_user_profile_pic"
             android:layout_toRightOf="@+id/imv_user_profile_pic"
-            android:src="@drawable/ic_phone_black_24px"/>
+            app:srcCompat="@drawable/ic_phone_black_24px"/>
         <TextView
             android:id="@+id/tv_user_phone"
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             android:layout_toEndOf="@+id/tv_user_rol"
             android:layout_toRightOf="@+id/tv_user_rol"
             android:background="@color/transparent"
-            android:src="@drawable/ic_edit_black_24dp"
+            app:srcCompat="@drawable/ic_edit_black_24dp"
             android:paddingRight="@dimen/large"
             android:paddingEnd="@dimen/large"
             android:paddingLeft="@dimen/large"

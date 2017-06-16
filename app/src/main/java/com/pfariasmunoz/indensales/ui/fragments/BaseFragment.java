@@ -34,8 +34,6 @@ public class BaseFragment extends Fragment {
     RecyclerView mRecyclerView;
     @BindView(R.id.pb_loading_indicator)
     ProgressBar mProgressBar;
-    @BindView(R.id.tv_empty_list)
-    TextView mEmptyListTextView;
 
     public static final int ITEMS_LIMIT = 50;
 
@@ -57,7 +55,6 @@ public class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
         ButterKnife.bind(this, view);
-        showProgressBar();
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -70,49 +67,5 @@ public class BaseFragment extends Fragment {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    public void showRecyclerView() {
-        mRecyclerView.setVisibility(View.VISIBLE);
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mEmptyListTextView.setVisibility(View.INVISIBLE);
-    }
-
-    private void showProgressBar() {
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.VISIBLE);
-        mEmptyListTextView.setVisibility(View.INVISIBLE);
-    }
-
-    public void showEmptyLisText() {
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mEmptyListTextView.setVisibility(View.VISIBLE);
-    }
-
-    public void setupEmptyListListener(Query query) {
-        mEmptyListListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (!dataSnapshot.exists() || dataSnapshot.getChildrenCount() == 0) {
-                    showEmptyLisText();
-                } else {
-                    showRecyclerView();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        query.addValueEventListener(mEmptyListListener);
-    }
-
-    public void cleanupEmptyListListener(Query query) {
-        if (mEmptyListListener != null) {
-            query.removeEventListener(mEmptyListListener);
-        }
     }
 }

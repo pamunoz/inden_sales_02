@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Setting ViewPager for each Tabs
-        setupViewPager(mViewPager);
+        //setupViewPager(mViewPager);
 
         //setupViewPager(viewPager);
         // Set Tabs inside Toolbar
@@ -190,7 +190,7 @@ public class MainActivity extends BaseActivity
 
     private void onSignedInInitialize(FirebaseUser user) {
         if (user != null) {
-
+            setupViewPager(mViewPager);
             mUserName = user.getDisplayName();
             mUserEmail = user.getEmail();
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
