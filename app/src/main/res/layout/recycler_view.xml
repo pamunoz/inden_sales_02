@@ -5,6 +5,13 @@
              android:layout_height="match_parent">
 
     <include
+        android:id="@+id/empty_sales_view"
+        layout="@layout/empty_list_sales"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <include
         android:id="@+id/empty_client_view"
         layout="@layout/empty_list_clients"
         android:layout_width="match_parent"

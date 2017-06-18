@@ -20,12 +20,16 @@ import com.pfariasmunoz.indensales.ui.viewholders.SaleViewHolder;
 import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import butterknife.BindView;
 import timber.log.Timber;
 
 public class SalesFragment extends BaseFragment implements AdapterSetter{
 
     private Query mSalesQuery;
     private Query mSalesKeys;
+
+    @BindView(R.id.empty_sales_view)
+    View mEmptySalesView;
 
    // FirebaseRecyclerAdapter<Sale, SaleViewHolder> mRecyclerAdapter;
     FirebaseIndexRecyclerAdapter<Sale, SaleViewHolder> mAdapter;
@@ -57,7 +61,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
             @Override
             protected void populateViewHolder(SaleViewHolder viewHolder, Sale model, final int position) {
                 viewHolder.bind(model);
-                Timber.i("the report is aout " + model.nombre_cliente);
+                updateViews();
                 viewHolder.getArticlesInSalesButton().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -73,6 +77,11 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                         getRef(position).child(aprob).setValue(isChecked);
                     }
                 });
+            }
+
+            @Override
+            protected void onDataChanged() {
+                updateViews();
             }
         };
         mRecyclerView.setAdapter(mAdapter);
@@ -129,4 +138,9 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void updateViews() {
+        super.updateViews();
+        mEmptySalesView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+    }
 }

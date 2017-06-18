@@ -100,6 +100,7 @@
     <string name="quantity">Quantity</string>
     <string name="money_symbol" translatable="false">$</string>
     <string name="no_client_found">No client found.</string>
+    <string name="no_sales_found">No sales found</string>
 
 
 </resources>
