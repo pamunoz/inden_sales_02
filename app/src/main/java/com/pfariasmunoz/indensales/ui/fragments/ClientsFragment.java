@@ -25,6 +25,7 @@ import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.ClientViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import butterknife.BindView;
 import timber.log.Timber;
 
 /**
@@ -38,6 +39,8 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
     private DatabaseReference mKeysRef;
     private Query mAddressQuery;
     private ValueEventListener mAddressListener;
+    @BindView(R.id.empty_client_view)
+    View mEmptyClientView;
 
     public ClientsFragment() {
         // Required empty public constructor
@@ -72,6 +75,7 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
             @Override
             protected void populateViewHolder(ClientViewHolder viewHolder, Client model, final int position) {
                 viewHolder.bind(model);
+                updateViews();
                 viewHolder.getIsClientAddedCheckBox().setVisibility(View.GONE);
 
                 viewHolder.getAddSaleButton().setOnClickListener(new View.OnClickListener() {
@@ -102,6 +106,12 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
 
                     }
                 });
+            }
+
+            @Override
+            protected void onDataChanged() {
+                updateViews();
+
             }
         };
         mRecyclerView.setAdapter(mAdapter);
@@ -160,4 +170,9 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void updateViews() {
+        super.updateViews();
+        mEmptyClientView.setVisibility(mAdapter.getItemCount() == 0 ? View.VISIBLE : View.INVISIBLE);
+    }
 }

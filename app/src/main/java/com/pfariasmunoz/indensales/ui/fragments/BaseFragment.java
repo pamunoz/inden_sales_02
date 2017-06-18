@@ -68,4 +68,8 @@ public class BaseFragment extends Fragment {
         inflater.inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    public void updateViews() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
 }

@@ -5,9 +5,11 @@
              android:layout_height="match_parent">
 
     <include
+        android:id="@+id/empty_client_view"
         layout="@layout/empty_list_clients"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"

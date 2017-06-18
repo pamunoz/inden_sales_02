@@ -99,6 +99,7 @@
     <string name="users_fragment_title">Users</string>
     <string name="quantity">Quantity</string>
     <string name="money_symbol" translatable="false">$</string>
+    <string name="no_client_found">No client found.</string>
 
 
 </resources>
