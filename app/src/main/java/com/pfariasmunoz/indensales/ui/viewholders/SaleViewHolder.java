@@ -45,10 +45,9 @@ public class SaleViewHolder extends RecyclerView.ViewHolder {
     public void bind(Sale report) {
         String total = String.valueOf(report.total);
         String stringTotal = MathHelper.getLocalCurrency(total);
-        String totalWithoutSimbol = stringTotal.substring(1);
         String stringClientName = TextHelper.capitalizeFirestLetter(report.nombre_cliente);
         String stringAddress = TextHelper.capitalizeFirestLetter(report.direccion);
-        mTotalSalePriceTextView.setText(totalWithoutSimbol);
+        mTotalSalePriceTextView.setText(stringTotal);
         mClientNameSaleTextView.setText(stringClientName);
         mClientRutSaleTextView.setText(report.rut_cliente);
         mClientAddressSaleTextView.setText(stringAddress);

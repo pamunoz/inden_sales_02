@@ -118,8 +118,6 @@ public class MainActivity extends BaseActivity
         // Initialize Firebase components
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        writeNewUserIfNeeded();
-
         // Initialize the authentication statle listener of firebase
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -140,7 +138,6 @@ public class MainActivity extends BaseActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
-
 
         String clientsFragmentTitle = getResources().getString(R.string.clients_fragment_title);
         String salesFragmentTitle = getResources().getString(R.string.sales_fragment_title);
@@ -189,25 +186,24 @@ public class MainActivity extends BaseActivity
     }
 
     private void onSignedInInitialize(FirebaseUser user) {
-        if (user != null) {
-            setupViewPager(mViewPager);
-            mUserName = user.getDisplayName();
-            mUserEmail = user.getEmail();
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            View headerView = navigationView.getHeaderView(0);
-            mNavBarUserEmailTextView = (TextView) headerView.findViewById(R.id.tv_email_nav_bar);
-            mNavBarUserNameTextView = (TextView) headerView.findViewById(R.id.tv_user_name_nav_bar);
-            mNavBarUserPhotoImageView = (ImageView) headerView.findViewById(R.id.imv_user_photo);
-            if (!TextUtils.isEmpty(mUserEmail)) {
-                mNavBarUserEmailTextView.setText(mUserEmail);
-            }
-            if (!TextUtils.isEmpty(mUserName)) {
-                mNavBarUserNameTextView.setText(mUserName);
-            }
+        setupViewPager(mViewPager);
+        writeNewUserIfNeeded(user);
+        mUserName = user.getDisplayName();
+        mUserEmail = user.getEmail();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        mNavBarUserEmailTextView = (TextView) headerView.findViewById(R.id.tv_email_nav_bar);
+        mNavBarUserNameTextView = (TextView) headerView.findViewById(R.id.tv_user_name_nav_bar);
+        mNavBarUserPhotoImageView = (ImageView) headerView.findViewById(R.id.imv_user_photo);
+        if (!TextUtils.isEmpty(mUserEmail)) {
+            mNavBarUserEmailTextView.setText(mUserEmail);
+        }
+        if (!TextUtils.isEmpty(mUserName)) {
+            mNavBarUserNameTextView.setText(mUserName);
+        }
 
-            if (user.getPhotoUrl() != null) {
-                Glide.with(this).load(user.getPhotoUrl().toString()).into(mNavBarUserPhotoImageView);
-            }
+        if (user.getPhotoUrl() != null) {
+            Glide.with(this).load(user.getPhotoUrl().toString()).into(mNavBarUserPhotoImageView);
         }
 
     }
@@ -301,8 +297,8 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
@@ -349,26 +345,23 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-    private void writeNewUserIfNeeded() {
-        final FirebaseUser user = mFirebaseAuth.getCurrentUser();
+    private void writeNewUserIfNeeded(final FirebaseUser user) {
         mUserReference = UserEntry.sRef.child(getUid());
-        if (user != null) {
-            mUsersListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (!dataSnapshot.exists()) {
-                        IndenUser indenUser = getIndenUser(user);
-                        mUserReference.setValue(indenUser);
-                    }
+        mUsersListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    IndenUser indenUser = getIndenUser(user);
+                    mUserReference.setValue(indenUser);
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            };
-            mUserReference.addListenerForSingleValueEvent(mUsersListener);
-        }
+            }
+        };
+        mUserReference.addListenerForSingleValueEvent(mUsersListener);
     }
 
 

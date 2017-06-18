@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/salesThemePC"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/salesThemePC">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="0dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -39,9 +39,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:orientation="vertical"
+        android:layout_gravity="bottom"
 
-        android:layout_gravity="bottom">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,47 +51,51 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/bt_reset_sale"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:textColor="@color/color_dark_grey_primary"
-                    android:ellipsize="end"
                     android:layout_height="36dp"
-                    android:text="@string/reset_sale"/>
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/reset_sale"
+                    android:textColor="@color/color_dark_grey_primary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/money_symbol"
+                    android:layout_weight="0.2"/>
 
                 <TextView
                     android:id="@+id/tv_sale_total_price"
                     android:layout_width="0dp"
-                    android:layout_weight="1.5"
                     android:layout_height="wrap_content"
-                    tools:text="$120.000"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
+                    android:layout_weight="1.5"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="$120.000"/>
                 <Button
                     android:id="@+id/btn_see_current_sales"
-                    android:text="@string/summary_sale"
-                    android:textColor="@color/color_dark_grey_primary"
                     android:layout_width="0dp"
-                    android:maxLines="1"
-                    android:ellipsize="end"
+                    android:layout_height="36dp"
                     android:layout_weight="1"
-                    android:layout_height="36dp"/>
-
-
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/summary_sale"
+                    android:textColor="@color/color_dark_grey_primary"/>
 
             </LinearLayout>
 
@@ -99,15 +103,15 @@
                 android:id="@+id/bt_create_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/make_sale_button"
-                android:textColor="@color/white"
-                android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/button_sale_background"
                 android:paddingEnd="16dp"
+                android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingStart="16dp"
-                android:paddingLeft="16dp"
+                android:text="@string/make_sale_button"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 />
 
 
@@ -117,40 +121,40 @@
             android:id="@+id/ll_expand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:background="@color/white"
-            android:clickable="true">
+            android:clickable="true"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/img_toggle_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"/>
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:text="@string/client_details_sale"
-                android:textStyle="italic"
                 android:textColor="@color/color_dark_grey_primary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textStyle="italic"/>
 
         </LinearLayout>
 
         <com.github.aakira.expandablelayout.ExpandableWeightLayout
-            android:layout_width="match_parent"
             android:id="@+id/expandableLayout"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_gravity="bottom"
             android:layout_weight="20"
-            android:paddingRight="16dp"
+            android:background="@color/white"
             android:paddingEnd="16dp"
             android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:paddingStart="16dp"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:ael_expanded="false"
             app:ael_duration="500"
+            app:ael_expanded="false"
             app:ael_orientation="vertical">
 
             <LinearLayout
@@ -162,20 +166,20 @@
                     android:id="@+id/tv_client_name"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:textSize="16sp"
-                    android:maxLines="1"
-                    android:textColor="@color/color_dark_grey_primary"
-                    android:ellipsize="end"
                     android:layout_weight="1"
-                    android:text="@string/client_name"/>
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/client_name"
+                    android:textColor="@color/color_dark_grey_primary"
+                    android:textSize="16sp"/>
                 <TextView
                     android:id="@+id/tv_client_rut"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/color_light_grey_primary"
-                    android:ellipsize="end"
-                    android:layout_weight="1"
                     tools:text="11.111.111-1"/>
 
                 <LinearLayout
@@ -188,41 +192,41 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:src="@drawable/ic_business_black_24px"
-                            android:layout_width="18dp"
-                            android:tint="@color/color_dark_grey_primary"
-                            android:layout_height="18dp"/>
+                            android:tint="@color/color_dark_grey_primary"/>
                         <ImageView
-                            android:src="@drawable/ic_phone_black_24px"
                             android:layout_width="18dp"
-                            android:tint="@color/color_dark_grey_primary"
-                            android:layout_height="18dp"/>
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_phone_black_24px"
+                            android:tint="@color/color_dark_grey_primary"/>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp">
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/tv_client_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="end"
                             android:maxLines="1"
                             android:textColor="@color/color_light_grey_primary"
-                            android:ellipsize="end"
                             tools:text="Avda Ortuzar 1068, Santiago, Melipilla"/>
 
                         <TextView
                             android:id="@+id/tv_client_phone"
-                            android:maxLines="1"
-                            android:ellipsize="end"
-                            android:textColor="@color/color_light_grey_primary"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/color_light_grey_primary"/>
 
                     </LinearLayout>
                 </LinearLayout>

@@ -26,12 +26,23 @@ public class MathHelper {
 
 
     public static String getLocalCurrency(String number) {
+        String result = "";
         Long n = 0L;
         if (MathHelper.isNumeric(number)) {
             n = Long.valueOf(number);
         }
         NumberFormat format = NumberFormat.getInstance();
-        return String.valueOf(format.format(n));
+
+        result = String.valueOf(format.format(n)).trim();
+        if (result.length() > 4) {
+            return result;
+        } else {
+            if (result.substring(0, 1).equals(".") || result.substring(0, 1).equals(",")) {
+                return result.substring(1);
+            }
+            return result;
+
+        }
 
     }
 
