@@ -7,12 +7,12 @@
                 android:layout_height="match_parent">
     <ImageView
         android:id="@+id/img_no_client_icon"
-        android:layout_width="200dp"
+        android:layout_width="140dp"
         android:layout_marginTop="16dp"
-        android:layout_height="200dp"
+        android:layout_height="140dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_icon_sales"
+        android:src="@drawable/ic_no_sales"
 
         />
     <TextView

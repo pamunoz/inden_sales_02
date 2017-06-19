@@ -214,7 +214,7 @@ public class MainActivity extends BaseActivity
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
-                            .setLogo(R.drawable.indenlogo2)
+                            .setLogo(R.drawable.ic_inden_app_authsvg)
                             .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                             .setProviders(Arrays.asList(
 
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActivity
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
-                            .setLogo(R.drawable.indenlogo2)
+                            .setLogo(R.drawable.ic_inden_app_authsvg)
                             .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                             .setProviders(Arrays.asList(
                                     new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),

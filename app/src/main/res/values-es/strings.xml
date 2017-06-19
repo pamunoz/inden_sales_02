@@ -58,4 +58,6 @@
     <string name="users_fragment_title">Usuarios</string>
     <string name="value">Valor</string>
     <string name="quantity">Cantidad</string>
+    <string name="no_client_found">no hay clientes</string>
+    <string name="no_sales_found">No tiene ventas</string>
 </resources>
