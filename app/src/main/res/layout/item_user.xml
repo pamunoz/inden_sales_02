@@ -120,6 +120,8 @@
             android:paddingLeft="@dimen/large"
             android:paddingRight="@dimen/large"
             android:paddingStart="@dimen/large"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
             app:srcCompat="@drawable/ic_edit_black_24dp"/>
 
         <Button

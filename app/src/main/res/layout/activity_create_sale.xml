@@ -38,76 +38,79 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="110dp"
         android:layout_gravity="bottom"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="0.6"
             android:background="@color/salesThemePC"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginStart="16dp"
-                android:orientation="horizontal">
+                android:paddingRight="8dp"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingEnd="8dp">
 
                 <Button
                     android:id="@+id/bt_reset_sale"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:textStyle="bold"
                     android:text="@string/reset_sale"
                     android:textColor="@color/color_dark_grey_primary"/>
 
                 <TextView
+                    android:id="@+id/tv_money_symbol"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/money_symbol"
-                    android:layout_weight="0.2"/>
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/tv_sale_total_price"
+                    android:layout_toStartOf="@+id/tv_sale_total_price"
+                    android:text="@string/money_symbol"/>
 
                 <TextView
                     android:id="@+id/tv_sale_total_price"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
+                    android:layout_centerHorizontal="true"
                     android:gravity="center"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
                     android:textColor="@color/white"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    tools:text="$120.000"/>
+                    tools:text="120.000"/>
                 <Button
                     android:id="@+id/btn_see_current_sales"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/summary_sale"
                     android:textColor="@color/color_dark_grey_primary"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/bt_create_sale"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/button_sale_background"
-                android:paddingEnd="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingStart="16dp"
+                style="@style/common_btn"
                 android:text="@string/make_sale_button"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -170,6 +173,7 @@
                     android:text="@string/client_name"
                     android:textColor="@color/color_dark_grey_primary"
                     android:textSize="16sp"/>
+
                 <TextView
                     android:id="@+id/tv_client_rut"
                     android:layout_width="wrap_content"
@@ -185,20 +189,23 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            app:srcCompat="@drawable/ic_business_black_24px"
-                            android:tint="@color/color_dark_grey_primary"/>
+                            android:tint="@color/color_dark_grey_primary"
+                            app:srcCompat="@drawable/ic_business_black_24px"/>
+
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            app:srcCompat="@drawable/ic_phone_black_24px"
-                            android:tint="@color/color_dark_grey_primary"/>
+                            android:tint="@color/color_dark_grey_primary"
+                            app:srcCompat="@drawable/ic_phone_black_24px"/>
 
                     </LinearLayout>
 

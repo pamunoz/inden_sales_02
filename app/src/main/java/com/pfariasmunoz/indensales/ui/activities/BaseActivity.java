@@ -15,6 +15,7 @@ import com.pfariasmunoz.indensales.data.models.IndenUser;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +24,6 @@ public class BaseActivity extends AppCompatActivity {
 
     public String getUid() {
         return FbContract.getUserId();
-    }
-
-    public DatabaseReference getDb() {
-        return FbContract.sDbRef;
     }
 
     public IndenUser getIndenUser(FirebaseUser user) {

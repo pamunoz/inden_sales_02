@@ -90,5 +90,14 @@
         <item name="android:layout_marginTop">@dimen/common_tiny_margin</item>
         <item name="android:layout_marginBottom">@dimen/common_tiny_margin</item>
     </style>
+
+    <style name="common_btn">
+        <item name="android:paddingLeft">@dimen/common_wide_margin</item>
+        <item name="android:paddingRight">@dimen/common_wide_margin</item>
+        <item name="android:paddingTop">@dimen/common_narrow_margin</item>
+        <item name="android:paddingBottom">@dimen/common_narrow_margin</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     
 </resources>
