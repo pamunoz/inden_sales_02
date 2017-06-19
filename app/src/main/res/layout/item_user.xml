@@ -5,9 +5,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
+    style="@style/narrowCardViewMargin"
     android:layout_width="match_parent"
     android:layout_height="125dp"
-    style="@style/narrowCardViewMargin"
     card_view:cardCornerRadius="@dimen/common_tiny_margin"
     card_view:contentPadding="@dimen/common_narrow_margin">
 
@@ -15,16 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imv_user_profile_pic"
+            style="@style/wideHMargin"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="8dp"
-            style="@style/wideHMargin"
             app:civ_border_color="@color/transparent"
             app:civ_border_width="2dp"/>
 
@@ -36,6 +35,7 @@
             android:layout_toRightOf="@+id/imv_user_profile_pic"
             android:textColor="@color/color_dark_grey_primary"
             tools:text="Pablo Farias Muñoz"/>
+
         <TextView
             android:id="@+id/tv_user_rut"
             android:layout_width="match_parent"
@@ -53,8 +53,9 @@
             android:layout_below="@+id/tv_user_rut"
             android:layout_toEndOf="@+id/imv_user_profile_pic"
             android:layout_toRightOf="@+id/imv_user_profile_pic"
-            app:srcCompat="@drawable/ic_email_black_24dp"
-            android:tint="@color/color_dark_grey_primary"/>
+            android:tint="@color/color_dark_grey_primary"
+            app:srcCompat="@drawable/ic_email_black_24dp"/>
+
         <TextView
             android:id="@+id/tv_user_email"
             android:layout_width="match_parent"
@@ -74,6 +75,7 @@
             android:layout_toEndOf="@+id/imv_user_profile_pic"
             android:layout_toRightOf="@+id/imv_user_profile_pic"
             app:srcCompat="@drawable/ic_phone_black_24px"/>
+
         <TextView
             android:id="@+id/tv_user_phone"
             android:layout_width="match_parent"
@@ -87,8 +89,6 @@
             android:layout_toRightOf="@+id/img_user_phone"
             tools:text="94062006"/>
 
-
-
         <TextView
             android:id="@+id/tv_user_rol"
             android:layout_width="wrap_content"
@@ -97,11 +97,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_vertical|start"
-            android:layout_marginTop="@dimen/common_narrow_margin"
-            android:layout_marginLeft="@dimen/common_wide_margin"
-            android:layout_marginStart="@dimen/common_wide_margin"
-            android:layout_marginRight="@dimen/common_wide_margin"
             android:layout_marginEnd="@dimen/common_wide_margin"
+            android:layout_marginLeft="@dimen/common_wide_margin"
+            android:layout_marginRight="@dimen/common_wide_margin"
+            android:layout_marginStart="@dimen/common_wide_margin"
+            android:layout_marginTop="@dimen/common_narrow_margin"
             android:textAllCaps="true"
             android:textColor="@color/color_dark_grey_primary"
             android:textSize="16sp"
@@ -111,16 +111,16 @@
         <ImageButton
             android:id="@+id/imb_edit_user"
             style="@style/darkIcon"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_toEndOf="@+id/tv_user_rol"
             android:layout_toRightOf="@+id/tv_user_rol"
             android:background="@color/transparent"
-            app:srcCompat="@drawable/ic_edit_black_24dp"
-            android:paddingRight="@dimen/large"
             android:paddingEnd="@dimen/large"
             android:paddingLeft="@dimen/large"
-            android:paddingStart="@dimen/large"/>
+            android:paddingRight="@dimen/large"
+            android:paddingStart="@dimen/large"
+            app:srcCompat="@drawable/ic_edit_black_24dp"/>
 
         <Button
             android:id="@+id/bt_add_clients"

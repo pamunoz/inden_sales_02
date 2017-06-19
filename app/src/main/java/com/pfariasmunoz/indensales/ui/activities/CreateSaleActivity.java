@@ -107,7 +107,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         }
 
         mLayout.setOnClickListener(this);
-        mToggleImageView.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+        mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
         mExpandableLayout.setOnClickListener(this);
 
         // Initialize Firebase components
@@ -381,14 +381,14 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
             case R.id.ll_expand:
                 if (!mExpandableLayout.isExpanded()) {
                     mExpandableLayout.expand();
-                    mToggleImageView.setBackgroundResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                    mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
                 } else {
-                    mToggleImageView.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                    mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
                     mExpandableLayout.collapse();
                 }
                 break;
             case R.id.expandableLayout:
-                mToggleImageView.setBackgroundResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
                 mExpandableLayout.collapse();
                 break;
         }

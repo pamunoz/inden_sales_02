@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/narrowCardViewMargin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="2dp"
-    card_view:contentPadding="16dp"
-    style="@style/narrowCardViewMargin">
+    card_view:contentPadding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,89 +17,81 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="9"
             android:layout_height="wrap_content"
+            android:layout_weight="9"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:src="@drawable/ic_business_black_24px"
-                    android:layout_width="wrap_content"
-                    android:tint="@color/color_light_grey_primary"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:tint="@color/color_light_grey_primary"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_phone_black_24px"/>
+                    android:tint="@color/color_light_grey_primary"
+                    app:srcCompat="@drawable/ic_business_black_24px"/>
 
-
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:tint="@color/color_light_grey_primary"
+                    app:srcCompat="@drawable/ic_phone_black_24px"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp">
-
-
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_client_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/color_dark_grey_primary"
                     android:maxLines="2"
-                    android:textSize="16sp"
-                    android:text="@string/client_address"/>
+                    android:text="@string/client_address"
+                    android:textColor="@color/color_dark_grey_primary"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/tv_client_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:maxLines="1"
-                    android:textSize="16sp"
                     android:layout_gravity="center|start"
-                    android:text="@string/client_phone"
+                    android:layout_marginEnd="0dp"
                     android:layout_marginRight="0dp"
-                    android:layout_marginEnd="0dp"/>
-
+                    android:maxLines="1"
+                    android:text="@string/client_phone"
+                    android:textSize="16sp"/>
 
             </LinearLayout>
-
-
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_client_zone"
             android:layout_width="0dp"
-            android:layout_weight="1.2"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:textColor="@color/white"
+            android:layout_weight="1.2"
             android:background="@drawable/circle"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

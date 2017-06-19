@@ -6,9 +6,9 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
+    style="@style/narrowCardViewMargin"
     android:layout_width="match_parent"
     android:layout_height="125dp"
-    style="@style/narrowCardViewMargin"
     card_view:cardCornerRadius="2dp"
     card_view:contentPadding="8dp">
 
@@ -37,7 +37,6 @@
 
         <TextView
             android:id="@+id/tv_article_total_price"
-            android:textSize="16sp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"
@@ -48,6 +47,7 @@
             android:gravity="start"
             android:maxLines="1"
             android:textColor="@color/color_light_grey_primary"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/tv_total_price_symbol"
@@ -103,7 +103,6 @@
             android:textColor="@color/color_light_grey_primary"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_article_total_price"
             app:layout_constraintLeft_toLeftOf="parent"/>
-
 
     </android.support.constraint.ConstraintLayout>
 

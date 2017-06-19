@@ -1,57 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:orientation="vertical"
-
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
     <TextView
         android:id="@+id/tv_article_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_dark_grey_primary"
-        android:layout_centerVertical="true"
         android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_dark_grey_primary"
         android:textSize="16sp"
-        tools:text="This is a long description of a product, I don't know why is so long"
-        />
+        tools:text="This is a long description of a product, I don't know why is so long"/>
     <TextView
         android:id="@+id/tv_article_code"
-        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_rectangle"
+        android:maxLines="1"
         android:paddingEnd="4dp"
+        android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingStart="4dp"
-        android:maxLines="1"
-        android:paddingLeft="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:textAlignment="center"
-        android:background="@drawable/rounded_rectangle"
-        tools:text="67000000"
-        android:layout_alignParentBottom="true"
-        />
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        tools:text="67000000"/>
     <TextView
         android:id="@+id/tv_price_symbol"
-        android:layout_toStartOf="@+id/tv_article_price"
-        android:layout_toLeftOf="@+id/tv_article_price"
-        android:layout_alignBaseline="@+id/tv_article_price"
         android:layout_width="wrap_content"
-        android:textColor="@color/red"
-        android:layout_centerVertical="true"
         android:layout_height="wrap_content"
-        android:text="$"/>
+        android:layout_alignBaseline="@+id/tv_article_price"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/tv_article_price"
+        android:layout_toStartOf="@+id/tv_article_price"
+        android:text="@string/money_symbol"
+        android:textColor="@color/red"/>
     <TextView
         android:id="@+id/tv_article_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:textColor="@color/red"
-        android:maxLines="1"
-        android:textSize="16sp"
         android:layout_centerVertical="true"
-        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/red"
+        android:textSize="16sp"
         tools:text="12.999"/>
 
 </RelativeLayout>

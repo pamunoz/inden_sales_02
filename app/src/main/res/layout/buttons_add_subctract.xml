@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -7,11 +8,11 @@
     <ImageButton
         android:id="@+id/imb_up_arrow"
         style="@style/quantityBtn"
-        android:src="@drawable/ic_up_arrow"/>
+        app:srcCompat="@drawable/ic_up_arrow"/>
 
     <ImageButton
         android:id="@+id/imb_down_arrow"
         style="@style/quantityBtn"
-        android:src="@drawable/ic_down_arrow"/>
+        app:srcCompat="@drawable/ic_down_arrow"/>
 
 </LinearLayout>

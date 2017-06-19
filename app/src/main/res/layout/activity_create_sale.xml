@@ -40,7 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_gravity="bottom"
-
         android:orientation="vertical">
 
         <LinearLayout
@@ -111,8 +110,7 @@
                 android:paddingStart="16dp"
                 android:text="@string/make_sale_button"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold"/>
 
 
         </LinearLayout>
@@ -194,12 +192,12 @@
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_business_black_24px"
+                            app:srcCompat="@drawable/ic_business_black_24px"
                             android:tint="@color/color_dark_grey_primary"/>
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_phone_black_24px"
+                            app:srcCompat="@drawable/ic_phone_black_24px"
                             android:tint="@color/color_dark_grey_primary"/>
 
                     </LinearLayout>
