@@ -2,6 +2,7 @@ package com.pfariasmunoz.indensales.ui.viewholders;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -49,22 +50,33 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         if (user.getPhotoUrl() != null) {
             Glide.with(itemView.getContext()).load(user.getPhotoUrl()).into(mUserPhotoImageView);
         }
-        String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
-        mUserNameTextView.setText(userName);
-        mUserRutTextView.setText(user.getRut());
-        String userEmail = user.getEmail().toLowerCase();
-        mUserEmailTextView.setText(userEmail);
-        mUserPhoneTextView.setText(user.getTelefono());
-        String userRole = getUserRole(user.getRol());
-        mUserRolTextView.setText(userRole);
+        if (user.getNombre() != null) {
+            String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
+            mUserNameTextView.setText(userName);
+        }
+        if (user.getRut() != null) {
+            mUserRutTextView.setText(user.getRut());
+        }
+        if (user.getEmail() != null) {
+            String userEmail = user.getEmail().toLowerCase();
+            mUserEmailTextView.setText(userEmail);
+        }
+        if (user.getTelefono() != null) {
+            mUserPhoneTextView.setText(user.getTelefono());
+        }
+        if (user.getRol() != null) {
+            String userRole = getUserRole(user.getRol());
+            mUserRolTextView.setText(userRole);
+        }
+
     }
 
-    private String getUserRole(int role) {
+    private String getUserRole(String role) {
         Resources res = itemView.getContext().getResources();
         String userRole;
-        if (role == UserEntry.USER_ROLE_ADMIN) {
+        if (TextUtils.equals(role, UserEntry.USER_ROLE_ADMIN)) {
             userRole = res.getString(R.string.user_rol_admin);
-        } else if (role == UserEntry.USER_ROLE_SALESCLERK) {
+        } else if (TextUtils.equals(role, UserEntry.USER_ROLE_SALESCLERK)) {
             userRole = res.getString(R.string.user_rol_salesclerk);
         } else {
             userRole = res.getString(R.string.user_rol_guest);

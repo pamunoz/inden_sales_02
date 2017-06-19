@@ -105,7 +105,7 @@ public class EditUserActivity extends AppCompatActivity
         mUserEmailEditText.setText(user.getEmail());
         mUserRutEditText.setText(user.getRut());
         mUserPhoneEditText.setText(user.getTelefono());
-        int userRole = user.getRol();
+        String userRole = user.getRol();
         int selection;
         switch (userRole) {
             case UserEntry.USER_ROLE_ADMIN:
@@ -158,8 +158,8 @@ public class EditUserActivity extends AppCompatActivity
      * @param position del adapter.
      * @return el valor numerico del rol del usuario.
      */
-    private int getRole(int position) {
-        int role;
+    private String getRole(int position) {
+        String role;
         switch (position) {
             case 2:
                 role = UserEntry.USER_ROLE_ADMIN;

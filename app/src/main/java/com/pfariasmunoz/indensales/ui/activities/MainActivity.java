@@ -46,6 +46,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -118,6 +119,11 @@ public class MainActivity extends BaseActivity
         // Initialize Firebase components
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+        // Write new user if needed
+        if (mFirebaseAuth.getCurrentUser() != null) {
+            writeNewUserIfNeeded(mFirebaseAuth.getCurrentUser());
+        }
+
         // Initialize the authentication statle listener of firebase
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -125,6 +131,7 @@ public class MainActivity extends BaseActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
+                    writeNewUserIfNeeded(user);
 
                     // the user is signed in
                     onSignedInInitialize(user);
@@ -187,7 +194,7 @@ public class MainActivity extends BaseActivity
 
     private void onSignedInInitialize(FirebaseUser user) {
         setupViewPager(mViewPager);
-        writeNewUserIfNeeded(user);
+
         mUserName = user.getDisplayName();
         mUserEmail = user.getEmail();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -265,6 +272,10 @@ public class MainActivity extends BaseActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
+                // Write new user if needed
+                if (mFirebaseAuth.getCurrentUser() != null) {
+                    writeNewUserIfNeeded(mFirebaseAuth.getCurrentUser());
+                }
                 String signInMessage = getResources().getString(R.string.sign_in);
 
                 Toast.makeText(this, signInMessage, Toast.LENGTH_SHORT).show();
@@ -346,7 +357,10 @@ public class MainActivity extends BaseActivity
     }
 
     private void writeNewUserIfNeeded(final FirebaseUser user) {
+
         mUserReference = UserEntry.sRef.child(getUid());
+        Timber.i("THE USER REFERENCE");
+        Timber.i(mUserReference.toString());
         mUsersListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

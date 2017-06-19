@@ -21,6 +21,8 @@ import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import timber.log.Timber;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -50,24 +52,27 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
         ) {
             @Override
             protected void populateViewHolder(UserViewHolder viewHolder, IndenUser model, final int position) {
-                viewHolder.bind(model);
-                updateViews();
-                viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String userUid = getRef(position).getKey();
-                        ((MainActivity)getContext()).addClientsToUser(userUid);
-                    }
-                });
+                if (model != null) {
+                    viewHolder.bind(model);
+                    updateViews();
+                    viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String userUid = getRef(position).getKey();
+                            ((MainActivity)getContext()).addClientsToUser(userUid);
+                        }
+                    });
 
-                viewHolder.getEditUserButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), EditUserActivity.class);
-                        intent.putExtra("user_id", getRef(position).getKey());
-                        startActivity(intent);
-                    }
-                });
+                    viewHolder.getEditUserButton().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getActivity(), EditUserActivity.class);
+                            intent.putExtra("user_id", getRef(position).getKey());
+                            startActivity(intent);
+                        }
+                    });
+                }
+
 
             }
 

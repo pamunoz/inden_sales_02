@@ -32,8 +32,8 @@ public final class FbContract {
         String name = user.getDisplayName().trim().toUpperCase();
         String email = user.getEmail().trim().toLowerCase();
         String photoUrl = user.getPhotoUrl().toString();
-        int role = UserEntry.USER_ROLE_GUEST;
-        return new IndenUser(name, null, email, null, photoUrl, role);
+        String rol = UserEntry.USER_ROLE_GUEST;
+        return new IndenUser(name, null, email, null, photoUrl, rol);
     }
 
     public static final DatabaseReference sDbRef = getDatabase().getReference();
@@ -148,9 +148,9 @@ public final class FbContract {
      */
     public static class UserEntry {
 
-        public static final int USER_ROLE_SALESCLERK = 30;
-        public static final int USER_ROLE_ADMIN = 500;
-        public static final int USER_ROLE_GUEST = 200;
+        public static final String USER_ROLE_SALESCLERK = "vendedor";
+        public static final String USER_ROLE_ADMIN = "admin";
+        public static final String USER_ROLE_GUEST = "invitado";
 
         public static final String USERS_ND = "usuarios";
         public static final String USER_NAME = "nombre";

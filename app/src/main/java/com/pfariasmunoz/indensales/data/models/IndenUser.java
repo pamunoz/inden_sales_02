@@ -10,12 +10,12 @@ public class IndenUser {
     private String email;
     private String telefono;
     private String photoUrl;
-    private int rol;
+    private String rol;
 
     public IndenUser() {
     }
 
-    public IndenUser(String nombre, String rut, String email, String telefono, String photoUrl, int rol) {
+    public IndenUser(String nombre, String rut, String email, String telefono, String photoUrl, String rol) {
         this.nombre = nombre;
         this.rut = rut;
         this.email = email;
@@ -64,11 +64,11 @@ public class IndenUser {
         this.photoUrl = photoUrl;
     }
 
-    public int getRol() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRol(int rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 }
