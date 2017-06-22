@@ -15,7 +15,8 @@
         android:scaleType="centerCrop"
         app:layout_aspectRatio="133%"
         app:layout_widthPercent="100%"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"/>
+        app:srcCompat="@drawable/ic_person_black_24dp"
+        android:tint="@color/color_light_grey_primary"/>
 
     <TextView
         android:id="@+id/tv_edit_user_title"
@@ -38,7 +39,8 @@
         android:layout_marginBottom="@dimen/common_wide_margin"
         app:civ_border_color="@color/white"
         app:civ_border_width="3dp"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"/>
+        app:srcCompat="@drawable/ic_person_black_24dp"
+        android:tint="@color/color_light_grey_primary"/>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/text_input_layout_name"

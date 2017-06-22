@@ -1,6 +1,7 @@
 package com.pfariasmunoz.indensales.ui.activities;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -169,6 +170,9 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
     private void bindUserData(IndenUser user) {
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserPhotoImageView);
+        } else {
+            mUserPhotoImageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
+            mUserPhotoImageView.setColorFilter(ContextCompat.getColor(this,R.color.color_light_grey_primary));
         }
         if (user.getNombre() != null) {
             String userName = TextHelper.capitalizeFirestLetter(user.getNombre());

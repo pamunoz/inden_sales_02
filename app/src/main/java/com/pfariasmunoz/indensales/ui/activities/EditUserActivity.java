@@ -3,6 +3,7 @@ package com.pfariasmunoz.indensales.ui.activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -93,9 +94,15 @@ public class EditUserActivity extends AppCompatActivity
     private void bindUserData(IndenUser user) {
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mProfileBackgroundImageView);
+        } else {
+            mProfileBackgroundImageView.setImageResource(R.drawable.ic_person_black_24dp);
+            mProfileBackgroundImageView.setColorFilter(ContextCompat.getColor(this,R.color.color_light_grey_primary));
         }
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserProfileImageView);
+        }else {
+            mUserProfileImageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
+            mUserProfileImageView.setColorFilter(ContextCompat.getColor(this,R.color.color_light_grey_primary));
         }
         if (user.getNombre() != null) {
             String name = TextHelper.capitalizeFirestLetter(user.getNombre());

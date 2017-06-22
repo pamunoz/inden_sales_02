@@ -1,6 +1,7 @@
 package com.pfariasmunoz.indensales.ui.viewholders;
 
 import android.content.res.Resources;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -49,13 +50,20 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     public void bind(IndenUser user) {
         if (user.getPhotoUrl() != null) {
             Glide.with(itemView.getContext()).load(user.getPhotoUrl()).into(mUserPhotoImageView);
+        } else {
+            mUserPhotoImageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
+            mUserPhotoImageView.setColorFilter(ContextCompat.getColor(itemView.getContext(),R.color.color_light_grey_primary));
         }
         if (user.getNombre() != null) {
             String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
             mUserNameTextView.setText(userName);
+        } else {
+            mUserNameTextView.setVisibility(View.INVISIBLE);
         }
         if (user.getRut() != null) {
             mUserRutTextView.setText(user.getRut());
+        } else {
+            mUserRutTextView.setVisibility(View.INVISIBLE);
         }
         if (user.getEmail() != null) {
             String userEmail = user.getEmail().toLowerCase();
