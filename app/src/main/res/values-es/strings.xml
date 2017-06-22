@@ -110,4 +110,5 @@
     <string name="default_user_rut">Rut</string>
     <string name="edit_user_popup_menu_title">Editar usuario</string>
     <string name="rut" translatable="false">Rut</string>
+    <string name="create_account_preamble">\"Por medio de presionando GUARDAR usted esta indicando que esta de acuerdo con el \"</string>
 </resources>
