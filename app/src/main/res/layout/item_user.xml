@@ -38,8 +38,7 @@
             tools:text="Pablo Farias Muñoz"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_user_rut"
-            android:layout_marginLeft="0dp"/>
+            app:layout_constraintLeft_toLeftOf="@+id/tv_user_rut"/>
 
         <TextView
             android:id="@+id/tv_user_rut"
@@ -106,7 +105,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
+            android:background="@null"
             android:paddingBottom="@dimen/common_narrow_margin"
             android:paddingEnd="@dimen/common_wide_margin"
             android:paddingLeft="@dimen/common_wide_margin"
