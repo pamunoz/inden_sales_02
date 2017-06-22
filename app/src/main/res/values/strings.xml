@@ -164,7 +164,11 @@
     <!-- Popup menu user -->
     <string name="edit_user_popup_menu_title">Edit user</string>
     <string name="add_or_remove_clients_popup_menu_title">Add or remove clients</string>
-
+    <string name="default_phone">Telefono</string>
+    <string name="default_text_user_name">User Name</string>
+    <string name="default_user_rut">User Rut</string>
+    <string name="default_user_email">User Email</string>
+    <string name="default_user_rol">User Rol</string>
 
 
 </resources>

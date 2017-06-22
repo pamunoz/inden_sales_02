@@ -37,10 +37,10 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     TextView mUserPhoneTextView;
     @BindView(R.id.tv_user_rol)
     TextView mUserRolTextView;
-    @BindView(R.id.bt_add_clients)
-    Button mAddClientsToUserButton;
-    @BindView(R.id.imb_edit_user)
-    ImageButton mEditUserButton;
+//    @BindView(R.id.bt_add_clients)
+//    Button mAddClientsToUserButton;
+//    @BindView(R.id.imb_edit_user)
+//    ImageButton mEditUserButton;
     @BindView(R.id.ib_popup_menu)
     ImageButton mPopupMenuButton;
 
@@ -94,13 +94,13 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
         return userRole;
     }
 
-    public Button getAddClientsToUserButton() {
-        return mAddClientsToUserButton;
-    }
-
-    public ImageButton getEditUserButton() {
-        return mEditUserButton;
-    }
+//    public Button getAddClientsToUserButton() {
+//        return mAddClientsToUserButton;
+//    }
+//
+//    public ImageButton getEditUserButton() {
+//        return mEditUserButton;
+//    }
 
     public ImageButton getPopupMenuButton() {
         return mPopupMenuButton;

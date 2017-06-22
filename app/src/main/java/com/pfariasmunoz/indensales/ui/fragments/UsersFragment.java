@@ -87,22 +87,22 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                         }
                     });
 
-                    viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            String userUid = getRef(position).getKey();
-                            ((MainActivity)getContext()).addClientsToUser(userUid);
-                        }
-                    });
-
-                    viewHolder.getEditUserButton().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getActivity(), EditUserActivity.class);
-                            intent.putExtra("user_id", getRef(position).getKey());
-                            startActivity(intent);
-                        }
-                    });
+//                    viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            String userUid = getRef(position).getKey();
+//                            ((MainActivity)getContext()).addClientsToUser(userUid);
+//                        }
+//                    });
+//
+//                    viewHolder.getEditUserButton().setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getActivity(), EditUserActivity.class);
+//                            intent.putExtra("user_id", getRef(position).getKey());
+//                            startActivity(intent);
+//                        }
+//                    });
                 }
                 ((BaseActivity)getContext()).writeNewUserIfNeeded();
             }
