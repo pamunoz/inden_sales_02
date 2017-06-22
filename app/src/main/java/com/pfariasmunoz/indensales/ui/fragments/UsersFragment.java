@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -52,10 +54,39 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                 query
         ) {
             @Override
-            protected void populateViewHolder(UserViewHolder viewHolder, IndenUser model, final int position) {
+            protected void populateViewHolder(final UserViewHolder viewHolder, IndenUser model, final int position) {
                 if (model != null) {
                     viewHolder.bind(model);
                     updateViews();
+
+                    viewHolder.getPopupMenuButton().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PopupMenu popupMenu = new PopupMenu(viewHolder.itemView.getContext(), view);
+                            final MenuInflater inflater = popupMenu.getMenuInflater();
+                            inflater.inflate(R.menu.user_popup, popupMenu.getMenu());
+                            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    switch (item.getItemId()) {
+                                        case R.id.menu_popup_edit_user:
+                                            Intent intent = new Intent(getActivity(), EditUserActivity.class);
+                                            intent.putExtra("user_id", getRef(position).getKey());
+                                            startActivity(intent);
+                                            return true;
+                                        case R.id.menu_popup_add_or_remove_clients:
+                                            String userUid = getRef(position).getKey();
+                                            ((MainActivity)getContext()).addClientsToUser(userUid);
+                                            return true;
+                                        default:
+                                            return false;
+                                    }
+                                }
+                            });
+                            popupMenu.show();
+                        }
+                    });
+
                     viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

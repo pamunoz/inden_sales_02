@@ -41,6 +41,8 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     Button mAddClientsToUserButton;
     @BindView(R.id.imb_edit_user)
     ImageButton mEditUserButton;
+    @BindView(R.id.ib_popup_menu)
+    ImageButton mPopupMenuButton;
 
     public UserViewHolder(View itemView) {
         super(itemView);
@@ -98,5 +100,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
 
     public ImageButton getEditUserButton() {
         return mEditUserButton;
+    }
+
+    public ImageButton getPopupMenuButton() {
+        return mPopupMenuButton;
     }
 }
