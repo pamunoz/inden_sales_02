@@ -39,12 +39,28 @@ public class BaseArticleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(@NonNull ArticleSale articleSale, @Nullable Article article, @Nullable String code) {
-        String stringDescription = TextHelper.capitalizeFirestLetter(articleSale.descripcion);
-        long precio = articleSale.total / articleSale.cantidad;
-        String stringPrice = String.valueOf(precio);
-        String stringArticlePrice = MathHelper.getLocalCurrency(stringPrice);
-        mArticlePriceTextView.setText(stringArticlePrice);
-        mArticleDescriptionTextView.setText(stringDescription);
+        if (articleSale.descripcion != null) {
+            String stringDescription = TextHelper.capitalizeFirestLetter(articleSale.descripcion);
+            mArticleDescriptionTextView.setText(stringDescription);
+        }
+
+        if (articleSale.total != null) {
+            long precio;
+            if (articleSale.cantidad > 0) {
+                precio = articleSale.total / articleSale.cantidad;
+            } else {
+                precio = articleSale.total;
+            }
+            String stringPrice = String.valueOf(precio);
+            String stringArticlePrice = MathHelper.getLocalCurrency(stringPrice);
+            mArticlePriceTextView.setText(stringArticlePrice);
+        }
+
+
+
+
+
+
         String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
         mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
         mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));

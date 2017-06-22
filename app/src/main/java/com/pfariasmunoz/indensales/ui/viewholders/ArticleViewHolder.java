@@ -30,44 +30,37 @@ public class ArticleViewHolder extends BaseArticleViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-//    public void bind(Article article, ArticleSale articleSale, String code) {
-//        String stringDescription = TextHelper.capitalizeFirestLetter(article.descripcion);
-//        mArticleDescriptionTextView.setText(stringDescription);
-//        String stringArticlePrice = MathHelper.getLocalCurrency(article.precio);
-//        mArticlePriceTextView.setText(stringArticlePrice);
-//        mArticleCodeTextView.setText(code);
-//        String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
-//        mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
-//        mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
-//    }
-
-//    public void bindArticleInSale(ArticleSale articleSale) {
-//        String stringDescription = TextHelper.capitalizeFirestLetter(articleSale.descripcion);
-//        long precio = articleSale.total / articleSale.cantidad;
-//        String stringPrice = String.valueOf(precio);
-//        String stringArticlePrice = MathHelper.getLocalCurrency(stringPrice);
-//        mArticlePriceTextView.setText(stringArticlePrice);
-//        mArticleDescriptionTextView.setText(stringDescription);
-//        String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
-//        mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
-//        mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
-//        mArticlesAmountTextView.setTextSize(24F);
-//        mSubtractArticleButton.setVisibility(View.GONE);
-//        mAddArticleButton.setVisibility(View.GONE);
-//        mArticleCodeTextView.setText(articleSale.idarticulo);
-//    }
-
-
     @Override
     public void bind(@NonNull ArticleSale articleSale, @Nullable Article article, @Nullable String code) {
-        String stringDescription = TextHelper.capitalizeFirestLetter(article.descripcion);
-        mArticleDescriptionTextView.setText(stringDescription);
-        String stringArticlePrice = MathHelper.getLocalCurrency(article.precio);
-        mArticlePriceTextView.setText(stringArticlePrice);
-        mArticleCodeTextView.setText(code);
-        String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
-        mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
-        mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
+        if (article != null) {
+            if (article.descripcion != null) {
+                String stringDescription = TextHelper.capitalizeFirestLetter(article.descripcion);
+                mArticleDescriptionTextView.setText(stringDescription);
+            }
+            if (article.precio != null) {
+                String stringArticlePrice = MathHelper.getLocalCurrency(article.precio);
+                mArticlePriceTextView.setText(stringArticlePrice);
+            }
+        }
+
+
+
+        if (code != null) {
+            mArticleCodeTextView.setText(code);
+        }
+
+        if (articleSale.total != null) {
+            String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
+            mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
+        }
+        if (articleSale.cantidad > 0) {
+            mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
+        } else {
+            mArticlesAmountTextView.setText(String.valueOf(0));
+        }
+
+
+
     }
 
     public ImageButton getAddArticleButton() {

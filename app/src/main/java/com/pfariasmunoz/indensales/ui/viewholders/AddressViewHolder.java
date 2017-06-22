@@ -32,13 +32,19 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Address address) {
-        String address1 = TextHelper.capitalizeFirestLetter(address.direccion);
-        String address2 = TextHelper.capitalizeFirestLetter(address.comuna);
-        String address3 = TextHelper.capitalizeFirestLetter(address.ciudad);
-        String longAddress = address1 + ", " + address2 + ", " + address3 + ".";
-        mClientAddressTextView.setText(longAddress);
-        mClientPhoneTextView.setText(address.telefono);
-        mClientZoneTextView.setText(address.zona);
+        if (address.direccion != null && address.comuna != null && address.ciudad != null) {
+            String address1 = TextHelper.capitalizeFirestLetter(address.direccion);
+            String address2 = TextHelper.capitalizeFirestLetter(address.comuna);
+            String address3 = TextHelper.capitalizeFirestLetter(address.ciudad);
+            String longAddress = address1 + ", " + address2 + ", " + address3 + ".";
+            mClientAddressTextView.setText(longAddress);
+        }
+        if (address.telefono != null) {
+            mClientPhoneTextView.setText(address.telefono);
+        }
+        if (address.zona != null) {
+            mClientZoneTextView.setText(address.zona);
+        }
     }
 
     public View getRootView() {

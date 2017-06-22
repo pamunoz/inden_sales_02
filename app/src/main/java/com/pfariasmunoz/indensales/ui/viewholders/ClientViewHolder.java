@@ -37,9 +37,13 @@ public class ClientViewHolder extends RecyclerView.ViewHolder {
 
 
     public void bind(Client client) {
-        String clientName = TextHelper.capitalizeFirestLetter(client.nombre);
-        mNameTextView.setText(clientName);
-        mRutTextView.setText(client.rut);
+        if (client.nombre != null) {
+            String clientName = TextHelper.capitalizeFirestLetter(client.nombre);
+            mNameTextView.setText(clientName);
+        }
+        if (client.rut != null) {
+            mRutTextView.setText(client.rut);
+        }
     }
 
 

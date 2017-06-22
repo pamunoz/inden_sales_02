@@ -60,4 +60,5 @@
     <string name="quantity">Cantidad</string>
     <string name="no_client_found">no hay clientes</string>
     <string name="no_sales_found">No tiene ventas</string>
+    <string name="edit_user_activity_label">Edite el Usuario</string>
 </resources>

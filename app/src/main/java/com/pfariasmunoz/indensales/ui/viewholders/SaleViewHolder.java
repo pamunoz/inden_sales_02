@@ -43,14 +43,25 @@ public class SaleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Sale report) {
-        String total = String.valueOf(report.total);
-        String stringTotal = MathHelper.getLocalCurrency(total);
-        String stringClientName = TextHelper.capitalizeFirestLetter(report.nombre_cliente);
-        String stringAddress = TextHelper.capitalizeFirestLetter(report.direccion);
-        mTotalSalePriceTextView.setText(stringTotal);
-        mClientNameSaleTextView.setText(stringClientName);
-        mClientRutSaleTextView.setText(report.rut_cliente);
-        mClientAddressSaleTextView.setText(stringAddress);
+        if (report.total > 0) {
+            String total = String.valueOf(report.total);
+            String stringTotal = MathHelper.getLocalCurrency(total);
+            mTotalSalePriceTextView.setText(stringTotal);
+        } else {
+            mTotalSalePriceTextView.setText(String.valueOf(0));
+        }
+        if (report.nombre_cliente != null) {
+            String stringClientName = TextHelper.capitalizeFirestLetter(report.nombre_cliente);
+            mClientNameSaleTextView.setText(stringClientName);
+        }
+        if (report.direccion != null) {
+            String stringAddress = TextHelper.capitalizeFirestLetter(report.direccion);
+            mClientAddressSaleTextView.setText(stringAddress);
+        }
+        if (report.rut_cliente != null) {
+            mClientRutSaleTextView.setText(report.rut_cliente);
+        }
+
         String date = TextHelper.formatDate(report.timestamp);
         String time = TextHelper.formatTime(report.timestamp);
         mDateSaleTextView.setText(date);

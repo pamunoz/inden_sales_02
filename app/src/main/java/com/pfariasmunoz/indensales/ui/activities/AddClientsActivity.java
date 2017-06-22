@@ -170,9 +170,15 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserPhotoImageView);
         }
-        String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
-        mUserNameTextView.setText(userName);
-        mClientsUserTextView.setText(String.valueOf(mClientIdList.size()));
+        if (user.getNombre() != null) {
+            String userName = TextHelper.capitalizeFirestLetter(user.getNombre());
+            mUserNameTextView.setText(userName);
+        }
+        if (mClientIdList != null) {
+            mClientsUserTextView.setText(String.valueOf(mClientIdList.size()));
+        }
+
+
     }
 
     private void setupUserListener(Query userQuery) {

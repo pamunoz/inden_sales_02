@@ -102,5 +102,7 @@
     <string name="no_client_found">No client found.</string>
     <string name="no_sales_found">No sales found</string>
 
+    <string name="edit_user_activity_label">Edit User</string>
+
 
 </resources>

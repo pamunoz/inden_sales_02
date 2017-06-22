@@ -73,8 +73,7 @@ public class MainActivity extends BaseActivity
     public static final int RC_SIGN_IN = 1;
     public static final int MAKE_SALE_REQUEST = 2;
     public static final int ADD_CLIENTS_TO_USER_REQUEST = 3;
-    private DatabaseReference mUserReference;
-    private ValueEventListener mUsersListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,9 +119,7 @@ public class MainActivity extends BaseActivity
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         // Write new user if needed
-        if (mFirebaseAuth.getCurrentUser() != null) {
-            writeNewUserIfNeeded(mFirebaseAuth.getCurrentUser());
-        }
+
 
         // Initialize the authentication statle listener of firebase
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -131,7 +128,7 @@ public class MainActivity extends BaseActivity
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
-                    writeNewUserIfNeeded(user);
+                    writeNewUserIfNeeded();
 
                     // the user is signed in
                     onSignedInInitialize(user);
@@ -273,9 +270,6 @@ public class MainActivity extends BaseActivity
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 // Write new user if needed
-                if (mFirebaseAuth.getCurrentUser() != null) {
-                    writeNewUserIfNeeded(mFirebaseAuth.getCurrentUser());
-                }
                 String signInMessage = getResources().getString(R.string.sign_in);
 
                 Toast.makeText(this, signInMessage, Toast.LENGTH_SHORT).show();
@@ -313,9 +307,7 @@ public class MainActivity extends BaseActivity
         if (mAuthStateListener != null) {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
-        if (mUsersListener != null) {
-            mUserReference.removeEventListener(mUsersListener);
-        }
+
     }
 
     @Override
@@ -355,28 +347,4 @@ public class MainActivity extends BaseActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    private void writeNewUserIfNeeded(final FirebaseUser user) {
-
-        mUserReference = UserEntry.sRef.child(getUid());
-        Timber.i("THE USER REFERENCE");
-        Timber.i(mUserReference.toString());
-        mUsersListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-                    IndenUser indenUser = getIndenUser(user);
-                    mUserReference.setValue(indenUser);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        mUserReference.addListenerForSingleValueEvent(mUsersListener);
-    }
-
-
 }

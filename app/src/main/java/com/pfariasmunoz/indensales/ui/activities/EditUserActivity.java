@@ -86,10 +86,7 @@ public class EditUserActivity extends AppCompatActivity
     }
 
     private void setupSpinner(LabelledSpinner spinner) {
-
         spinner.setItemsArray(R.array.users_roles_array);
-//        spinner.setDefaultErrorEnabled(true);
-//        spinner.setDefaultErrorText("LLLENALO!!!");
         spinner.setOnItemChosenListener(this);
     }
 
@@ -100,24 +97,38 @@ public class EditUserActivity extends AppCompatActivity
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl()).into(mUserProfileImageView);
         }
-        String name = TextHelper.capitalizeFirestLetter(user.getNombre());
-        mUserNameEditText.setText(name);
-        mUserEmailEditText.setText(user.getEmail());
-        mUserRutEditText.setText(user.getRut());
-        mUserPhoneEditText.setText(user.getTelefono());
-        String userRole = user.getRol();
-        int selection;
-        switch (userRole) {
-            case UserEntry.USER_ROLE_ADMIN:
-                selection = 2;
-                break;
-            case UserEntry.USER_ROLE_SALESCLERK:
-                selection = 1;
-                break;
-            default:
-                selection = 0;
+        if (user.getNombre() != null) {
+            String name = TextHelper.capitalizeFirestLetter(user.getNombre());
+            mUserNameEditText.setText(name);
         }
-        mUserRoleSpinner.setSelection(selection);
+        if (user.getEmail() != null) {
+            mUserEmailEditText.setText(user.getEmail());
+        }
+        if (user.getRut() != null) {
+            mUserRutEditText.setText(user.getRut());
+        }
+        if (user.getTelefono() != null) {
+            mUserPhoneEditText.setText(user.getTelefono());
+        }
+        if (user.getRol() != null) {
+            String userRole = user.getRol();
+            int selection;
+            switch (userRole) {
+                case UserEntry.USER_ROLE_ADMIN:
+                    selection = 2;
+                    break;
+                case UserEntry.USER_ROLE_SALESCLERK:
+                    selection = 1;
+                    break;
+                default:
+                    selection = 0;
+            }
+            mUserRoleSpinner.setSelection(selection);
+        }
+
+
+
+
 
     }
 

@@ -16,6 +16,7 @@ import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
+import com.pfariasmunoz.indensales.ui.activities.BaseActivity;
 import com.pfariasmunoz.indensales.ui.activities.EditUserActivity;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
@@ -72,9 +73,9 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                         }
                     });
                 }
-
-
+                ((BaseActivity)getContext()).writeNewUserIfNeeded();
             }
+
 
             @Override
             protected void onDataChanged() {

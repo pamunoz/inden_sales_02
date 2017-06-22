@@ -29,9 +29,10 @@ public final class FbContract {
     }
 
     public static IndenUser getIndenUser(FirebaseUser user) {
-        String name = user.getDisplayName().trim().toUpperCase();
-        String email = user.getEmail().trim().toLowerCase();
-        String photoUrl = user.getPhotoUrl().toString();
+
+        String name = user.getDisplayName() != null ? user.getDisplayName().toUpperCase() : null;
+        String email = user.getEmail() != null ? user.getEmail().toLowerCase() : null ;
+        String photoUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null;
         String rol = UserEntry.USER_ROLE_GUEST;
         return new IndenUser(name, null, email, null, photoUrl, rol);
     }
