@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_popup_edit_user"
+          android:title="@string/edit_user_popup_menu_title" />
+    <item android:id="@+id/menu_popup_add_or_remove_clients"
+          android:title="@string/add_or_remove_clients_popup_menu_title" />
+</menu>

@@ -11,7 +11,7 @@
     card_view:cardCornerRadius="@dimen/common_tiny_margin"
     card_view:contentPadding="@dimen/common_narrow_margin">
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="140dp"
         tools:layout_editor_absoluteX="8dp"
@@ -45,7 +45,6 @@
             android:id="@+id/tv_user_rut"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
             android:textColor="@color/color_light_grey_primary"
             tools:text="15663392-7"
             tools:layout_editor_absoluteY="43dp"
@@ -132,6 +131,15 @@
             tools:layout_editor_absoluteY="183dp"
             tools:layout_editor_absoluteX="243dp"/>
 
-    </android.support.constraint.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/ib_popup_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"/>
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>

@@ -160,6 +160,11 @@
         to sign in. Enter your password for that account.
     </string>
     -->
+    
+    <!-- Popup menu user -->
+    <string name="edit_user_popup_menu_title">Edit user</string>
+    <string name="add_or_remove_clients_popup_menu_title">Add or remove clients</string>
+
 
 
 </resources>
