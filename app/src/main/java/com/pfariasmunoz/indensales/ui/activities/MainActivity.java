@@ -11,6 +11,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -191,23 +192,30 @@ public class MainActivity extends BaseActivity
 
     private void onSignedInInitialize(FirebaseUser user) {
         setupViewPager(mViewPager);
-
-        mUserName = user.getDisplayName();
-        mUserEmail = user.getEmail();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
         mNavBarUserEmailTextView = (TextView) headerView.findViewById(R.id.tv_email_nav_bar);
         mNavBarUserNameTextView = (TextView) headerView.findViewById(R.id.tv_user_name_nav_bar);
         mNavBarUserPhotoImageView = (ImageView) headerView.findViewById(R.id.imv_user_photo);
-        if (!TextUtils.isEmpty(mUserEmail)) {
-            mNavBarUserEmailTextView.setText(mUserEmail);
+
+        if (user.getDisplayName() != null) {
+            mUserName = user.getDisplayName();
+            if (!TextUtils.isEmpty(mUserName)) {
+                mNavBarUserNameTextView.setText(mUserName);
+            }
         }
-        if (!TextUtils.isEmpty(mUserName)) {
-            mNavBarUserNameTextView.setText(mUserName);
+        if (user.getEmail() != null) {
+            mUserEmail = user.getEmail();
+            if (!TextUtils.isEmpty(mUserEmail)) {
+                mNavBarUserEmailTextView.setText(mUserEmail);
+            }
         }
 
         if (user.getPhotoUrl() != null) {
             Glide.with(this).load(user.getPhotoUrl().toString()).into(mNavBarUserPhotoImageView);
+        } else {
+            mNavBarUserPhotoImageView.setImageResource(R.drawable.ic_account_circle_black_24dp);
+            mNavBarUserPhotoImageView.setColorFilter(ContextCompat.getColor(this,R.color.color_light_grey_primary));
         }
 
     }

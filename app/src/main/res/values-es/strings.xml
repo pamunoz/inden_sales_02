@@ -102,4 +102,12 @@
     <string name="welcome_back_idp_prompt">"         Usted ya uso <ns1:g example="jane.doe@example.com" id="email_addr">%1$s</ns1:g>.         Registrese con <ns1:g example="Google" id="provider_name">%2$s</ns1:g> para continuar.     "</string>
     <string name="welcome_back_password_prompt_body">"         Usted ya ha usado <ns1:g example="jane.doe@example.com" id="email_addr">%1$s</ns1:g>         para entrar. Ingrese la contraseña para esa cuenta.     "</string>
     <string name="confirm_recovery_body">Siga las intrucciones enviadas ha %1$s para recuperar su contraseña.</string>
+    <string name="add_or_remove_clients_popup_menu_title">Agrege or remueva clientes</string>
+    <string name="default_phone">Telefono</string>
+    <string name="default_text_user_name">Nombre</string>
+    <string name="default_user_email">Email</string>
+    <string name="default_user_rol">Rol</string>
+    <string name="default_user_rut">Rut</string>
+    <string name="edit_user_popup_menu_title">Editar usuario</string>
+    <string name="rut" translatable="false">Rut</string>
 </resources>
