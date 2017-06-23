@@ -19,12 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableWeightLayout;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.pfariasmunoz.indensales.R;
+import com.pfariasmunoz.indensales.data.Analytics;
 import com.pfariasmunoz.indensales.data.FbContract.ClientEntry;
 import com.pfariasmunoz.indensales.data.FbContract.ArticleEntry;
 import com.pfariasmunoz.indensales.data.FbContract.AddressEntry;
@@ -203,6 +205,9 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
             saleRef.setValue(sale);
 
             String saleUid = saleRef.getKey();
+
+            // Save sale data to firebase Analytics
+            Analytics.logEventMakeSale(this, sale);
 
             SaleEntry.sKeysNames.child(getUid()).child(saleUid).setValue(sale.nombre_cliente);
             SaleEntry.sKeysRuts.child(getUid()).child(saleUid).setValue(sale.rut_cliente);

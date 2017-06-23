@@ -17,12 +17,6 @@
      - Used by SunshineDateUtils  -
      - - - - - - - - - - - - - - -->
 
-    <!-- For labelling today's forecast -->
-    <string name="today" translatable="false">Today</string>
-
-    <!-- For labelling tomorrow's forecast -->
-    <string name="tomorrow" translatable="false">Tomorrow</string>
-
     <!-- Date format -->
     <string name="format_full_friendly_date" translatable="false">
         <xliff:g id="month">%1$s</xliff:g>, <xliff:g id="day">%2$s</xliff:g>
@@ -142,7 +136,6 @@
     <string name="title_confirm_recover_password">Check your email</string>
     <string name="title_recover_password_activity">Recover password</string>
     <string name="title_register_email">Sign up</string>
-    <string name="title_welcome_back_idp_prompt">@string/sign_in_default</string>
     <string name="title_welcome_back_password_prompt">@string/sign_in_default</string>
     <string name="trouble_signing_in">Trouble signing in?</string>
     <string name="twitter_consumer_key" translatable="false">CHANGE-ME</string>
@@ -167,6 +160,7 @@
     <string name="default_user_rut">User Rut</string>
     <string name="default_user_email">User Email</string>
     <string name="default_user_rol">User Role</string>
+    <string name="title_welcome_back_idp_prompt">\@string/sign_in_default</string>
 
 
 </resources>

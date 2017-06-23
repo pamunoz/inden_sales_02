@@ -92,10 +92,8 @@
     <string name="title_confirm_recover_password">Revise su email</string>
     <string name="title_recover_password_activity">Recupere su contraseña</string>
     <string name="title_register_email">Registrese</string>
-    <string name="title_welcome_back_idp_prompt">\@string/sign_in_default</string>
-    <string name="title_welcome_back_password_prompt">\@string/sign_in_default</string>
-    <string name="today" translatable="false">Hoy</string>
-    <string name="tomorrow" translatable="false">Mañana</string>
+    <string name="title_welcome_back_idp_prompt">Registrese</string>
+    <string name="title_welcome_back_password_prompt">Registrese</string>
     <string name="welcome_back_email_header">¡Hola denuevo!</string>
     <string name="trouble_signing_in">¿Problemas registrandose?</string>
     <string name="welcome_back_idp_header">Usted ya tiene una cuenta</string>
@@ -109,6 +107,6 @@
     <string name="default_user_rol">Rol</string>
     <string name="default_user_rut">Rut</string>
     <string name="edit_user_popup_menu_title">Editar usuario</string>
-    <string name="rut" translatable="false">Rut</string>
+
     <string name="create_account_preamble">\"Por medio de presionando GUARDAR usted esta indicando que esta de acuerdo con el \"</string>
 </resources>
