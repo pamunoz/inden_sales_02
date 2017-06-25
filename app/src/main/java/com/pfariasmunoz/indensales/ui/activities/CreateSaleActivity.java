@@ -208,6 +208,8 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
             // Save sale data to firebase Analytics
             Analytics.logEventMakeSale(this, sale);
+            // Save each article data to firebase Analytics
+            Analytics.logEventArticlesSold(this, articlesForSale);
 
             SaleEntry.sKeysNames.child(getUid()).child(saleUid).setValue(sale.nombre_cliente);
             SaleEntry.sKeysRuts.child(getUid()).child(saleUid).setValue(sale.rut_cliente);

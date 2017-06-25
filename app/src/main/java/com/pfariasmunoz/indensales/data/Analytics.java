@@ -4,7 +4,11 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.data.models.Sale;
+
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Pablo Farias on 22-06-17.
@@ -14,26 +18,51 @@ public class Analytics {
 
     public static void logEventMakeSale(Context context, Sale sale) {
         Bundle saleInfo = new Bundle();
-        saleInfo.putString(Analytics.PARAM.USER_ID, sale.idvendedor);
-        saleInfo.putString(Analytics.PARAM.CLIENT_ID, sale.idcliente);
-        saleInfo.putLong(Analytics.PARAM.TOTAL_SALE, sale.total);
-
+        saleInfo.putString(Param.USER_ID, sale.idvendedor);
+        saleInfo.putString(Param.CLIENT_ID, sale.idcliente);
+        saleInfo.putLong(Param.TOTAL_SALE, sale.total);
 
         // Firebase analytics
-        FirebaseAnalytics.getInstance(context).logEvent(Analytics.EVENT.MAKE_SALE, saleInfo);
+        FirebaseAnalytics.getInstance(context).logEvent(Event.MAKE_SALE, saleInfo);
+    }
+
+    public static void logEventArticlesSold(Context context, Map<String, ArticleSale> articlesForSale) {
+        Iterator it = articlesForSale.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            ArticleSale articleSale = (ArticleSale) pair.getValue();
+            String articleKey = (String) pair.getKey();
+            Bundle params = new Bundle();
+            params.putString(Param.ARTICLE_DESCRIPTION, articleSale.descripcion);
+            params.putString(Param.ARTICLE_ID, articleSale.idarticulo);
+            params.putInt(Param.ARTICLE_QUANTITY, articleSale.cantidad);
+            params.putLong(Param.ARTICLE_PRICE, articleSale.total);
+
+            // Save every article sale with the sale report as its parent node
+            FirebaseAnalytics.getInstance(context).logEvent(Event.ARTICLE_SOLD, params);
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+
 
     }
 
 
-    public static class PARAM {
+    public static class Param {
         public static final String USER_ID = "id_usuario";
         public static final String CLIENT_ID = "id_cliente";
         public static final String TOTAL_SALE = "total_venta";
+        public static final String ARTICLE_ID = "articulo_id";
+        public static final String ARTICLE_QUANTITY = "articulo_cantidad";
+        public static final String ARTICLE_PRICE = "articulo_total";
+        public static final String ARTICLE_DESCRIPTION = "articulo_descripción";
+
 
     }
 
-    public static class EVENT {
+    public static class Event {
         public static final String MAKE_SALE = "venta";
+        public static final String ARTICLE_SOLD = "articulo_vendido";
+
 
     }
 }
