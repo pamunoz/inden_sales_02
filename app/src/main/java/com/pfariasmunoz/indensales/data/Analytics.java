@@ -17,13 +17,13 @@ import java.util.Map;
 public class Analytics {
 
     public static void logEventMakeSale(Context context, Sale sale) {
-        Bundle saleInfo = new Bundle();
-        saleInfo.putString(Param.USER_ID, sale.idvendedor);
-        saleInfo.putString(Param.CLIENT_ID, sale.idcliente);
-        saleInfo.putLong(Param.TOTAL_SALE, sale.total);
+        Bundle params = new Bundle();
+        params.putString(Param.USER_ID, sale.idvendedor);
+        params.putString(Param.CLIENT_ID, sale.idcliente);
+        params.putLong(Param.TOTAL_SALE, sale.total);
 
         // Firebase analytics
-        FirebaseAnalytics.getInstance(context).logEvent(Event.MAKE_SALE, saleInfo);
+        FirebaseAnalytics.getInstance(context).logEvent(Event.MAKE_SALE, params);
     }
 
     public static void logEventArticlesSold(Context context, Map<String, ArticleSale> articlesForSale) {
@@ -46,8 +46,7 @@ public class Analytics {
 
     }
 
-
-    public static class Param {
+    private static class Param {
         public static final String USER_ID = "id_usuario";
         public static final String CLIENT_ID = "id_cliente";
         public static final String TOTAL_SALE = "total_venta";
@@ -59,7 +58,7 @@ public class Analytics {
 
     }
 
-    public static class Event {
+    private static class Event {
         public static final String MAKE_SALE = "venta";
         public static final String ARTICLE_SOLD = "articulo_vendido";
 

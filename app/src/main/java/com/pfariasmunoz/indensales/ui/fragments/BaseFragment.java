@@ -34,6 +34,8 @@ public class BaseFragment extends Fragment {
     RecyclerView mRecyclerView;
     @BindView(R.id.pb_loading_indicator)
     ProgressBar mProgressBar;
+    @BindView(R.id.no_access_view)
+    View mNoAccessView;
 
     public static final int ITEMS_LIMIT = 50;
 
@@ -70,6 +72,11 @@ public class BaseFragment extends Fragment {
     }
 
     public void updateViews() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+    }
+
+    public void showNoAccessView() {
+        mNoAccessView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
     }
 }

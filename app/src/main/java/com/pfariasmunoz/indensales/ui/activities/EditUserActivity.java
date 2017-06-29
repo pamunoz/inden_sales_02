@@ -24,6 +24,7 @@ import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 import com.pfariasmunoz.indensales.ui.ForegroundImageView;
+import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.TextHelper;
 import com.satsuware.usefulviews.LabelledSpinner;
 
@@ -62,7 +63,7 @@ public class EditUserActivity extends AppCompatActivity
 
         setupSpinner(mUserRoleSpinner);
         mProfileBackgroundImageView.setForegroundResource(R.color.color_dark_grey_primary);
-        mUserId = getIntent().getStringExtra("user_id");
+        mUserId = getIntent().getStringExtra(Constants.USER_ID_KEY);
         mUserQuery = UserEntry.sRef.child(mUserId);
         handleInput();
         setupUserListener();

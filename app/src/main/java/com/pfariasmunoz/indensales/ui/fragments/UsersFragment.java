@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FbContract.UserEntry;
@@ -22,6 +23,7 @@ import com.pfariasmunoz.indensales.ui.activities.BaseActivity;
 import com.pfariasmunoz.indensales.ui.activities.EditUserActivity;
 import com.pfariasmunoz.indensales.ui.activities.MainActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.UserViewHolder;
+import com.pfariasmunoz.indensales.utils.Constants;
 import com.pfariasmunoz.indensales.utils.MathHelper;
 
 import timber.log.Timber;
@@ -71,7 +73,7 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                                     switch (item.getItemId()) {
                                         case R.id.menu_popup_edit_user:
                                             Intent intent = new Intent(getActivity(), EditUserActivity.class);
-                                            intent.putExtra("user_id", getRef(position).getKey());
+                                            intent.putExtra(Constants.USER_ID_KEY, getRef(position).getKey());
                                             startActivity(intent);
                                             return true;
                                         case R.id.menu_popup_add_or_remove_clients:
@@ -87,22 +89,6 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
                         }
                     });
 
-//                    viewHolder.getAddClientsToUserButton().setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            String userUid = getRef(position).getKey();
-//                            ((MainActivity)getContext()).addClientsToUser(userUid);
-//                        }
-//                    });
-//
-//                    viewHolder.getEditUserButton().setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getActivity(), EditUserActivity.class);
-//                            intent.putExtra("user_id", getRef(position).getKey());
-//                            startActivity(intent);
-//                        }
-//                    });
                 }
                 ((BaseActivity)getContext()).writeNewUserIfNeeded();
             }
@@ -111,6 +97,12 @@ public class UsersFragment extends BaseFragment implements AdapterSetter{
             @Override
             protected void onDataChanged() {
                 updateViews();
+            }
+
+            @Override
+            protected void onCancelled(DatabaseError error) {
+                super.onCancelled(error);
+                showNoAccessView();
             }
         };
         mRecyclerView.setAdapter(mAdapter);

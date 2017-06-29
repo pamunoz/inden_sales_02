@@ -113,6 +113,12 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
                 updateViews();
 
             }
+
+            @Override
+            protected void onCancelled(DatabaseError error) {
+                super.onCancelled(error);
+                showNoAccessView();
+            }
         };
         mRecyclerView.setAdapter(mAdapter);
     }

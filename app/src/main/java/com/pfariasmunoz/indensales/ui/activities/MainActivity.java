@@ -118,10 +118,6 @@ public class MainActivity extends BaseActivity
 
         // Initialize Firebase components
         mFirebaseAuth = FirebaseAuth.getInstance();
-
-        // Write new user if needed
-
-
         // Initialize the authentication statle listener of firebase
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override

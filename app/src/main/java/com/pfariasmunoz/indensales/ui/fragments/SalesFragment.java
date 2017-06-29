@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.FbContract.SaleEntry;
@@ -82,6 +83,12 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
             @Override
             protected void onDataChanged() {
                 updateViews();
+            }
+
+            @Override
+            protected void onCancelled(DatabaseError error) {
+                super.onCancelled(error);
+                showNoAccessView();
             }
         };
         mRecyclerView.setAdapter(mAdapter);
