@@ -5,8 +5,16 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/ic_forbiddenhand"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:text="@string/you_don_t_have_access_to_this_data"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

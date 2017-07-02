@@ -44,6 +44,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         super.onViewCreated(view, savedInstanceState);
         mSalesQuery = SaleEntry.sRef;
         mSalesKeys = SaleEntry.sKeysNames.child(getUid());
+        Timber.i("The url is: " + mSalesKeys.toString());
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         setupAdapter(mSalesKeys);
@@ -106,6 +107,8 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        mEmptySalesView.setVisibility(View.VISIBLE);
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.aakira.expandablelayout.ExpandableWeightLayout;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,6 +52,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class CreateSaleActivity extends SearchableActivity implements View.OnClickListener{
 
@@ -185,6 +189,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     @OnClick(R.id.bt_create_sale)
     public void createSale() {
         Map<String, ArticleSale> articlesForSale = mAdapter.getArticlesForSale();
+        //Map<String, ArticleSale> articlesForSaving = mAdapter.getArticlesForSale();
         if (articlesForSale != null) {
             long currentTimeInMillis = System.currentTimeMillis();
 
@@ -206,23 +211,32 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
             String saleUid = saleRef.getKey();
 
-            // Save sale data to firebase Analytics
-            Analytics.logEventMakeSale(this, sale);
-            // Save each article data to firebase Analytics
-            Analytics.logEventArticlesSold(this, articlesForSale);
 
-            SaleEntry.sKeysNames.child(getUid()).child(saleUid).setValue(sale.nombre_cliente);
-            SaleEntry.sKeysRuts.child(getUid()).child(saleUid).setValue(sale.rut_cliente);
+
+            DatabaseReference mySaleNameRef = SaleEntry.sKeysNames.child(getUid()).child(saleUid);
+            mySaleNameRef.setValue(sale.nombre_cliente);
+
+            DatabaseReference mySaleRutRef = SaleEntry.sKeysRuts.child(getUid()).child(saleUid);
+            mySaleRutRef.setValue(sale.rut_cliente);
 
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
-                ArticleSale articleSale = (ArticleSale) pair.getValue();
+                final ArticleSale articleSale = (ArticleSale) pair.getValue();
                 String articleKey = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
-                SaleEntry.sArticlesSalesRef.child(saleUid).push().setValue(articleSale);
+
+                DatabaseReference articleSaleRef = SaleEntry.sArticlesSalesRef.child(saleUid).push();
+                articleSaleRef.setValue(articleSale);
                 it.remove(); // avoids a ConcurrentModificationException
             }
+
+            // Save sale data to firebase Analytics
+            Analytics.logEventMakeSale(this, sale);
+            // Save each article data to firebase Analytics
+
+            Analytics.logEventArticlesSold(this, articlesForSale);
+
             Intent saleSuccessIntent = new Intent(CreateSaleActivity.this, MainActivity.class);
             setResult(Activity.RESULT_OK, saleSuccessIntent);
             finish();

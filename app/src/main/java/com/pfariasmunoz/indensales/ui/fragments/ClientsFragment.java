@@ -111,7 +111,6 @@ public class ClientsFragment extends BaseFragment implements AdapterSetter {
             @Override
             protected void onDataChanged() {
                 updateViews();
-
             }
 
             @Override

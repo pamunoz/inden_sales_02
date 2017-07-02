@@ -109,4 +109,5 @@
     <string name="edit_user_popup_menu_title">Editar usuario</string>
 
     <string name="create_account_preamble">\"Por medio de presionando GUARDAR usted esta indicando que esta de acuerdo con el \"</string>
+    <string name="you_don_t_have_access_to_this_data">Usted no tiene acceso a estos datos</string>
 </resources>
