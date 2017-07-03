@@ -1,10 +1,15 @@
 package com.pfariasmunoz.indensales.data;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.pfariasmunoz.indensales.R;
 import com.pfariasmunoz.indensales.data.models.IndenUser;
 
 public final class FbContract {
@@ -201,6 +206,7 @@ public final class FbContract {
         public static final String SALES_ND = "ventas";
         public static final String SALES_NAME_KEYS = "ventas-usuario-nombre-cliente";
         public static final String SALES_RUT_KEYS = "ventas-usuario-rut-cliente";
+        public static final String SALE_APROB = "aprob";
 
 
         public static final DatabaseReference sArticlesSalesRef = sDbRef.child(ARTICLES_SALE_ND);
@@ -235,5 +241,13 @@ public final class FbContract {
 
     }
 
+    public static DatabaseReference.CompletionListener getPermissionDeniedListener(final Context context) {
+        return new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                Toast.makeText(context, context.getResources().getString(R.string.permission_denied_message), Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
 
 }

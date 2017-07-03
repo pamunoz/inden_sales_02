@@ -73,10 +73,13 @@ public class BaseFragment extends Fragment {
 
     public void updateViews() {
         mProgressBar.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mNoAccessView.setVisibility(View.INVISIBLE);
     }
 
     public void showNoAccessView() {
         mNoAccessView.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.INVISIBLE);
+        mRecyclerView.setVisibility(View.INVISIBLE);
     }
 }

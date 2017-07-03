@@ -221,8 +221,10 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {
+
                 Map.Entry pair = (Map.Entry)it.next();
-                final ArticleSale articleSale = (ArticleSale) pair.getValue();
+                ArticleSale articleSale = (ArticleSale) pair.getValue();
+                Timber.i("Article: " + articleSale.descripcion);
                 String articleKey = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
 

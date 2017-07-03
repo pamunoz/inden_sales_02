@@ -5,16 +5,26 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="110dp"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/ic_forbiddenhand"/>
+        app:srcCompat="@drawable/ic_permission_denied"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/red"
         android:textSize="18sp"
+        android:maxWidth="200dp"
         android:text="@string/you_don_t_have_access_to_this_data"
         android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:maxWidth="180dp"
+        android:textSize="16sp"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/color_light_grey_primary"
+        android:text="@string/check_with_your_admin_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

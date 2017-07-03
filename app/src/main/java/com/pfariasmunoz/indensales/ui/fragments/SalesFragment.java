@@ -8,11 +8,14 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseIndexRecyclerAdapter;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.pfariasmunoz.indensales.R;
+import com.pfariasmunoz.indensales.data.FbContract;
 import com.pfariasmunoz.indensales.data.FbContract.SaleEntry;
 import com.pfariasmunoz.indensales.data.models.Sale;
 import com.pfariasmunoz.indensales.ui.AdapterSetter;
@@ -75,8 +78,9 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                 viewHolder.getAprobSaleStateSwitch().setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        String aprob = "aprob";
-                        getRef(position).child(aprob).setValue(isChecked);
+
+                        DatabaseReference ref = getRef(position);
+                        ref.child(SaleEntry.SALE_APROB).setValue(isChecked, FbContract.getPermissionDeniedListener(getActivity()));
                     }
                 });
             }
