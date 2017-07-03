@@ -33,12 +33,12 @@ public class ArticleViewHolder extends BaseArticleViewHolder {
     @Override
     public void bind(@NonNull ArticleSale articleSale, @Nullable Article article, @Nullable String code) {
         if (article != null) {
-            if (article.descripcion != null) {
-                String stringDescription = TextHelper.capitalizeFirestLetter(article.descripcion);
+            if (article.getDescripcion() != null) {
+                String stringDescription = TextHelper.capitalizeFirestLetter(article.getDescripcion());
                 mArticleDescriptionTextView.setText(stringDescription);
             }
-            if (article.precio != null) {
-                String stringArticlePrice = MathHelper.getLocalCurrency(article.precio);
+            if (article.getPrecio() != null) {
+                String stringArticlePrice = MathHelper.getLocalCurrency(article.getPrecio());
                 mArticlePriceTextView.setText(stringArticlePrice);
             }
         }

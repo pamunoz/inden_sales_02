@@ -57,7 +57,6 @@ public class AddClientsActivity extends SearchableActivity implements AdapterSet
     TextView mUserNameTextView;
     @BindView(R.id.tv_amount_of_user_clients)
     TextView mClientsUserTextView;
-
     @BindView(R.id.rv_add_clients)
     RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;

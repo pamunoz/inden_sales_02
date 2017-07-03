@@ -130,9 +130,9 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             public void onClick(View v) {
 
                 int amount = articleSale.cantidad + 1;
-                long total = Long.valueOf(article.precio.trim()) * amount;
+                long total = Long.valueOf(article.getPrecio().trim()) * amount;
                 holder.itemView.setBackgroundColor(Color.argb(240,216,23,0));
-                mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.descripcion, articleKey, null, total));
+                mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.getDescripcion(), articleKey, null, total));
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
             }
@@ -141,11 +141,11 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             @Override
             public void onClick(View v) {
                 if (articleSale.cantidad <= 1) {
-                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(0, article.descripcion, articleKey, null, 0L));
+                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L));
                 } else {
                     int amount = articleSale.cantidad - 1;
-                    long total = Long.valueOf(article.precio) * amount;
-                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.descripcion, articleKey, null, total));
+                    long total = Long.valueOf(article.getPrecio()) * amount;
+                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.getDescripcion(), articleKey, null, total));
                 }
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
@@ -236,14 +236,14 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
                 if (newKeys.size() > 1) {
                     if (!newKeys.contains(articleKey.trim())) {
                         newArticles.add(article);
-                        ArticleSale articleSale = new ArticleSale(0, article.descripcion, articleKey, null, 0L);
+                        ArticleSale articleSale = new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L);
                         newArticleSales.add(articleSale);
                         newKeys.add(articleKey);
                     }
 
                 } else {
                     newArticles.add(article);
-                    ArticleSale articleSale = new ArticleSale(0, article.descripcion, articleKey, null, 0L);
+                    ArticleSale articleSale = new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L);
                     newArticleSales.add(articleSale);
                     newKeys.add(articleKey);
                 }
@@ -264,7 +264,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         } else if (mIsBeingSearchByCode) {
             if (!mArticlesKeys.contains(articleKey.trim())) {
                 mArticleList.add(0, article);
-                ArticleSale articleSale = new ArticleSale(0, article.descripcion, articleKey, null, 0L);
+                ArticleSale articleSale = new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L);
                 mArticleSaleList.add(0, articleSale);
                 mArticlesKeys.add(0, articleKey);
             }
@@ -272,7 +272,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             mIsBeingSearchByCode = false;
         } else {
             mArticleList.add(article);
-            ArticleSale articleSale = new ArticleSale(0, article.descripcion, articleKey, null, 0L);
+            ArticleSale articleSale = new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L);
             mArticleSaleList.add(articleSale);
             mArticlesKeys.add(articleKey);
         }

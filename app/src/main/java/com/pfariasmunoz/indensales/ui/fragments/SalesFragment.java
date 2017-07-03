@@ -93,7 +93,12 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
             @Override
             protected void onCancelled(DatabaseError error) {
                 super.onCancelled(error);
-                showNoAccessView();
+                if (error.getCode() == DatabaseError.PERMISSION_DENIED) {
+                    showNoAccessView();
+                } else if (error.getCode() == DatabaseError.UNAVAILABLE) {
+                    updateViews();
+                }
+
             }
         };
         mRecyclerView.setAdapter(mAdapter);
@@ -128,6 +133,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     if (!TextUtils.isEmpty(newText)) {
+                        showProgressBar();
                         if (MathHelper.isNumeric(newText)) {
                             Query numberQuery = SaleEntry.getSalesKeysByClientRut(newText);
                             setupAdapter(numberQuery);
