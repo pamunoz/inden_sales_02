@@ -40,6 +40,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     // Values for updating the activity views
     private long mTotalPrice = 0;
     private int mTotalAmount = 0;
+    private long mTotalPriceWithDiscount;
     private Map<String, ArticleSale> mArticlesForSale = new HashMap<>();
 
 
@@ -278,5 +279,8 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         }
     }
 
+    public long getTotalPriceWithDiscount() {
 
+        return mTotalPriceWithDiscount;
+    }
 }
