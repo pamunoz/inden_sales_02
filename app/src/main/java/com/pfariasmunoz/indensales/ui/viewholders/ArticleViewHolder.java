@@ -49,12 +49,12 @@ public class ArticleViewHolder extends BaseArticleViewHolder {
             mArticleCodeTextView.setText(code);
         }
 
-        if (articleSale.total != null) {
-            String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.total));
+        if (articleSale.getTotal() != null) {
+            String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.getTotal()));
             mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
         }
-        if (articleSale.cantidad > 0) {
-            mArticlesAmountTextView.setText(String.valueOf(articleSale.cantidad));
+        if (articleSale.getCantidad() > 0) {
+            mArticlesAmountTextView.setText(String.valueOf(articleSale.getCantidad()));
         } else {
             mArticlesAmountTextView.setText(String.valueOf(0));
         }

@@ -33,10 +33,10 @@ public class Analytics {
             ArticleSale articleSale = (ArticleSale) pair.getValue();
             String articleKey = (String) pair.getKey();
             Bundle params = new Bundle();
-            params.putString(Param.ARTICLE_DESCRIPTION, articleSale.descripcion);
-            params.putString(Param.ARTICLE_ID, articleSale.idarticulo);
-            params.putInt(Param.ARTICLE_QUANTITY, articleSale.cantidad);
-            params.putLong(Param.ARTICLE_PRICE, articleSale.total);
+            params.putString(Param.ARTICLE_DESCRIPTION, articleSale.getDescripcion());
+            params.putString(Param.ARTICLE_ID, articleSale.getIdarticulo());
+            params.putInt(Param.ARTICLE_QUANTITY, articleSale.getCantidad());
+            params.putLong(Param.ARTICLE_PRICE, articleSale.getTotal());
 
             // Save every article sale with the sale report as its parent node
             FirebaseAnalytics.getInstance(context).logEvent(Event.ARTICLE_SOLD, params);

@@ -224,7 +224,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
                 Map.Entry pair = (Map.Entry)it.next();
                 ArticleSale articleSale = (ArticleSale) pair.getValue();
-                Timber.i("Article: " + articleSale.descripcion);
                 String articleKey = (String) pair.getKey();
                 // Save every article sale with the sale report as its parent node
 
@@ -273,7 +272,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         List<ArticleSale> currentArticlesSales = new ArrayList<>();
         List<Article> currentArticles = new ArrayList<>();
         for (int i = 0; i < mAdapter.getArticlesKeys().size(); i++) {
-            if (mAdapter.getArticleSaleList().get(i).cantidad > 0) {
+            if (mAdapter.getArticleSaleList().get(i).getCantidad() > 0) {
                 currentKeys.add(mAdapter.getArticlesKeys().get(i));
                 currentArticlesSales.add(mAdapter.getArticleSaleList().get(i));
                 currentArticles.add(mAdapter.getArticleList().get(i));

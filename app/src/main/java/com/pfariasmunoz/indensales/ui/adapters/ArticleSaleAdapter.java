@@ -119,7 +119,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         int yellow = R.color.yellow;
         int white = R.color.white;
 
-        if (mArticleSaleList.get(position).cantidad > 0) {
+        if (mArticleSaleList.get(position).getCantidad() > 0) {
             holder.itemView.setBackgroundResource(yellow);
         } else {
             holder.itemView.setBackgroundResource(white);
@@ -130,7 +130,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             @Override
             public void onClick(View v) {
 
-                int amount = articleSale.cantidad + 1;
+                int amount = articleSale.getCantidad() + 1;
                 long total = Long.valueOf(article.getPrecio().trim()) * amount;
                 holder.itemView.setBackgroundColor(Color.argb(240,216,23,0));
                 mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.getDescripcion(), articleKey, null, total));
@@ -141,10 +141,10 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         holder.getSubtractArticleButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (articleSale.cantidad <= 1) {
+                if (articleSale.getCantidad() <= 1) {
                     mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L));
                 } else {
-                    int amount = articleSale.cantidad - 1;
+                    int amount = articleSale.getCantidad() - 1;
                     long total = Long.valueOf(article.getPrecio()) * amount;
                     mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.getDescripcion(), articleKey, null, total));
                 }
@@ -174,7 +174,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
                 for (int j = 0; j < mArticleSaleList.size(); j++) {
                     ArticleSale sale = mArticleSaleList.get(i);
                     String key = mArticlesKeys.get(i);
-                    if (sale.cantidad > 0) {
+                    if (sale.getCantidad() > 0) {
                         mArticlesForSale.put(key, sale);
                     }
                 }
@@ -191,8 +191,8 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
                 ArticleSale sale = (ArticleSale) pair.getValue();
-                mTotalPrice += sale.total;
-                mTotalAmount += sale.cantidad;
+                mTotalPrice += sale.getTotal();
+                mTotalAmount += sale.getCantidad();
                 it.remove(); // avoids a ConcurrentModificationException
             }
         }
@@ -255,7 +255,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             mArticlesKeys.addAll(0, newKeys);
             mIsBeingSearchByWord = false;
             for (int i = 0; i < mArticlesKeys.size(); i++) {
-                if (mArticleSaleList.get(i).cantidad == 0 && isReapeated(mArticlesKeys.get(i)) > 1) {
+                if (mArticleSaleList.get(i).getCantidad() == 0 && isReapeated(mArticlesKeys.get(i)) > 1) {
                     mArticlesKeys.remove(i);
                     mArticleSaleList.remove(i);
                     mArticleList.remove(i);
