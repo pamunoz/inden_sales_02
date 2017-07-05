@@ -43,31 +43,31 @@ public class SaleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Sale report) {
-        if (report.total > 0) {
-            String total = String.valueOf(report.total);
+        if (report.getTotal() > 0) {
+            String total = String.valueOf(report.getTotal());
             String stringTotal = MathHelper.getLocalCurrency(total);
             mTotalSalePriceTextView.setText(stringTotal);
         } else {
             mTotalSalePriceTextView.setText(String.valueOf(0));
         }
-        if (report.nombre_cliente != null) {
-            String stringClientName = TextHelper.capitalizeFirestLetter(report.nombre_cliente);
+        if (report.getNombre_cliente() != null) {
+            String stringClientName = TextHelper.capitalizeFirestLetter(report.getNombre_cliente());
             mClientNameSaleTextView.setText(stringClientName);
         }
-        if (report.direccion != null) {
-            String stringAddress = TextHelper.capitalizeFirestLetter(report.direccion);
+        if (report.getDireccion() != null) {
+            String stringAddress = TextHelper.capitalizeFirestLetter(report.getDireccion());
             mClientAddressSaleTextView.setText(stringAddress);
         }
-        if (report.rut_cliente != null) {
-            mClientRutSaleTextView.setText(report.rut_cliente);
+        if (report.getRut_cliente() != null) {
+            mClientRutSaleTextView.setText(report.getRut_cliente());
         }
 
-        String date = TextHelper.formatDate(report.timestamp);
-        String time = TextHelper.formatTime(report.timestamp);
+        String date = TextHelper.formatDate(report.getTimestamp());
+        String time = TextHelper.formatTime(report.getTimestamp());
         mDateSaleTextView.setText(date);
         mTimeSaleTextView.setText(time);
-        mAprobSaleStateSwitch.setChecked(report.aprob);
-        if (report.aprob) {
+        mAprobSaleStateSwitch.setChecked(report.isAprob());
+        if (report.isAprob()) {
             mAprobSaleStateSwitch.setTextColor(Color.GREEN);
         } else {
             mAprobSaleStateSwitch.setTextColor(Color.RED);

@@ -31,10 +31,13 @@ public class ArticleViewHolder extends BaseArticleViewHolder {
     }
 
     @Override
-    public void bind(@NonNull ArticleSale articleSale, @Nullable Article article, @Nullable String code) {
+    public void bind(@NonNull ArticleSale articleSale,
+                     @Nullable Article article,
+                     @Nullable String code) {
         if (article != null) {
             if (article.getDescripcion() != null) {
-                String stringDescription = TextHelper.capitalizeFirestLetter(article.getDescripcion());
+                String stringDescription =
+                        TextHelper.capitalizeFirestLetter(article.getDescripcion());
                 mArticleDescriptionTextView.setText(stringDescription);
             }
             if (article.getPrecio() != null) {
@@ -50,7 +53,8 @@ public class ArticleViewHolder extends BaseArticleViewHolder {
         }
 
         if (articleSale.getTotal() != null) {
-            String stringArticleTotalPrice = MathHelper.getLocalCurrency(String.valueOf(articleSale.getTotal()));
+            String stringArticleTotalPrice =
+                    MathHelper.getLocalCurrency(String.valueOf(articleSale.getTotal()));
             mArticlesTotalPriceTextView.setText(stringArticleTotalPrice);
         }
         if (articleSale.getCantidad() > 0) {

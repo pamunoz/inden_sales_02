@@ -16,7 +16,9 @@ import com.pfariasmunoz.indensales.data.models.Article;
 import com.pfariasmunoz.indensales.data.models.ArticleSale;
 import com.pfariasmunoz.indensales.ui.activities.CreateSaleActivity;
 import com.pfariasmunoz.indensales.ui.viewholders.ArticleViewHolder;
+import com.pfariasmunoz.indensales.utils.MathHelper;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -132,8 +134,13 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
 
                 int amount = articleSale.getCantidad() + 1;
                 long total = Long.valueOf(article.getPrecio().trim()) * amount;
+                BigDecimal totalWithDiscount = MathHelper.getTotalPriceWithDeiscount(article, amount);
+                ArticleSale articleForSale = new ArticleSale(amount, article.getDescripcion(),articleKey, null, total);
+                articleForSale.setTotalConDescuento(totalWithDiscount);
                 holder.itemView.setBackgroundColor(Color.argb(240,216,23,0));
-                mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.getDescripcion(), articleKey, null, total));
+                mArticleSaleList.set(holder.getAdapterPosition(),
+                        articleForSale
+                );
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
             }

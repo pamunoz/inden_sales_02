@@ -18,9 +18,9 @@ public class Analytics {
 
     public static void logEventMakeSale(Context context, Sale sale) {
         Bundle params = new Bundle();
-        params.putString(Param.USER_ID, sale.idvendedor);
-        params.putString(Param.CLIENT_ID, sale.idcliente);
-        params.putLong(Param.TOTAL_SALE, sale.total);
+        params.putString(Param.USER_ID, sale.getIdvendedor());
+        params.putString(Param.CLIENT_ID, sale.getIdcliente());
+        params.putLong(Param.TOTAL_SALE, sale.getTotal());
 
         // Firebase analytics
         FirebaseAnalytics.getInstance(context).logEvent(Event.MAKE_SALE, params);

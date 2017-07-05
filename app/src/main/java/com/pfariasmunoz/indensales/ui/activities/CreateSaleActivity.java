@@ -214,10 +214,10 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
 
 
             DatabaseReference mySaleNameRef = SaleEntry.sKeysNames.child(getUid()).child(saleUid);
-            mySaleNameRef.setValue(sale.nombre_cliente);
+            mySaleNameRef.setValue(sale.getNombre_cliente());
 
             DatabaseReference mySaleRutRef = SaleEntry.sKeysRuts.child(getUid()).child(saleUid);
-            mySaleRutRef.setValue(sale.rut_cliente);
+            mySaleRutRef.setValue(sale.getRut_cliente());
 
             Iterator it = articlesForSale.entrySet().iterator();
             while (it.hasNext()) {

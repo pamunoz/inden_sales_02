@@ -1,5 +1,7 @@
 package com.pfariasmunoz.indensales.utils;
 
+import android.os.Bundle;
+
 import com.pfariasmunoz.indensales.data.models.Article;
 
 import java.math.BigDecimal;
@@ -48,7 +50,7 @@ public class MathHelper {
     }
 
     public static BigDecimal getTotalPriceWithDeiscount(Article article, int amount) {
-        Double doubleAmount = Double.valueOf(amount);
+        Double doubleAmount = (double) amount;
         Double precio = Double.valueOf(article.getPrecio());
         Double discount1 = Double.valueOf(article.getDescuento1());
         Double discount2 = Double.valueOf(article.getDescuento2());

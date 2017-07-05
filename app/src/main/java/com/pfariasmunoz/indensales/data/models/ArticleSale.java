@@ -1,5 +1,7 @@
 package com.pfariasmunoz.indensales.data.models;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Pablo Farias on 29-04-17.
  */
@@ -11,27 +13,22 @@ public class ArticleSale {
     private String idventa;
     private Long precio;
     private Long total;
-    private Long precioConDescuento;
+    private BigDecimal total_con_descuento;
 
     public ArticleSale() {
     }
 
-    public ArticleSale(int cantidad, String descripcion, String idarticulo, String idventa, Long total) {
+    public ArticleSale(
+            int cantidad,
+            String descripcion,
+            String idarticulo,
+            String idventa,
+            Long total) {
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.idarticulo = idarticulo;
         this.idventa = idventa;
         this.total = total;
-    }
-
-    public ArticleSale(int cantidad, String descripcion, String idarticulo, String idventa, Long precio, Long total, Long precioConDescuento) {
-        this.cantidad = cantidad;
-        this.descripcion = descripcion;
-        this.idarticulo = idarticulo;
-        this.idventa = idventa;
-        this.precio = precio;
-        this.total = total;
-        this.precioConDescuento = precioConDescuento;
     }
 
     public int getCantidad() {
@@ -82,11 +79,11 @@ public class ArticleSale {
         this.total = total;
     }
 
-    public Long getPrecioConDescuento() {
-        return precioConDescuento;
+    public BigDecimal getTotalConDescuento() {
+        return total_con_descuento;
     }
 
-    public void setPrecioConDescuento(Long precioConDescuento) {
-        this.precioConDescuento = precioConDescuento;
+    public void setTotalConDescuento(BigDecimal totalConDescuento) {
+        this.total_con_descuento = totalConDescuento;
     }
 }
