@@ -156,7 +156,16 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             @Override
             public void onClick(View v) {
                 if (articleSale.getCantidad() <= 1) {
-                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(0, article.getDescripcion(), articleKey, null, 0L));
+                    ArticleSale articleForSale = new ArticleSale(
+                            0,
+                            article.getDescripcion(),
+                            articleKey,
+                            null,
+                            Long.valueOf(article.getPrecio()),
+                            0,
+                            0);
+
+                    mArticleSaleList.set(holder.getAdapterPosition(), articleForSale);
                 } else {
                     int amount = articleSale.getCantidad() - 1;
                     long total = Long.valueOf(article.getPrecio()) * amount;
@@ -171,8 +180,6 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
                     mArticleSaleList.set(
                             holder.getAdapterPosition(),
                             articleForSale);
-                    Timber.i("Article" + articleKey + " with discount: " + articleForSale.getTotalConDescuento());
-                    Timber.i("Article" + articleKey + " price: " + articleForSale.getPrecio());
 
                 }
                 notifyDataSetChanged();
