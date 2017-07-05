@@ -49,21 +49,12 @@ public class MathHelper {
 
     }
 
-    public static BigDecimal getTotalPriceWithDeiscount(Article article, int amount) {
-        Double doubleAmount = (double) amount;
-        Double precio = Double.valueOf(article.getPrecio());
-        Double discount1 = Double.valueOf(article.getDescuento1());
-        Double discount2 = Double.valueOf(article.getDescuento2());
-        Double discount3 = Double.valueOf(article.getDescuento3());
-        BigDecimal d1 = BigDecimal.valueOf(precio)
-                .multiply(BigDecimal.valueOf(discount1))
-                .divide(BigDecimal.valueOf(100.0), BigDecimal.ROUND_UNNECESSARY);
-        BigDecimal d2 = d1.multiply(BigDecimal.valueOf(discount2))
-                .divide(BigDecimal.valueOf(100.0), BigDecimal.ROUND_UNNECESSARY);
-        BigDecimal d3 = d2.multiply(BigDecimal.valueOf(discount3))
-                .divide(BigDecimal.valueOf(100.0), BigDecimal.ROUND_UNNECESSARY);
-        return BigDecimal.valueOf(precio).subtract(d1.add(d2).add(d3)).multiply(BigDecimal.valueOf(doubleAmount));
-
+    public static double getTotalPriceWithDeiscount(Article article, int amount) {
+        double d1 = Double.valueOf(article.getPrecio()) * Double.valueOf(article.getDescuento1()) / 100L;
+        double d2 = d1 * Double.valueOf(article.getDescuento2()) / 100L;
+        double d3 = d2 * Double.valueOf(article.getDescuento3()) / 100L;
+        double sum = d1 + d2 + d3;
+        return (Double.valueOf(article.getPrecio()) - sum) * amount;
     }
 
 }

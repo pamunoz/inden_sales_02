@@ -11,9 +11,9 @@ public class ArticleSale {
     private String descripcion;
     private String idarticulo;
     private String idventa;
-    private Long precio;
-    private Long total;
-    private BigDecimal total_con_descuento;
+    private long precio;
+    private long total;
+    private double total_con_descuento;
 
     public ArticleSale() {
     }
@@ -23,12 +23,22 @@ public class ArticleSale {
             String descripcion,
             String idarticulo,
             String idventa,
-            Long total) {
+            long total) {
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.idarticulo = idarticulo;
         this.idventa = idventa;
         this.total = total;
+    }
+
+    public ArticleSale(int cantidad, String descripcion, String idarticulo, String idventa, long precio, long total, double total_con_descuento) {
+        this.cantidad = cantidad;
+        this.descripcion = descripcion;
+        this.idarticulo = idarticulo;
+        this.idventa = idventa;
+        this.precio = precio;
+        this.total = total;
+        this.total_con_descuento = total_con_descuento;
     }
 
     public int getCantidad() {
@@ -63,7 +73,7 @@ public class ArticleSale {
         this.idventa = idventa;
     }
 
-    public Long getPrecio() {
+    public long getPrecio() {
         return precio;
     }
 
@@ -71,19 +81,19 @@ public class ArticleSale {
         this.precio = precio;
     }
 
-    public Long getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
-    public BigDecimal getTotalConDescuento() {
+    public double getTotalConDescuento() {
         return total_con_descuento;
     }
 
-    public void setTotalConDescuento(BigDecimal totalConDescuento) {
+    public void setTotalConDescuento(double totalConDescuento) {
         this.total_con_descuento = totalConDescuento;
     }
 }

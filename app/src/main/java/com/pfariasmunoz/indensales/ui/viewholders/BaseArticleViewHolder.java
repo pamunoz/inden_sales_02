@@ -44,17 +44,15 @@ public class BaseArticleViewHolder extends RecyclerView.ViewHolder {
             mArticleDescriptionTextView.setText(stringDescription);
         }
 
-        if (articleSale.getTotal() != null) {
-            long precio;
-            if (articleSale.getCantidad() > 0) {
-                precio = articleSale.getTotal() / articleSale.getCantidad();
-            } else {
-                precio = articleSale.getTotal();
-            }
-            String stringPrice = String.valueOf(precio);
-            String stringArticlePrice = MathHelper.getLocalCurrency(stringPrice);
-            mArticlePriceTextView.setText(stringArticlePrice);
+        long precio = 0;
+        if (articleSale.getCantidad() > 0) {
+            precio = articleSale.getTotal() / articleSale.getCantidad();
+        } else {
+            precio = articleSale.getTotal();
         }
+        String stringPrice = String.valueOf(precio);
+        String stringArticlePrice = MathHelper.getLocalCurrency(stringPrice);
+        mArticlePriceTextView.setText(stringArticlePrice);
 
 
 

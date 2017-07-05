@@ -54,7 +54,13 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         mQuery.addValueEventListener(mEventListener);
     }
 
-    public ArticleSaleAdapter(Context context, Query articlesQuery, List<ArticleSale> articleSales, List<Article> articleList, List<String> articlesKeys, boolean isBeingSearchByWord, boolean isBeingSearchByCode) {
+    public ArticleSaleAdapter(Context context,
+                              Query articlesQuery,
+                              List<ArticleSale> articleSales,
+                              List<Article> articleList,
+                              List<String> articlesKeys,
+                              boolean isBeingSearchByWord,
+                              boolean isBeingSearchByCode) {
         mIsBeingSearchByWord = isBeingSearchByWord;
         mIsBeingSearchByCode = isBeingSearchByCode;
         // Initialize current data
@@ -72,12 +78,8 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     public ArticleViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
         int layoutIdForListItem = R.layout.item_article_for_sale;
-
-
         LayoutInflater inflater = LayoutInflater.from(context);
-
         View view = inflater.inflate(layoutIdForListItem, viewGroup, false);
-        Timber.d("STILL WORKING...");
         return new ArticleViewHolder(view);
     }
 
@@ -131,16 +133,21 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         holder.getAddArticleButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int amount = articleSale.getCantidad() + 1;
                 long total = Long.valueOf(article.getPrecio().trim()) * amount;
-                BigDecimal totalWithDiscount = MathHelper.getTotalPriceWithDeiscount(article, amount);
-                ArticleSale articleForSale = new ArticleSale(amount, article.getDescripcion(),articleKey, null, total);
-                articleForSale.setTotalConDescuento(totalWithDiscount);
+                double totalWithDiscount = MathHelper.getTotalPriceWithDeiscount(article, amount);
+                ArticleSale articleForSale = new ArticleSale(
+                        amount,
+                        article.getDescripcion(),
+                        articleKey,
+                        null,
+                        Long.valueOf(article.getPrecio()),
+                        total,
+                        totalWithDiscount);
+                Timber.i("Article" + articleKey + " with discount: " + articleForSale.getTotalConDescuento());
+                Timber.i("Article" + articleKey + " price: " + articleForSale.getPrecio());
                 holder.itemView.setBackgroundColor(Color.argb(240,216,23,0));
-                mArticleSaleList.set(holder.getAdapterPosition(),
-                        articleForSale
-                );
+                mArticleSaleList.set(holder.getAdapterPosition(), articleForSale);
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
             }
@@ -153,7 +160,20 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
                 } else {
                     int amount = articleSale.getCantidad() - 1;
                     long total = Long.valueOf(article.getPrecio()) * amount;
-                    mArticleSaleList.set(holder.getAdapterPosition(), new ArticleSale(amount, article.getDescripcion(), articleKey, null, total));
+                    double totalWithDiscount = MathHelper.getTotalPriceWithDeiscount(article, amount);
+                    ArticleSale articleForSale = new ArticleSale(amount,
+                            article.getDescripcion(),
+                            articleKey,
+                            null,
+                            Long.valueOf(article.getPrecio()),
+                            total,
+                            totalWithDiscount);
+                    mArticleSaleList.set(
+                            holder.getAdapterPosition(),
+                            articleForSale);
+                    Timber.i("Article" + articleKey + " with discount: " + articleForSale.getTotalConDescuento());
+                    Timber.i("Article" + articleKey + " price: " + articleForSale.getPrecio());
+
                 }
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
