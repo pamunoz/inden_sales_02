@@ -12,7 +12,7 @@ public class Sale {
     private String nombre_cliente;
     private String rut_cliente;
     private Long total;
-    private Long total_con_descuento;
+    private double total_con_descuento;
     private Long timestamp;
     private String direccion;
 
@@ -31,7 +31,17 @@ public class Sale {
         this.direccion = direccion;
     }
 
-    public Sale(boolean aprob, String iddireccion, String idcliente, String idvendedor, String nombre_cliente, String rut_cliente, Long total, Long totalConDescuento, Long timestamp, String direccion) {
+    public Sale(
+            boolean aprob,
+            String iddireccion,
+            String idcliente,
+            String idvendedor,
+            String nombre_cliente,
+            String rut_cliente,
+            Long total,
+            double total_con_descuento,
+            Long timestamp,
+            String direccion) {
         this.aprob = aprob;
         this.iddireccion = iddireccion;
         this.idcliente = idcliente;
@@ -39,7 +49,7 @@ public class Sale {
         this.nombre_cliente = nombre_cliente;
         this.rut_cliente = rut_cliente;
         this.total = total;
-        this.total_con_descuento = totalConDescuento;
+        this.total_con_descuento = total_con_descuento;
         this.timestamp = timestamp;
         this.direccion = direccion;
     }
@@ -100,12 +110,12 @@ public class Sale {
         this.total = total;
     }
 
-    public Long getTotalConDescuento() {
+    public double getTotal_con_descuento() {
         return total_con_descuento;
     }
 
-    public void setTotalConDescuento(Long totalConDescuento) {
-        this.total_con_descuento = totalConDescuento;
+    public void setTotal_con_descuento(double total_con_descuento) {
+        this.total_con_descuento = total_con_descuento;
     }
 
     public Long getTimestamp() {

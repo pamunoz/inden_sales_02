@@ -31,7 +31,14 @@ public class ArticleSale {
         this.total = total;
     }
 
-    public ArticleSale(int cantidad, String descripcion, String idarticulo, String idventa, long precio, long total, double total_con_descuento) {
+    public ArticleSale(
+            int cantidad,
+            String descripcion,
+            String idarticulo,
+            String idventa,
+            long precio,
+            long total,
+            double total_con_descuento) {
         this.cantidad = cantidad;
         this.descripcion = descripcion;
         this.idarticulo = idarticulo;
@@ -89,11 +96,11 @@ public class ArticleSale {
         this.total = total;
     }
 
-    public double getTotalConDescuento() {
+    public double getTotal_con_descuento() {
         return total_con_descuento;
     }
 
-    public void setTotalConDescuento(double totalConDescuento) {
-        this.total_con_descuento = totalConDescuento;
+    public void setTotal_con_descuento(double total_con_descuento) {
+        this.total_con_descuento = total_con_descuento;
     }
 }

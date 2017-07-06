@@ -43,8 +43,9 @@ public class SaleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Sale report) {
-        if (report.getTotal() > 0) {
-            String total = String.valueOf(report.getTotal());
+        if (report.getTotal_con_descuento() > 0) {
+            long totalWithDiscount = (long) report.getTotal_con_descuento();
+            String total = String.valueOf(totalWithDiscount);
             String stringTotal = MathHelper.getLocalCurrency(total);
             mTotalSalePriceTextView.setText(stringTotal);
         } else {

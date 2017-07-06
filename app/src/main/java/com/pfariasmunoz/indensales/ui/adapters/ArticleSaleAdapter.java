@@ -42,7 +42,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     // Values for updating the activity views
     private long mTotalPrice = 0;
     private int mTotalAmount = 0;
-    private long mTotalPriceWithDiscount;
+    private double mTotalPriceWithDiscount;
     private Map<String, ArticleSale> mArticlesForSale = new HashMap<>();
 
 
@@ -144,9 +144,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
                         Long.valueOf(article.getPrecio()),
                         total,
                         totalWithDiscount);
-                Timber.i("Article" + articleKey + " with discount: " + articleForSale.getTotalConDescuento());
-                Timber.i("Article" + articleKey + " price: " + articleForSale.getPrecio());
-                holder.itemView.setBackgroundColor(Color.argb(240,216,23,0));
+                holder.itemView.setBackgroundColor(Color.argb(240, 216, 23, 0));
                 mArticleSaleList.set(holder.getAdapterPosition(), articleForSale);
                 notifyDataSetChanged();
                 setToalPriceAndAmount();
@@ -157,13 +155,9 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             public void onClick(View v) {
                 if (articleSale.getCantidad() <= 1) {
                     ArticleSale articleForSale = new ArticleSale(
-                            0,
-                            article.getDescripcion(),
-                            articleKey,
+                            0, article.getDescripcion(), articleKey,
                             null,
-                            Long.valueOf(article.getPrecio()),
-                            0,
-                            0);
+                            Long.valueOf(article.getPrecio()), 0, 0);
 
                     mArticleSaleList.set(holder.getAdapterPosition(), articleForSale);
                 } else {
@@ -188,7 +182,7 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
         });
 
         if (mContext instanceof CreateSaleActivity) {
-            ((CreateSaleActivity)mContext).updateProgressView();
+            ((CreateSaleActivity) mContext).updateProgressView();
         }
     }
 
@@ -218,20 +212,33 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
     }
 
     private void setToalPriceAndAmount() {
+        mTotalPriceWithDiscount = 0;
         mTotalPrice = 0;
         mTotalAmount = 0;
         if (getArticlesForSale() != null) {
             Iterator it = getArticlesForSale().entrySet().iterator();
             while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
+                Map.Entry pair = (Map.Entry) it.next();
                 ArticleSale sale = (ArticleSale) pair.getValue();
                 mTotalPrice += sale.getTotal();
                 mTotalAmount += sale.getCantidad();
+                mTotalPriceWithDiscount += sale.getTotal_con_descuento();
                 it.remove(); // avoids a ConcurrentModificationException
             }
         }
-        ((CreateSaleActivity)getContext()).setTotals(mTotalPrice, mTotalAmount);
+        ((CreateSaleActivity) getContext()).setTotals(mTotalPrice, mTotalPriceWithDiscount, mTotalAmount);
     }
+
+    public void setTotalPriceWithDiscount(long totalPriceWithDiscount) {
+
+        mTotalPriceWithDiscount = totalPriceWithDiscount;
+    }
+
+    public double getTotalPriceWithDiscount() {
+
+        return mTotalPriceWithDiscount;
+    }
+
 
     public long getTotalPrice() {
         return mTotalPrice;
@@ -312,9 +319,6 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
             mArticlesKeys.add(articleKey);
         }
     }
-
-    public long getTotalPriceWithDiscount() {
-
-        return mTotalPriceWithDiscount;
-    }
 }
+
+

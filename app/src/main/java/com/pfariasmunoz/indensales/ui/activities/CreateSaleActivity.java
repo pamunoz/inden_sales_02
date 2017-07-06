@@ -134,7 +134,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mAdapter);
-        setTotals(0, 0);
+        setTotals(0, 0, 0);
         attachReadListeners();
 
     }
@@ -201,9 +201,9 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     mClientName,
                     mClientRut,
                     mAdapter.getTotalPrice(),
+                    mAdapter.getTotalPriceWithDiscount(),
                     currentTimeInMillis,
-                    mClientAddress
-            );
+                    mClientAddress);
 
             DatabaseReference saleRef = SaleEntry.sRef.push();
 
@@ -392,9 +392,11 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         }
     }
 
-    public void setTotals(long totalPrice, int totalAmount) {
+    public void setTotals(long totalPrice, double totalPriceWithDiscount, int totalAmount) {
+        long totalWithDiscount = (long) totalPriceWithDiscount;
+        String stringTotalWithDiscount = MathHelper.getLocalCurrency(String.valueOf(totalWithDiscount));
         String stringTotal = MathHelper.getLocalCurrency(String.valueOf(totalPrice));
-        mTotalPriceSaleTextView.setText(stringTotal);
+        mTotalPriceSaleTextView.setText(stringTotalWithDiscount);
     }
 
     @Override
