@@ -79,7 +79,7 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                         DatabaseReference ref = getRef(position);
-                        ref.child(SaleEntry.SALE_APROB).setValue(isChecked, FbContract.getPermissionDeniedListener(getActivity()));
+                        ref.child(SaleEntry.SALE_APROB).setValue(isChecked, FbContract.getPermissionDeniedListener(getActivity(), isChecked));
                     }
                 });
             }
@@ -91,10 +91,8 @@ public class SalesFragment extends BaseFragment implements AdapterSetter{
 
             @Override
             protected void onCancelled(DatabaseError error) {
-                super.onCancelled(error);
                 if (error.getCode() == DatabaseError.PERMISSION_DENIED) {
                     showNoAccessView();
-                    Timber.i("ERROR CODE: " + error.toString());
                 } else if (error.getCode() == DatabaseError.UNAVAILABLE) {
                     updateViews();
                 }

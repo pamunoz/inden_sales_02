@@ -241,11 +241,24 @@ public final class FbContract {
 
     }
 
-    public static DatabaseReference.CompletionListener getPermissionDeniedListener(final Context context) {
+    public static DatabaseReference.CompletionListener getPermissionDeniedListener(final Context context, final boolean isChecked) {
         return new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                Toast.makeText(context, context.getResources().getString(R.string.permission_denied_message), Toast.LENGTH_SHORT).show();
+                if (databaseError != null) {
+                    if (databaseError.getCode() == DatabaseError.PERMISSION_DENIED) {
+                        Toast.makeText(context, context.getResources().getString(R.string.permission_denied_message), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if (isChecked) {
+                        Toast.makeText(context, context.getResources().getString(R.string.sale_aproved_message), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, context.getResources().getString(R.string.sale_disaproved_message), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+
             }
         };
     }

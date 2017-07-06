@@ -112,4 +112,6 @@
     <string name="you_don_t_have_access_to_this_data">Usted no tiene acceso a estos datos</string>
     <string name="permission_denied_message">Usted no tiene permiso para esta operación.</string>
     <string name="check_with_your_admin_message">Consulte con el administrador</string>
+    <string name="sale_aproved_message">Venta aprovada</string>
+    <string name="sale_disaproved_message">Venta rechazada</string>
 </resources>
