@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.ExpandableWeightLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +56,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class CreateSaleActivity extends SearchableActivity implements View.OnClickListener{
+import static android.support.design.widget.BottomSheetBehavior.STATE_COLLAPSED;
+import static android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED;
+
+public class CreateSaleActivity extends SearchableActivity {
 
     @BindView(R.id.tv_client_name)
     TextView mClientNameTextView;
@@ -67,8 +72,6 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     @BindView(R.id.tv_sale_total_price)
     TextView mTotalPriceSaleTextView;
 
-    @BindView(R.id.ll_expand)
-    LinearLayout mLayout;
     @BindView(R.id.img_toggle_image)
     ImageView mToggleImageView;
     @BindView(R.id.rv_numbers)
@@ -78,14 +81,17 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.expandableLayout)
-    ExpandableWeightLayout mExpandableLayout;
+    @BindView(R.id.bottom_sheet)
+    LinearLayout mExpandableLayout;
+
+    BottomSheetBehavior mBottomSheetBehavior;
 
     private String mClientId;
     private String mClientAddressId;
     private String mClientName;
     private String mClientRut;
     private String mClientAddress;
+    private int mClientDiscountPercent;
 
     private ValueEventListener mClientListener;
     private ValueEventListener mClientAddressListener;
@@ -102,6 +108,31 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         setContentView(R.layout.activity_create_sale);
         ButterKnife.bind(this);
 
+        mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(mExpandableLayout);
+        mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case STATE_COLLAPSED:
+                        mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
+                        break;
+
+                    case STATE_EXPANDED:
+                        mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+
         // Remueve el overdraw de esta activity
         getWindow().setBackgroundDrawable(null);
 
@@ -112,13 +143,12 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mLayout.setOnClickListener(this);
-        mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-        mExpandableLayout.setOnClickListener(this);
+
 
         // Initialize Firebase components
         mClientId = getIntent().getStringExtra(Constants.CLIENT_ID_KEY);
         mClientAddressId = getIntent().getStringExtra(Constants.ADDRESS_ID_KEY);
+        mClientDiscountPercent = 0;
 
         // Initialize the queries
         mClientQuery = ClientEntry.sRef.child(mClientId);
@@ -148,6 +178,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     Client client = dataSnapshot.getValue(Client.class);
                     mClientName = client.nombre;
                     mClientRut = client.rut;
+                    mClientDiscountPercent = client.descuento != null ? Integer.valueOf(client.descuento) : 0;
                     String discount = client.descuento;
                     String stringName = TextHelper.capitalizeFirestLetter(mClientName);
                     mClientNameTextView.setText(stringName);
@@ -201,7 +232,7 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
                     mClientName,
                     mClientRut,
                     mAdapter.getTotalPrice(),
-                    mAdapter.getTotalPriceWithDiscount(),
+                    mAdapter.getTotalPriceWithDiscount(mClientDiscountPercent),
                     currentTimeInMillis,
                     mClientAddress);
 
@@ -259,6 +290,19 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mAdapter = new ArticleSaleAdapter(this, mArticlesQuery);
         mAdapter.notifyDataSetChanged();
         mRecyclerView.swapAdapter(mAdapter, false);
+    }
+
+    @OnClick(R.id.ll_expand)
+    public void toggleBottomSheet() {
+        int bottomSheetState = mBottomSheetBehavior.getState();
+        switch (bottomSheetState) {
+            case STATE_COLLAPSED:
+                mBottomSheetBehavior.setState(STATE_EXPANDED);
+                break;
+            case STATE_EXPANDED:
+                mBottomSheetBehavior.setState(STATE_COLLAPSED);
+                break;
+        }
     }
 
     /**
@@ -399,22 +443,4 @@ public class CreateSaleActivity extends SearchableActivity implements View.OnCli
         mTotalPriceSaleTextView.setText(stringTotalWithDiscount);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_expand:
-                if (!mExpandableLayout.isExpanded()) {
-                    mExpandableLayout.expand();
-                    mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_down_black_24dp);
-                } else {
-                    mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-                    mExpandableLayout.collapse();
-                }
-                break;
-            case R.id.expandableLayout:
-                mToggleImageView.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp);
-                mExpandableLayout.collapse();
-                break;
-        }
-    }
 }

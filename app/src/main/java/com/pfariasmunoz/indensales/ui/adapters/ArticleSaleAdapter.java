@@ -231,12 +231,16 @@ public class ArticleSaleAdapter extends RecyclerView.Adapter<ArticleViewHolder> 
 
     public void setTotalPriceWithDiscount(long totalPriceWithDiscount) {
 
+
+
         mTotalPriceWithDiscount = totalPriceWithDiscount;
     }
 
-    public double getTotalPriceWithDiscount() {
+    public double getTotalPriceWithDiscount(int discountPercent) {
+        double discountPercentDouble = 100.0 - (double) discountPercent;
+        double totalWithClientDiscount = mTotalPriceWithDiscount * discountPercentDouble / 100.0;
 
-        return mTotalPriceWithDiscount;
+        return  totalWithClientDiscount;
     }
 
 

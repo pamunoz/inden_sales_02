@@ -54,7 +54,8 @@ public class MathHelper {
         double d2 = d1 * Double.valueOf(article.getDescuento2()) / 100L;
         double d3 = d2 * Double.valueOf(article.getDescuento3()) / 100L;
         double sum = d1 + d2 + d3;
-        return (Double.valueOf(article.getPrecio()) - sum) * amount;
+        double result = (Double.valueOf(article.getPrecio()) - sum) * amount;
+        return Math.round(result);
     }
 
 }
